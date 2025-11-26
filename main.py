@@ -337,8 +337,8 @@ def sync_partnerstack(program: str = None):
                 ).first()
 
                 if not existing:
-                    # Generate affiliate link
-                    affiliate_link = client.generate_affiliate_link(prog['external_id'])
+                    # Use real affiliate URL from PartnerStack API
+                    affiliate_link = prog.get('affiliate_url', prog.get('base_url', ''))
 
                     # Import program
                     affiliate_agent.add_product(

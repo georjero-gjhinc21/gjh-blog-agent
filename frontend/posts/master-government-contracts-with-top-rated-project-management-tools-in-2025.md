@@ -190,11 +190,11 @@ By centralizing your team's workflow, ClickUp helps you stay organized and focus
 
 ## Recommended Tool
 
-**ClickUp** - All-in-one project management and productivity platform for teams
+**ClickUp** - https://clickup.com/lp/teams/project-management?utm_medium=cpc&utm_source=ps&utm_campaign=ps_cpc_at_nnc_pro_trial_all-devices_cpc_lp_x_all-departments_x_{partner_key}
 
-🔗 [Try ClickUp Today](https://partnerstack.com/go/clickup?ref=gjhblog)
+🔗 [Try ClickUp Today](https://try.web.clickup.com/tqnlgz13ew71)
 
-*Category: Project Management*
+*Category: GJH INC*
 
 ---
 
