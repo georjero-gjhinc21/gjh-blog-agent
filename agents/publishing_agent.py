@@ -66,12 +66,30 @@ class PublishingAgent:
             "description": post.meta_description
         }
 
+        # Add affiliate CTA if product is linked
+        affiliate_cta = ""
+        if post.affiliate_product:
+            affiliate_cta = f"""
+
+---
+
+## Recommended Tool
+
+**{post.affiliate_product.name}** - {post.affiliate_product.description}
+
+🔗 [Try {post.affiliate_product.name} Today]({post.affiliate_product.affiliate_link})
+
+*Category: {post.affiliate_product.category}*
+
+---
+"""
+
         # Create file content
         content = f"""---
 {json.dumps(frontmatter, indent=2)}
 ---
 
-{post.content}
+{post.content}{affiliate_cta}
 """
 
         # Write file
