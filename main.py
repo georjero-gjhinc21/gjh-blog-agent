@@ -15,6 +15,7 @@ from agents import (
     MonitoringAgent
 )
 from models.blog import BlogPost
+import models.blog as models
 
 app = typer.Typer(help="GJH Consulting Autonomous Blog Generation System")
 console = Console()
@@ -282,6 +283,156 @@ def add_product(
         )
 
         console.print(f"[bold green]✓ Added product: {product.name}[/bold green]")
+
+
+@app.command()
+def test_partnerstack():
+    """Test PartnerStack API connection."""
+    console.print("[bold blue]Testing PartnerStack connection...[/bold blue]")
+
+    try:
+        from utils.partnerstack_client import PartnerStackClient
+
+        client = PartnerStackClient()
+        if client.test_connection():
+            console.print("[green]✓ Successfully connected to PartnerStack API[/green]")
+
+            programs = client.get_all_programs()
+            console.print(f"[green]✓ Found {len(programs)} active programs[/green]")
+
+            if programs:
+                console.print("\n[bold]Sample programs:[/bold]")
+                for prog in programs[:5]:
+                    console.print(f"  - {prog['name']} ({prog['category']})")
+        else:
+            console.print("[red]✗ Connection failed - check your API key[/red]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def sync_partnerstack(program: str = None):
+    """Sync PartnerStack programs to database."""
+    console.print("[bold blue]Syncing PartnerStack programs...[/bold blue]")
+
+    try:
+        from utils.partnerstack_client import PartnerStackClient
+
+        client = PartnerStackClient()
+        programs = client.get_all_programs()
+
+        if not programs:
+            console.print("[yellow]No programs found[/yellow]")
+            return
+
+        with get_db_session() as db:
+            affiliate_agent = AffiliateAgent()
+            imported = 0
+
+            for prog in programs:
+                # Check if already exists
+                existing = db.query(models.AffiliateProduct).filter_by(
+                    name=prog['name']
+                ).first()
+
+                if not existing:
+                    # Generate affiliate link
+                    affiliate_link = client.generate_affiliate_link(prog['external_id'])
+
+                    # Import program
+                    affiliate_agent.add_product(
+                        db,
+                        name=prog['name'],
+                        description=prog['description'],
+                        category=prog['category'],
+                        affiliate_link=affiliate_link,
+                        commission_rate=prog['commission_rate'],
+                        relevance_keywords=prog['keywords']
+                    )
+                    imported += 1
+
+                    console.print(f"  ✓ {prog['name']} ({prog['category']}) - {prog['commission_rate']}%")
+
+            console.print(f"\n[bold green]✓ Imported {imported} programs[/bold green]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def list_affiliates(category: str = None, limit: int = 20, sort_by: str = "name"):
+    """List affiliate programs."""
+    with get_db_session() as db:
+        query = db.query(models.AffiliateProduct).filter_by(active=True)
+
+        if category:
+            query = query.filter_by(category=category)
+
+        if sort_by == "commission":
+            query = query.order_by(models.AffiliateProduct.commission_rate.desc())
+        else:
+            query = query.order_by(models.AffiliateProduct.name)
+
+        programs = query.limit(limit).all()
+
+        if programs:
+            table = Table(title=f"Affiliate Programs ({category or 'all'})")
+            table.add_column("ID", style="cyan")
+            table.add_column("Name", style="white")
+            table.add_column("Category", style="yellow")
+            table.add_column("Commission", style="green")
+
+            for prog in programs:
+                table.add_row(
+                    str(prog.id),
+                    prog.name,
+                    prog.category,
+                    f"{prog.commission_rate}%"
+                )
+
+            console.print(table)
+        else:
+            console.print("[yellow]No programs found[/yellow]")
+
+
+@app.command()
+def search_affiliates(query: str, limit: int = 10):
+    """Search affiliate programs by keyword."""
+    console.print(f"[bold blue]Searching for: {query}[/bold blue]\n")
+
+    try:
+        from utils.partnerstack_client import PartnerStackClient
+
+        client = PartnerStackClient()
+        results = client.search_programs(query, limit)
+
+        if results:
+            for prog in results:
+                console.print(f"[bold]{prog['name']}[/bold] ({prog['category']})")
+                console.print(f"  {prog['description'][:100]}...")
+                console.print(f"  Commission: [green]{prog['commission_rate']}%[/green]\n")
+        else:
+            console.print("[yellow]No matching programs found[/yellow]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def generate_affiliate_link(program_key: str, path: str = ""):
+    """Generate an affiliate link for a program."""
+    try:
+        from utils.partnerstack_client import PartnerStackClient
+
+        client = PartnerStackClient()
+        link = client.generate_affiliate_link(program_key, path)
+
+        console.print(f"[bold]Affiliate Link:[/bold]")
+        console.print(f"[cyan]{link}[/cyan]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
 
 
 @app.command()

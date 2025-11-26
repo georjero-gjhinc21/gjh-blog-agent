@@ -47,6 +47,7 @@ class Settings(BaseSettings):
 
     # PartnerStack
     partnerstack_api_key: str = ""
+    partnerstack_partner_key: str = ""
 
     # Vercel
     vercel_token: str = ""
