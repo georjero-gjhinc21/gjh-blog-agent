@@ -53,7 +53,7 @@ class PublishingAgent:
     def _create_post_file(self, post: BlogPost) -> Path:
         """Create markdown file for blog post."""
         # Create posts directory if needed
-        posts_dir = Path("/opt/gjh-blog-agent/data/posts")
+        posts_dir = Path("/opt/gjh-blog-agent/frontend/posts")
         posts_dir.mkdir(parents=True, exist_ok=True)
 
         # Create frontmatter

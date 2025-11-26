@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
-const postsDirectory = path.join(process.cwd(), '../data/posts');
+const postsDirectory = path.join(process.cwd(), 'posts');
 
 export interface Post {
   slug: string;
