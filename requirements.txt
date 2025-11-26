@@ -1,0 +1,43 @@
+# Core dependencies
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# Database
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Redis and Task Queue
+redis==5.0.1
+celery==5.3.4
+
+# Vector Database (requires python3-dev system package)
+# pymilvus==2.3.4
+
+# LLM - Ollama
+ollama==0.1.6
+
+# Web scraping and research
+beautifulsoup4==4.12.2
+requests==2.31.0
+feedparser==6.0.10
+
+# Content generation
+markdown==3.5.1
+jinja2==3.1.2
+
+# Vercel deployment (commented out due to dependency conflict with ollama)
+# vercel==0.3.5
+
+# CLI
+typer==0.9.0
+rich==13.7.0
+
+# Utilities
+python-dateutil==2.8.2
+schedule==1.2.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1

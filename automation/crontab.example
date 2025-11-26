@@ -1,0 +1,13 @@
+# GJH Blog Agent - Cron Job Examples
+# Copy the desired jobs to your crontab: crontab -e
+
+# Generate blog posts 3x per week (Monday, Wednesday, Friday at 8 AM)
+0 8 * * 1 cd /opt/gjh-blog-agent && /opt/gjh-blog-agent/venv/bin/python main.py workflow >> /var/log/gjh-blog.log 2>&1
+0 8 * * 3 cd /opt/gjh-blog-agent && /opt/gjh-blog-agent/venv/bin/python main.py workflow >> /var/log/gjh-blog.log 2>&1
+0 8 * * 5 cd /opt/gjh-blog-agent && /opt/gjh-blog-agent/venv/bin/python main.py workflow >> /var/log/gjh-blog.log 2>&1
+
+# Discover new topics daily at 6 AM
+0 6 * * * cd /opt/gjh-blog-agent && /opt/gjh-blog-agent/venv/bin/python main.py discover --max-topics 10 >> /var/log/gjh-blog.log 2>&1
+
+# Generate stats report weekly (Sunday at 9 PM)
+0 21 * * 0 cd /opt/gjh-blog-agent && /opt/gjh-blog-agent/venv/bin/python main.py stats >> /var/log/gjh-blog-stats.log 2>&1

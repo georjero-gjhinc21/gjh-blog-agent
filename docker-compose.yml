@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gjh-blog-postgres
+    environment:
+      POSTGRES_DB: gjh_blog
+      POSTGRES_USER: gjh_admin
+      POSTGRES_PASSWORD: gjh_secure_password_2024
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gjh_admin -d gjh_blog"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: gjh-blog-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  milvus-etcd:
+    image: quay.io/coreos/etcd:v3.5.5
+    container_name: gjh-blog-milvus-etcd
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - etcd_data:/etcd
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+
+  milvus-minio:
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    container_name: gjh-blog-milvus-minio
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    volumes:
+      - minio_data:/minio_data
+    command: minio server /minio_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  milvus-standalone:
+    image: milvusdb/milvus:v2.3.3
+    container_name: gjh-blog-milvus
+    depends_on:
+      - milvus-etcd
+      - milvus-minio
+    environment:
+      ETCD_ENDPOINTS: milvus-etcd:2379
+      MINIO_ADDRESS: milvus-minio:9000
+    volumes:
+      - milvus_data:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    command: ["milvus", "run", "standalone"]
+
+  celery-worker:
+    build: .
+    container_name: gjh-blog-celery-worker
+    command: celery -A tasks.celery_app worker --loglevel=info
+    depends_on:
+      - postgres
+      - redis
+      - milvus-standalone
+    volumes:
+      - ./:/app
+    environment:
+      - DATABASE_URL=postgresql://gjh_admin:gjh_secure_password_2024@postgres:5432/gjh_blog
+      - REDIS_URL=redis://redis:6379/0
+      - MILVUS_HOST=milvus-standalone
+      - MILVUS_PORT=19530
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  celery-beat:
+    build: .
+    container_name: gjh-blog-celery-beat
+    command: celery -A tasks.celery_app beat --loglevel=info
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./:/app
+    environment:
+      - DATABASE_URL=postgresql://gjh_admin:gjh_secure_password_2024@postgres:5432/gjh_blog
+      - REDIS_URL=redis://redis:6379/0
+
+volumes:
+  postgres_data:
+  redis_data:
+  etcd_data:
+  minio_data:
+  milvus_data:

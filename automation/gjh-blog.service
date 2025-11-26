@@ -1,0 +1,16 @@
+[Unit]
+Description=GJH Blog Agent Celery Worker
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=georjero
+WorkingDirectory=/opt/gjh-blog-agent
+ExecStart=/usr/bin/docker compose up celery-worker celery-beat
+ExecStop=/usr/bin/docker compose down
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
