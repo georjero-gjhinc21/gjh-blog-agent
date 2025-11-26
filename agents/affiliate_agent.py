@@ -34,7 +34,7 @@ class AffiliateAgent:
                 best_product = product
 
         # Only return if score is above threshold
-        return best_product if best_score > 0.4 else None
+        return best_product if best_score > 0.15 else None
 
     def _calculate_match_score(self, topic: Topic, product: AffiliateProduct) -> float:
         """Calculate how well a product matches a topic."""

@@ -7,13 +7,18 @@ from config import settings
 class PartnerStackClient:
     """Client for PartnerStack API integration."""
 
-    def __init__(self, api_key: str = None):
-        """Initialize PartnerStack client."""
+    def __init__(self, api_key: str = None, partner_key: str = None):
+        """Initialize PartnerStack client.
+
+        V2 API uses Bearer token authentication.
+        """
         self.api_key = api_key or settings.partnerstack_api_key
-        self.base_url = "https://api.partnerstack.com/v1"
+        self.partner_key = partner_key or settings.partnerstack_partner_key
+        self.base_url = "https://api.partnerstack.com/api/v2"
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Accept": "application/json"
         }
 
     def test_connection(self) -> bool:
@@ -30,7 +35,7 @@ class PartnerStackClient:
             return False
 
     def get_all_programs(self) -> List[Dict]:
-        """Fetch all active affiliate programs from PartnerStack."""
+        """Fetch all active affiliate programs from PartnerStack (V2 API)."""
         try:
             response = requests.get(
                 f"{self.base_url}/partnerships",
@@ -41,20 +46,32 @@ class PartnerStackClient:
             response.raise_for_status()
 
             data = response.json()
-            programs = data.get("data", [])
+            # V2 API structure: {"data": {"items": [...], "has_more": bool}}
+            partnerships = data.get("data", {}).get("items", [])
 
             # Transform to our format
             transformed = []
-            for prog in programs:
+            for prog in partnerships:
+                company = prog.get("company", {})
+                link = prog.get("link", {})
+                offers = prog.get("offers", {})
+                team = prog.get("team", {})
+
+                # Extract commission rate from offers
+                commission_rate = 0.0
+                if offers.get("base_rate"):
+                    commission_rate = float(offers.get("base_rate", 0))
+
                 transformed.append({
                     "external_id": prog.get("key"),
-                    "name": prog.get("company_name"),
-                    "description": prog.get("description", ""),
-                    "category": prog.get("category", "General"),
-                    "commission_rate": prog.get("commission_percent", 0),
-                    "base_url": prog.get("landing_page_url", ""),
-                    "logo_url": prog.get("logo_url", ""),
-                    "keywords": self._extract_keywords(prog)
+                    "name": company.get("name", "Unknown"),
+                    "description": link.get("destination", ""),
+                    "category": team.get("name", "General"),
+                    "commission_rate": commission_rate,
+                    "base_url": link.get("destination", ""),
+                    "affiliate_url": link.get("url", ""),
+                    "logo_url": "",
+                    "keywords": self._extract_keywords_v2(prog)
                 })
 
             return transformed
@@ -94,7 +111,7 @@ class PartnerStackClient:
         return base
 
     def _extract_keywords(self, program: Dict) -> List[str]:
-        """Extract relevant keywords from program data."""
+        """Extract relevant keywords from program data (V1 format)."""
         keywords = []
 
         # From name
@@ -123,6 +140,47 @@ class PartnerStackClient:
         # From tags if available
         tags = program.get("tags", [])
         keywords.extend([tag.lower() for tag in tags])
+
+        return list(set(keywords))  # Remove duplicates
+
+    def _extract_keywords_v2(self, program: Dict) -> List[str]:
+        """Extract relevant keywords from program data (V2 API format)."""
+        keywords = []
+
+        # From company name
+        company = program.get("company", {})
+        name = company.get("name", "")
+        if name:
+            keywords.append(name.lower())
+
+        # From team/category
+        team = program.get("team", {})
+        team_name = team.get("name", "")
+        if team_name:
+            keywords.append(team_name.lower())
+
+        # From destination URL - extract domain keywords
+        link = program.get("link", {})
+        destination = link.get("destination", "")
+        if destination:
+            # Extract domain name
+            import re
+            match = re.search(r'https?://(?:www\.)?([^/]+)', destination)
+            if match:
+                domain = match.group(1).replace('.com', '').replace('.io', '').replace('.co', '')
+                keywords.append(domain.lower())
+
+            # Extract common business terms from URL
+            terms = [
+                "crm", "project", "hr", "payroll", "security",
+                "marketing", "sales", "analytics", "communication", "cloud",
+                "automation", "integration", "tracking", "reporting", "compliance",
+                "software", "saas", "platform", "tool", "app"
+            ]
+            dest_lower = destination.lower()
+            for term in terms:
+                if term in dest_lower:
+                    keywords.append(term)
 
         return list(set(keywords))  # Remove duplicates
 
