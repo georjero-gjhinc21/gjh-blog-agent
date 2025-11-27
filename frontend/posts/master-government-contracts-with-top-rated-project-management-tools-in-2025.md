@@ -178,7 +178,7 @@ By following these best practices, federal contractors can ensure successful ado
 
 As a federal contractor, managing multiple projects with diverse stakeholders can be overwhelming. One of the biggest challenges is tracking and reporting progress in real-time while ensuring compliance with government regulations.
 
-ClickUp [ClickUp](https://partnerstack.com/go/clickup?ref=gjhblog) stands out as a solution that tackles these pain points head-on. Its all-in-one platform integrates project management, time tracking, and collaboration features, making it easier to assign tasks, set deadlines, and monitor progress in one place.
+ClickUp [ClickUp](https://try.web.clickup.com/f1xmsye5bi9s-ftpxvl) stands out as a solution that tackles these pain points head-on. Its all-in-one platform integrates project management, time tracking, and collaboration features, making it easier to assign tasks, set deadlines, and monitor progress in one place.
 
 By centralizing your team's workflow, ClickUp helps you stay organized and focused on delivering projects on time and within budget. To see how ClickUp can simplify your project management, consider taking a closer look at its features and benefits.
 
@@ -192,7 +192,7 @@ By centralizing your team's workflow, ClickUp helps you stay organized and focus
 
 **ClickUp** - All-in-one project management and productivity platform for teams. Features include task management, time tracking, goals, docs, and collaboration tools perfect for government contractors.
 
-🔗 [Try ClickUp Today](https://try.web.clickup.com/tqnlgz13ew71)
+🔗 [Try ClickUp Today](https://try.web.clickup.com/f1xmsye5bi9s-ftpxvl)
 
 *Category: Project Management*
 

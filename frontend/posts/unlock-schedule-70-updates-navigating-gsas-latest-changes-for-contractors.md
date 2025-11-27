@@ -229,7 +229,7 @@ Here's a strong conclusion for the blog post:
 
 **Aura** - https://goaura.com?utm_source=partners&utm_campaign={partner_key}
 
-🔗 [Try Aura Today](https://partnerstack.com/go/part_3gUdr7cpniflg8?ref=gjh-consulting)
+🔗 [Try Aura Today](https://try.goaura.com/45egbdjtq5mn)
 
 *Category: GJH INC*
 
