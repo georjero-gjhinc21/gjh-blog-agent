@@ -75,7 +75,7 @@ The future of government contracting will be increasingly digital. Contractors w
 
 **KnowledgeNet.ai** - AI-powered knowledge management platform that helps government contractors organize documentation, find answers quickly, and preserve institutional knowledge.
 
-🔗 [Try KnowledgeNet.ai Today](https://corp.knowledgenet.ai/4ablmjtbsuiq)
+🔗 [Try KnowledgeNet.ai Today](https://knowledgenet.ai?source=gjh-consulting)
 
 *Category: AI Knowledge Management*
 
