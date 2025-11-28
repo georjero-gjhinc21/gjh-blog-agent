@@ -1,0 +1,100 @@
+# Milvus GPU Configuration for DGX Spark
+# Optimized for high-yield affiliate matching - NO WASTE
+# Focus: Revenue generation through intelligent affiliate program matching
+
+common:
+  dataPath: /var/lib/milvus/data
+
+etcd:
+  endpoints:
+    - milvus-etcd:2379
+  rootPath: by-dev
+
+minio:
+  address: milvus-minio:9000
+  bucketName: milvus-bucket
+  rootPath: file
+  useIAM: false
+  accessKeyID: minioadmin
+  secretAccessKey: minioadmin
+
+# GPU Configuration for DGX
+gpu:
+  initMemSize: 0  # MB, GPU memory pool init size
+  maxMemSize: 4096  # MB, maximum GPU memory usage (4GB for efficiency)
+
+# Query Node - GPU Accelerated for fast affiliate matching
+queryNode:
+  enableDisk: false  # Keep all in memory for speed
+  gracefulStopTimeout: 30
+
+  # GPU Settings
+  knowhere:
+    simdType: auto
+    gpu:
+      gpuDevice: 0  # Use first GPU
+      buildDeviceId: 0
+      searchDeviceId: 0
+      buildMemory: 2048  # 2GB for building indexes
+      searchMemory: 2048  # 2GB for searching
+      cacheSize: 2048  # 2GB cache
+
+# Index Node - Optimized for affiliate program vectorization
+indexNode:
+  enableDisk: false
+  gracefulStopTimeout: 30
+
+# Data Node - Efficient ingestion
+dataNode:
+  gracefulStopTimeout: 30
+
+# Root Coord - Minimal overhead
+rootCoord:
+  dmlChannelNum: 16
+  minSegmentSizeToEnableIndex: 1024
+
+# Query Coord - Fast query routing
+queryCoord:
+  autoBalance: true
+  balanceIntervalSeconds: 60
+  overloadedMemoryThresholdPercentage: 90
+
+# Proxy - Optimized connection handling
+proxy:
+  maxNameLength: 255
+  maxFieldNum: 64
+  maxDimension: 32768
+
+# Storage - Compact and efficient
+minio:
+  useSSL: false
+  bucketName: milvus-bucket
+
+# Performance Tuning - HIGH YIELD FOCUS
+# Only maintain vectors for:
+# 1. Affiliate program descriptions (for matching)
+# 2. Blog post content (for matching)
+# Nothing else - NO WASTE
+
+# Index parameters optimized for speed
+autoIndex:
+  enable: true
+  extraParams:
+    nlist: 1024  # Balanced for 100-200 affiliate programs
+
+# Cache configuration - Keep hot data in memory
+cache:
+  enabled: true
+  ttl: 3600  # 1 hour cache for affiliate matches
+
+# Compaction - Keep database lean
+compaction:
+  enableAutoCompaction: true
+
+# Log level - Minimal logging for production
+log:
+  level: warn  # Only warnings and errors
+  file:
+    maxSize: 100  # 100MB max log files
+    maxAge: 7  # Keep logs for 7 days only
+    maxBackups: 3

@@ -1,8 +1,9 @@
 """Monitoring Agent - Tracks blog performance and revenue."""
 from datetime import datetime, timedelta
-from typing import Dict, List
+from typing import Dict, List, Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import func
+from collections import defaultdict
 
 from models.blog import BlogPost, PostMetrics, Topic, AffiliateProduct
 
@@ -10,9 +11,13 @@ from models.blog import BlogPost, PostMetrics, Topic, AffiliateProduct
 class MonitoringAgent:
     """Monitors blog performance, traffic, and affiliate revenue."""
 
-    def __init__(self):
-        """Initialize Monitoring Agent."""
-        pass
+    def __init__(self, unified_affiliate_agent=None):
+        """Initialize Monitoring Agent.
+
+        Args:
+            unified_affiliate_agent: Optional UnifiedAffiliateAgent for dual-network tracking
+        """
+        self.unified_affiliate = unified_affiliate_agent
 
     def get_performance_summary(self, db: Session, days: int = 30) -> Dict:
         """Get overall performance summary."""
@@ -240,3 +245,139 @@ Generated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}
             report += f"{i}. {post['title']} - ${post['revenue']:.2f}\n"
 
         return report
+
+    def get_unified_affiliate_performance(self, db: Session) -> Dict:
+        """Get performance metrics for dual-network affiliate system.
+
+        Analyzes affiliate matches stored in post metadata to track
+        which networks and programs perform best.
+
+        Returns:
+            Dict with network performance, top programs, conversion rates
+        """
+        # Get all posts with affiliate matches
+        posts = db.query(BlogPost)\
+            .filter(BlogPost.status == "published")\
+            .filter(BlogPost.metadata.isnot(None))\
+            .all()
+
+        # Track by network
+        network_stats = defaultdict(lambda: {
+            "posts": 0,
+            "programs": set(),
+            "total_views": 0,
+            "total_clicks": 0,
+            "total_revenue": 0.0
+        })
+
+        # Track by program
+        program_stats = defaultdict(lambda: {
+            "network": "",
+            "posts": 0,
+            "total_score": 0.0,
+            "total_views": 0,
+            "total_clicks": 0,
+            "total_revenue": 0.0
+        })
+
+        for post in posts:
+            if not post.metadata or "affiliate_matches" not in post.metadata:
+                continue
+
+            matches = post.metadata.get("affiliate_matches", [])
+            post_views = post.metrics.page_views if post.metrics else 0
+            post_clicks = post.metrics.affiliate_clicks if post.metrics else 0
+            post_revenue = post.metrics.affiliate_revenue if post.metrics else 0
+
+            for match in matches:
+                network = match.get("network", "unknown")
+                program_name = match.get("name", "Unknown")
+                score = match.get("score", 0)
+
+                # Update network stats
+                network_stats[network]["posts"] += 1
+                network_stats[network]["programs"].add(program_name)
+                # Distribute metrics evenly across all affiliate matches in the post
+                network_stats[network]["total_views"] += post_views / len(matches)
+                network_stats[network]["total_clicks"] += post_clicks / len(matches)
+                network_stats[network]["total_revenue"] += post_revenue / len(matches)
+
+                # Update program stats
+                program_stats[program_name]["network"] = network
+                program_stats[program_name]["posts"] += 1
+                program_stats[program_name]["total_score"] += score
+                program_stats[program_name]["total_views"] += post_views / len(matches)
+                program_stats[program_name]["total_clicks"] += post_clicks / len(matches)
+                program_stats[program_name]["total_revenue"] += post_revenue / len(matches)
+
+        # Convert to regular dicts and calculate rates
+        network_summary = {}
+        for network, stats in network_stats.items():
+            network_summary[network] = {
+                "posts": stats["posts"],
+                "unique_programs": len(stats["programs"]),
+                "total_views": int(stats["total_views"]),
+                "total_clicks": int(stats["total_clicks"]),
+                "total_revenue": stats["total_revenue"],
+                "ctr": (stats["total_clicks"] / stats["total_views"] * 100) if stats["total_views"] > 0 else 0,
+                "avg_revenue_per_post": stats["total_revenue"] / stats["posts"] if stats["posts"] > 0 else 0
+            }
+
+        # Get top programs by revenue
+        top_programs = sorted(
+            [
+                {
+                    "name": name,
+                    "network": stats["network"],
+                    "posts": stats["posts"],
+                    "avg_score": stats["total_score"] / stats["posts"] if stats["posts"] > 0 else 0,
+                    "total_revenue": stats["total_revenue"],
+                    "total_clicks": int(stats["total_clicks"]),
+                    "ctr": (stats["total_clicks"] / stats["total_views"] * 100) if stats["total_views"] > 0 else 0
+                }
+                for name, stats in program_stats.items()
+            ],
+            key=lambda x: x["total_revenue"],
+            reverse=True
+        )[:10]
+
+        return {
+            "network_summary": network_summary,
+            "top_programs": top_programs,
+            "total_posts_with_affiliates": len([p for p in posts if p.metadata and "affiliate_matches" in p.metadata]),
+            "total_affiliate_programs_used": len(program_stats)
+        }
+
+    def get_network_comparison(self, db: Session) -> Dict:
+        """Compare PartnerStack vs Impact.com performance.
+
+        Returns:
+            Dict with side-by-side comparison of both networks
+        """
+        unified_stats = self.get_unified_affiliate_performance(db)
+        network_summary = unified_stats.get("network_summary", {})
+
+        ps_stats = network_summary.get("partnerstack", {
+            "posts": 0,
+            "total_revenue": 0.0,
+            "total_clicks": 0,
+            "ctr": 0
+        })
+
+        impact_stats = network_summary.get("impact", {
+            "posts": 0,
+            "total_revenue": 0.0,
+            "total_clicks": 0,
+            "ctr": 0
+        })
+
+        return {
+            "partnerstack": ps_stats,
+            "impact": impact_stats,
+            "comparison": {
+                "revenue_ratio": ps_stats["total_revenue"] / impact_stats["total_revenue"] if impact_stats["total_revenue"] > 0 else float('inf'),
+                "posts_ratio": ps_stats["posts"] / impact_stats["posts"] if impact_stats["posts"] > 0 else float('inf'),
+                "better_ctr": "partnerstack" if ps_stats["ctr"] > impact_stats["ctr"] else "impact",
+                "total_revenue": ps_stats["total_revenue"] + impact_stats["total_revenue"]
+            }
+        }

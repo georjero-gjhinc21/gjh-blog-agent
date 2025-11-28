@@ -1,7 +1,7 @@
 """Content Agent - Generates high-quality blog posts."""
 import re
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
 
 from models.blog import BlogPost, Topic, AffiliateProduct
@@ -12,19 +12,34 @@ from config import settings
 class ContentAgent:
     """Generates SEO-optimized blog posts with affiliate integration."""
 
-    def __init__(self):
-        """Initialize Content Agent."""
+    def __init__(self, unified_affiliate_agent=None):
+        """Initialize Content Agent.
+
+        Args:
+            unified_affiliate_agent: Optional UnifiedAffiliateAgent instance for multi-network affiliate matching
+        """
         self.ollama = OllamaClient()
         self.min_words = settings.min_words
         self.max_words = settings.max_words
+        self.unified_affiliate = unified_affiliate_agent  # New: support for dual-network affiliates
 
     def generate_post(
         self,
         db: Session,
         topic: Topic,
-        affiliate_product: Optional[AffiliateProduct] = None
+        affiliate_product: Optional[AffiliateProduct] = None,
+        use_unified_affiliates: bool = True,
+        max_affiliate_matches: int = 3
     ) -> BlogPost:
-        """Generate a complete blog post from a topic."""
+        """Generate a complete blog post from a topic.
+
+        Args:
+            db: Database session
+            topic: Topic to write about
+            affiliate_product: Legacy single affiliate product (for backwards compatibility)
+            use_unified_affiliates: Use UnifiedAffiliateAgent for multi-network matching
+            max_affiliate_matches: Maximum number of affiliate programs to include
+        """
         # 1. Create outline
         outline = self._create_outline(topic)
 
@@ -37,13 +52,31 @@ class ContentAgent:
         meta_description = self._generate_meta_description(topic, content)
         seo_keywords = self._extract_seo_keywords(topic, content)
 
-        # 4. Create excerpt
+        # 4. Add unified affiliate matches if available
+        affiliate_matches = []
+        if use_unified_affiliates and self.unified_affiliate:
+            try:
+                affiliate_matches = self.unified_affiliate.find_best_matches(
+                    content=content,
+                    title=title,
+                    max_matches=max_affiliate_matches
+                )
+
+                if affiliate_matches:
+                    # Format and append affiliate section
+                    affiliate_section = self.unified_affiliate.format_affiliate_section(affiliate_matches)
+                    disclosure = self.unified_affiliate.format_affiliate_disclosure()
+                    content = f"{content}\n\n{affiliate_section}\n{disclosure}"
+            except Exception as e:
+                print(f"Warning: Unified affiliate matching failed: {e}")
+
+        # 5. Create excerpt
         excerpt = self._create_excerpt(content)
 
-        # 5. Calculate word count
+        # 6. Calculate word count
         word_count = len(content.split())
 
-        # 6. Create blog post
+        # 7. Create blog post
         post = BlogPost(
             title=title,
             slug=slug,
@@ -61,6 +94,20 @@ class ContentAgent:
         db.add(post)
         db.commit()
         db.refresh(post)
+
+        # Store affiliate match metadata for tracking (stored in post metadata field if available)
+        if affiliate_matches:
+            post.metadata = {
+                "affiliate_matches": [
+                    {
+                        "name": m["name"],
+                        "network": m.get("network"),
+                        "score": m.get("match_score", 0)
+                    }
+                    for m in affiliate_matches
+                ]
+            }
+            db.commit()
 
         return post
 

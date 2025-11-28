@@ -59,7 +59,7 @@ services:
       retries: 3
 
   milvus-standalone:
-    image: milvusdb/milvus:v2.3.3
+    image: milvusdb/milvus:v2.3.3-gpu
     container_name: gjh-blog-milvus
     depends_on:
       - milvus-etcd
@@ -69,9 +69,17 @@ services:
       MINIO_ADDRESS: milvus-minio:9000
     volumes:
       - milvus_data:/var/lib/milvus
+      - ./milvus-gpu.yaml:/milvus/configs/milvus.yaml
     ports:
       - "19530:19530"
       - "9091:9091"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']  # Use first GPU on DGX
+              capabilities: [gpu]
     command: ["milvus", "run", "standalone"]
 
   celery-worker:

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """GJH Consulting Blog Agent - Main CLI."""
 import typer
+from typing import Optional
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
@@ -14,6 +15,7 @@ from agents import (
     PublishingAgent,
     MonitoringAgent
 )
+from agents.unified_affiliate_agent import UnifiedAffiliateAgent
 from models.blog import BlogPost
 import models.blog as models
 
@@ -74,14 +76,25 @@ def discover(max_topics: int = 10):
 
 @app.command()
 def generate():
-    """Generate a new blog post."""
+    """Generate a new blog post with dual-network affiliate matching."""
     console.print("[bold blue]Generating new blog post...[/bold blue]")
 
     with get_db_session() as db:
         # Initialize agents
         research_agent = ResearchAgent()
-        affiliate_agent = AffiliateAgent()
-        content_agent = ContentAgent()
+
+        # Initialize unified affiliate agent for dual-network matching
+        console.print("Initializing dual-network affiliate system...")
+        unified_affiliate = UnifiedAffiliateAgent()
+        try:
+            unified_affiliate.sync_all_programs()
+            counts = unified_affiliate.get_stats()["networks"]
+            console.print(f"✓ Loaded {counts['partnerstack']} PartnerStack + {counts['impact']} Impact.com programs")
+        except Exception as e:
+            console.print(f"[yellow]Warning: Affiliate sync failed: {e}[/yellow]")
+            unified_affiliate = None
+
+        content_agent = ContentAgent(unified_affiliate_agent=unified_affiliate)
 
         # Get topic
         console.print("Selecting topic...")
@@ -92,20 +105,26 @@ def generate():
 
         console.print(f"✓ Topic: [cyan]{topic.title}[/cyan]")
 
-        # Match affiliate product
-        console.print("Matching affiliate product...")
-        affiliate_product = affiliate_agent.match_product_to_topic(db, topic)
-        if affiliate_product:
-            console.print(f"✓ Product: [cyan]{affiliate_product.name}[/cyan]")
-
-        # Generate content
-        console.print("Generating content (this may take a minute)...")
-        post = content_agent.generate_post(db, topic, affiliate_product)
+        # Generate content with unified affiliate matching
+        console.print("Generating content with intelligent affiliate matching...")
+        post = content_agent.generate_post(
+            db,
+            topic,
+            use_unified_affiliates=True,
+            max_affiliate_matches=3
+        )
 
         # Mark topic as used
         research_agent.mark_topic_used(db, topic.id)
 
-        # Display result
+        # Display result with affiliate info
+        affiliate_info = ""
+        if post.metadata and "affiliate_matches" in post.metadata:
+            matches = post.metadata["affiliate_matches"]
+            affiliate_info = f"\n[bold]Affiliate Matches:[/bold] {len(matches)} programs"
+            for match in matches:
+                affiliate_info += f"\n  • {match['name']} ({match['network']}) - Score: {match['score']:.2f}"
+
         panel = Panel(
             f"""[bold]Title:[/bold] {post.title}
 [bold]Slug:[/bold] {post.slug}
@@ -115,7 +134,7 @@ def generate():
 [bold]Excerpt:[/bold]
 {post.excerpt}
 
-[bold]Keywords:[/bold] {", ".join(post.seo_keywords[:5])}
+[bold]Keywords:[/bold] {", ".join(post.seo_keywords[:5])}{affiliate_info}
 """,
             title="Generated Blog Post",
             border_style="green"
@@ -145,7 +164,7 @@ def publish(post_id: int):
 
 
 @app.command()
-def list_posts(status: str = None, limit: int = 20):
+def list_posts(status: Optional[str] = None, limit: int = 20):
     """List blog posts."""
     with get_db_session() as db:
         query = db.query(BlogPost)
@@ -312,7 +331,7 @@ def test_partnerstack():
 
 
 @app.command()
-def sync_partnerstack(program: str = None):
+def sync_partnerstack(program: Optional[str] = None):
     """Sync PartnerStack programs to database."""
     console.print("[bold blue]Syncing PartnerStack programs...[/bold blue]")
 
@@ -361,7 +380,7 @@ def sync_partnerstack(program: str = None):
 
 
 @app.command()
-def list_affiliates(category: str = None, limit: int = 20, sort_by: str = "name"):
+def list_affiliates(category: str = None, limit: int = 20):
     """List affiliate programs."""
     with get_db_session() as db:
         query = db.query(models.AffiliateProduct).filter_by(active=True)
@@ -420,7 +439,7 @@ def search_affiliates(query: str, limit: int = 10):
 
 
 @app.command()
-def generate_affiliate_link(program_key: str, path: str = ""):
+def generate_affiliate_link(program_key: str, path: Optional[str] = None):
     """Generate an affiliate link for a program."""
     try:
         from utils.partnerstack_client import PartnerStackClient
@@ -516,7 +535,7 @@ def search_unified(query: str, limit: int = 10):
 
 
 @app.command()
-def link_unified(program_name: str, sub_id: str = None):
+def link_unified(program_name: str, sub_id: Optional[str] = None):
     """Generate affiliate link for a program (auto-detects network)."""
     console.print(f"[bold blue]Generating link for: {program_name}[/bold blue]\n")
 
@@ -571,7 +590,7 @@ def stats_unified():
 
 
 @app.command()
-def match_content(title: str, content: str = "", max_matches: int = 3):
+def match_content(title: str, content: Optional[str] = None, max_matches: int = 3):
     """Find best affiliate matches for content."""
     console.print("[bold blue]Finding affiliate matches...[/bold blue]\n")
 
