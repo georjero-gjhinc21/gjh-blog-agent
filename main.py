@@ -436,6 +436,179 @@ def generate_affiliate_link(program_key: str, path: str = ""):
 
 
 @app.command()
+def test_unified():
+    """Test unified affiliate system (PartnerStack + Impact.com)."""
+    console.print("[bold blue]Testing Unified Affiliate System...[/bold blue]\n")
+
+    try:
+        from agents.unified_affiliate_agent import UnifiedAffiliateAgent
+
+        agent = UnifiedAffiliateAgent()
+        status = agent.test_connections()
+
+        for network, connected in status.items():
+            icon = "✓" if connected else "✗"
+            color = "green" if connected else "red"
+            console.print(f"[{color}]{icon} {network.capitalize()}: {'Connected' if connected else 'Failed'}[/{color}]")
+
+        if all(status.values()):
+            console.print("\n[bold green]✓ All networks operational![/bold green]")
+        else:
+            console.print("\n[yellow]⚠ Some connections failed. Check credentials.[/yellow]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def sync_unified():
+    """Sync programs from both PartnerStack and Impact.com."""
+    console.print("[bold blue]Syncing from all networks...[/bold blue]\n")
+
+    try:
+        from agents.unified_affiliate_agent import UnifiedAffiliateAgent
+
+        agent = UnifiedAffiliateAgent()
+        counts = agent.sync_all_programs()
+
+        console.print(f"[green]✓ PartnerStack: {counts['partnerstack']} programs[/green]")
+        console.print(f"[green]✓ Impact.com: {counts['impact']} programs[/green]")
+        console.print(f"\n[bold green]✓ Total: {counts['total']} programs loaded[/bold green]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def search_unified(query: str, limit: int = 10):
+    """Search affiliate programs across all networks."""
+    console.print(f"[bold blue]Searching all networks for: {query}[/bold blue]\n")
+
+    try:
+        from agents.unified_affiliate_agent import UnifiedAffiliateAgent
+
+        agent = UnifiedAffiliateAgent()
+        results = agent.search_programs(query, limit)
+
+        if results:
+            table = Table(title=f"Search Results: '{query}'")
+            table.add_column("Name", style="cyan")
+            table.add_column("Network", style="magenta")
+            table.add_column("Category", style="yellow")
+            table.add_column("Commission", style="green")
+
+            for prog in results:
+                network_display = prog.get('network', 'unknown')
+                table.add_row(
+                    prog['name'],
+                    network_display,
+                    prog.get('category', 'N/A'),
+                    f"{prog.get('commission_rate', 0):.1f}%"
+                )
+
+            console.print(table)
+            console.print(f"\n[green]Found {len(results)} programs[/green]")
+        else:
+            console.print("[yellow]No matching programs found[/yellow]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def link_unified(program_name: str, sub_id: str = None):
+    """Generate affiliate link for a program (auto-detects network)."""
+    console.print(f"[bold blue]Generating link for: {program_name}[/bold blue]\n")
+
+    try:
+        from agents.unified_affiliate_agent import UnifiedAffiliateAgent
+
+        agent = UnifiedAffiliateAgent()
+        link = agent.generate_link(program_name, sub_id=sub_id)
+
+        if link:
+            console.print(f"[bold]Affiliate Link:[/bold]")
+            console.print(f"[cyan]{link}[/cyan]")
+        else:
+            console.print(f"[red]✗ Program '{program_name}' not found[/red]")
+            console.print("[yellow]Try searching first: python main.py search-unified <keyword>[/yellow]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def stats_unified():
+    """Show unified affiliate system statistics."""
+    console.print("[bold blue]Unified Affiliate System Statistics[/bold blue]\n")
+
+    try:
+        from agents.unified_affiliate_agent import UnifiedAffiliateAgent
+
+        agent = UnifiedAffiliateAgent()
+        stats = agent.get_stats()
+
+        # Network distribution
+        console.print("[bold cyan]Network Distribution:[/bold cyan]")
+        for network, count in stats['networks'].items():
+            if network != 'total':
+                console.print(f"  {network.capitalize()}: {count}")
+        console.print(f"  [bold]Total: {stats['networks']['total']}[/bold]\n")
+
+        # Top categories
+        console.print("[bold cyan]Top Categories:[/bold cyan]")
+        for i, (category, count) in enumerate(list(stats['categories'].items())[:10], 1):
+            console.print(f"  {i}. {category}: {count}")
+
+        # Top commission programs
+        if stats.get('top_commission_programs'):
+            console.print("\n[bold cyan]Top Commission Programs:[/bold cyan]")
+            for i, prog in enumerate(stats['top_commission_programs'][:5], 1):
+                console.print(f"  {i}. {prog['name']} ({prog['network']}): {prog['commission']:.1f}%")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
+def match_content(title: str, content: str = "", max_matches: int = 3):
+    """Find best affiliate matches for content."""
+    console.print("[bold blue]Finding affiliate matches...[/bold blue]\n")
+
+    try:
+        from agents.unified_affiliate_agent import UnifiedAffiliateAgent
+
+        agent = UnifiedAffiliateAgent()
+        matches = agent.find_best_matches(
+            content=content or title,
+            title=title,
+            max_matches=max_matches
+        )
+
+        if matches:
+            table = Table(title=f"Top {len(matches)} Matches")
+            table.add_column("Program", style="cyan")
+            table.add_column("Network", style="magenta")
+            table.add_column("Score", style="green")
+            table.add_column("Commission", style="yellow")
+
+            for match in matches:
+                table.add_row(
+                    match['name'],
+                    match.get('network', 'N/A'),
+                    f"{match.get('match_score', 0):.2f}",
+                    f"{match.get('commission_rate', 0):.1f}%"
+                )
+
+            console.print(table)
+        else:
+            console.print("[yellow]No relevant matches found[/yellow]")
+
+    except Exception as e:
+        console.print(f"[red]✗ Error: {e}[/red]")
+
+
+@app.command()
 def version():
     """Show version information."""
     console.print(Panel(
@@ -450,6 +623,11 @@ Components:
 - Content Agent: Blog generation
 - Publishing Agent: Vercel deployment
 - Monitoring Agent: Analytics tracking
+
+Affiliate Networks:
+- PartnerStack: 70+ programs
+- Impact.com: 100+ campaigns
+- Unified Agent: AI-powered matching
 
 Infrastructure:
 - PostgreSQL: Data storage

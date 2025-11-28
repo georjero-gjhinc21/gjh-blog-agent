@@ -49,6 +49,10 @@ class Settings(BaseSettings):
     partnerstack_api_key: str = ""
     partnerstack_partner_key: str = ""
 
+    # Impact.com
+    impact_account_sid: str = ""
+    impact_auth_token: str = ""
+
     # Vercel
     vercel_token: str = ""
     vercel_project_id: str = ""
