@@ -65,11 +65,35 @@ def generate_blog_post_task():
         # 4. Mark topic as used
         research_agent.mark_topic_used(db, topic.id)
 
+        # Record TaskRun and metrics with best-effort fallbacks
+        try:
+            from models.blog import TaskRun
+            tr = TaskRun(task_id=str(getattr(generate_blog_post_task, 'request', {}).get('id', topic.id)), task_name='generate_blog_post', status='generated')
+            try:
+                with get_db_session() as s:
+                    # SQLAlchemy session API
+                    s.add(tr)
+                    if hasattr(s, 'commit'):
+                        s.commit()
+            except Exception:
+                # best-effort: ignore DB write errors
+                pass
+        except Exception:
+            pass
+
         # 5. Schedule for publication (publish immediately or schedule)
         # For automated workflow, publish immediately
         success = publishing_agent.publish_post(db, post)
 
         if success:
+            # record metrics
+            try:
+                from utils import metrics
+                metrics.record_post_generated()
+                metrics.record_post_published()
+            except Exception:
+                pass
+
             return {
                 "post_id": post.id,
                 "title": post.title,

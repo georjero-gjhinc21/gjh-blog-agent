@@ -105,3 +105,15 @@ class PostMetrics(Base):
 
     # Relationship
     blog_post = relationship("BlogPost", back_populates="metrics")
+
+
+class TaskRun(Base):
+    """Lightweight record of Celery task runs for observability and idempotency checks."""
+    __tablename__ = 'task_runs'
+
+    id = Column(Integer, primary_key=True)
+    task_id = Column(String(200), unique=True, nullable=False)
+    task_name = Column(String(200), nullable=False)
+    status = Column(String(50), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    completed_at = Column(DateTime, nullable=True)

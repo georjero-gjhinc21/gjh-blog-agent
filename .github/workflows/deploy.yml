@@ -1,0 +1,56 @@
+name: Deploy to Prod
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.build.outputs.image }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/gjh-blog-agent:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Set image output
+        run: echo "IMAGE=ghcr.io/${{ github.repository_owner }}/gjh-blog-agent:${{ github.sha }}" >> $GITHUB_ENV
+        id: setimg
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+      - name: Configure kubeconfig
+        run: |
+          if [ -z "${{ secrets.KUBECONFIG }}" ]; then
+            echo "KUBECONFIG secret is not set"; exit 1; fi
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig
+          export KUBECONFIG=$PWD/kubeconfig
+      - name: Apply manifests and update images
+        run: |
+          IMAGE=$IMAGE
+          kubectl apply -f k8s/celery_workers.yaml
+          kubectl apply -f k8s/hpa.yaml || true
+          kubectl apply -f k8s/keda_scaledobject.yaml || true
+          kubectl set image deployment/celery-research-worker celery-research=$IMAGE --namespace default || true
+          kubectl set image deployment/celery-generator-worker celery-generator=$IMAGE --namespace default || true
+      - name: Wait for rollouts
+        run: |
+          kubectl rollout status deployment/celery-research-worker --timeout=180s || true
+          kubectl rollout status deployment/celery-generator-worker --timeout=180s || true

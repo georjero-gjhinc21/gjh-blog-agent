@@ -60,3 +60,12 @@ celerybeat.pid
 # OS
 .DS_Store
 Thumbs.db
+
+# Ignore large archives and build artifacts; allow markdown files
+*.tar.gz
+*.tgz
+github-copilot-*.tgz
+copilot-cli-*.tar.gz
+copilot-cli-*
+package/
+!*.md
