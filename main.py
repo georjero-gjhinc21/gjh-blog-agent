@@ -267,6 +267,22 @@ def workflow():
         affiliate_product = affiliate_agent.match_product_to_topic(db, topic)
         post = content_agent.generate_post(db, topic, affiliate_product)
         research_agent.mark_topic_used(db, topic.id)
+
+        # Enhance generated post with affiliate links
+        try:
+            from utils.blog_affiliate_integration import BlogAffiliateIntegration
+            integrator = BlogAffiliateIntegration()
+            result = integrator.enhance_post(
+                title=post.title,
+                content=post.content,
+                slug=post.slug
+            )
+            enhanced_content = result.get('content', post.content)
+            post.content = enhanced_content
+            console.print(f"✓ Added {result.get('affiliate_count', 0)} affiliate links to post")
+        except Exception as e:
+            console.print(f"[yellow]Warning: Affiliate integration failed: {e}[/yellow]")
+
         console.print(f"✓ Generated: {post.title} ({post.word_count} words)\n")
 
         # 4. Publish
