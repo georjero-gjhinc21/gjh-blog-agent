@@ -11,6 +11,14 @@ celery_app = Celery(
     include=["tasks.blog_tasks"]
 )
 
+# Optional observability initialization (no-op if libs are missing)
+try:
+    # Import our lightweight metrics helper
+    from utils import metrics as _metrics
+    # importing registers counters as needed; prometheus server should be run externally
+except Exception:
+    _metrics = None
+
 # Configure Celery
 celery_app.conf.update(
     task_serializer="json",
@@ -30,18 +38,10 @@ celery_app.conf.beat_schedule = {
         "task": "tasks.blog_tasks.discover_topics_task",
         "schedule": crontab(hour=6, minute=0),
     },
-    # Generate blog posts: Monday, Wednesday, Friday at 8 AM
-    "generate-blog-monday": {
+    # Generate blog posts daily at 8 AM
+    "generate-blog-daily": {
         "task": "tasks.blog_tasks.generate_blog_post_task",
-        "schedule": crontab(hour=8, minute=0, day_of_week=1),  # Monday
-    },
-    "generate-blog-wednesday": {
-        "task": "tasks.blog_tasks.generate_blog_post_task",
-        "schedule": crontab(hour=8, minute=0, day_of_week=3),  # Wednesday
-    },
-    "generate-blog-friday": {
-        "task": "tasks.blog_tasks.generate_blog_post_task",
-        "schedule": crontab(hour=8, minute=0, day_of_week=5),  # Friday
+        "schedule": crontab(hour=8, minute=0),  # Every day at 8 AM
     },
     # Publish scheduled posts every hour
     "publish-scheduled-posts": {
