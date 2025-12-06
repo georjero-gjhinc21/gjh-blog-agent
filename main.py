@@ -283,6 +283,30 @@ def workflow():
         except Exception as e:
             console.print(f"[yellow]Warning: Affiliate integration failed: {e}[/yellow]")
 
+        # Attempt to auto-fix known broken links in generated post
+        try:
+            from utils.link_fixer import fix_links_in_post, validate_links_in_post
+            # Create post file so fixer can operate on a consistent path
+            publishing_agent = PublishingAgent()
+            post_file = publishing_agent._create_post_file(post)
+
+            fixed_count = fix_links_in_post(str(post_file))
+            if fixed_count:
+                # reload fixed content into post
+                post.content = post_file.read_text()
+                # update DB
+                db.commit()
+                console.print(f"[green]✓ Auto-fixed {fixed_count} links in post[/green]")
+
+            # Validate links
+            broken = validate_links_in_post(str(post_file))
+            if broken:
+                console.print(f"[yellow]Warning: {len(broken)} links still broken after auto-fix[/yellow]")
+                for u, code in broken:
+                    console.print(f"  - {u} -> {code}")
+        except Exception as e:
+            console.print(f"[yellow]Warning: Link fixer failed: {e}[/yellow]")
+
         console.print(f"✓ Generated: {post.title} ({post.word_count} words)\n")
 
         # 4. Publish

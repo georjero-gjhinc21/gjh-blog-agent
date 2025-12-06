@@ -8,7 +8,7 @@ celery_app = Celery(
     "gjh_blog_agent",
     broker=settings.redis_url,
     backend=settings.redis_url,
-    include=["tasks.blog_tasks", "tasks.integrate_affiliates"]
+    include=["tasks.blog_tasks", "tasks.integrate_affiliates", "tasks.link_audit"]
 )
 
 # Optional observability initialization (no-op if libs are missing)
@@ -52,5 +52,10 @@ celery_app.conf.beat_schedule = {
     "update-metrics-daily": {
         "task": "tasks.blog_tasks.update_metrics_task",
         "schedule": crontab(hour=23, minute=0),
+    },
+    # Weekly link audit (Sunday at 02:00 UTC)
+    "weekly-link-audit": {
+        "task": "tasks.link_audit.weekly_link_audit_task",
+        "schedule": crontab(day_of_week='sun', hour=2, minute=0),
     },
 }
