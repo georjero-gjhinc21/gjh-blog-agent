@@ -8,7 +8,7 @@ celery_app = Celery(
     "gjh_blog_agent",
     broker=settings.redis_url,
     backend=settings.redis_url,
-    include=["tasks.blog_tasks"]
+    include=["tasks.blog_tasks", "tasks.integrate_affiliates"]
 )
 
 # Optional observability initialization (no-op if libs are missing)

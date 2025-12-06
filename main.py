@@ -321,6 +321,20 @@ def add_product(
 
 
 @app.command()
+def enqueue_affiliate_integration(limit: int = 0):
+    """Enqueue background task to integrate affiliates into posts.
+
+    limit: optional number of posts to process (0 = all)
+    """
+    try:
+        from tasks.integrate_affiliates import integrate_affiliates_task
+        job = integrate_affiliates_task.delay(limit)
+        console.print(f"[green]✓ Enqueued affiliate integration task: {job.id}[/green]")
+    except Exception as e:
+        console.print(f"[red]✗ Failed to enqueue task: {e}[/red]")
+
+
+@app.command()
 def test_partnerstack():
     """Test PartnerStack API connection."""
     console.print("[bold blue]Testing PartnerStack connection...[/bold blue]")

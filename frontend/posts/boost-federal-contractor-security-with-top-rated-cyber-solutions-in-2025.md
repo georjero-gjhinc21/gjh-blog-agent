@@ -199,7 +199,7 @@ https://www.increff.com/
 
 ### 3. Wati.io
 
-https://www.wati.io/pricing/
+https://affiliates.wati.io/mq5gz7zpyn9a
 
 **[Learn more about Wati.io →](https://partnerstack.com/go/part_ovbL9PExjl7MZX?ref=gjh-consulting&utm_source=gjhblog&utm_content=boost-federal-contractor-security-with-top-rated-cyber-solutions-in-2025)**
 
