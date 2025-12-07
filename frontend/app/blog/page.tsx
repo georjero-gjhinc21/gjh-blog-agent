@@ -8,6 +8,9 @@ import StructuredData from '@/components/StructuredData'
 export const metadata: Metadata = {
   title: 'Insights - GJH Consulting',
   description: 'Expert insights on government contracting, federal procurement, GSA schedules, and more.',
+  alternates: {
+    canonical: '/blog',
+  },
 }
 
 interface BlogPageProps {

@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   keywords: ['government contracting', 'federal procurement', 'GSA schedules', 'SBIR', 'STTR', 'cybersecurity compliance'],
   authors: [{ name: 'GJH Consulting' }],
   metadataBase: new URL('https://gjhconsulting.net'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'GJH Consulting - Government Contracting Insights',
     description: 'Expert insights on government contracting, federal procurement, and technology consulting.',

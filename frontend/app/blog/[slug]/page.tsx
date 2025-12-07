@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     title: `${post.title} - GJH Consulting`,
     description: post.description,
     keywords: post.keywords,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.description,

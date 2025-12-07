@@ -4,6 +4,9 @@ import StructuredData from '@/components/StructuredData'
 export const metadata: Metadata = {
   title: 'Contact - GJH Consulting',
   description: 'Get in touch with GJH Consulting for expert government contracting guidance.',
+  alternates: {
+    canonical: '/contact',
+  },
 }
 
 export default function ContactPage() {
