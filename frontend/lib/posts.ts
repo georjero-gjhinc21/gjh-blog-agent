@@ -5,18 +5,21 @@ import { marked } from 'marked';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
-export interface Post {
+export interface PostSummary {
   slug: string;
   title: string;
   excerpt: string;
   date: string;
   keywords: string[];
   description: string;
-  content: string;
   readingTime: number;
 }
 
-export function getAllPosts(): Post[] {
+export interface Post extends PostSummary {
+  content: string;
+}
+
+export function getAllPosts(): PostSummary[] {
   try {
     const fileNames = fs.readdirSync(postsDirectory);
     const allPostsData = fileNames
@@ -38,7 +41,6 @@ export function getAllPosts(): Post[] {
           date: data.date || new Date().toISOString(),
           keywords: data.keywords || [],
           description: data.description || data.excerpt || '',
-          content,
           readingTime,
         };
       });
@@ -87,7 +89,7 @@ export async function markdownToHtml(markdown: string): Promise<string> {
   return result;
 }
 
-export function getFeaturedPosts(limit: number = 3): Post[] {
+export function getFeaturedPosts(limit: number = 3): PostSummary[] {
   const allPosts = getAllPosts();
   return allPosts.slice(0, limit);
 }

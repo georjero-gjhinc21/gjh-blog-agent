@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { format } from 'date-fns'
-import type { Post } from '@/lib/posts'
+import type { PostSummary } from '@/lib/posts'
 
 interface BlogCardProps {
-  post: Post
+  post: PostSummary
 }
 
 export default function BlogCard({ post }: BlogCardProps) {
