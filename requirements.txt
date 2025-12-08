@@ -20,7 +20,7 @@ ollama==0.1.6
 
 # Web scraping and research
 beautifulsoup4==4.12.2
-requests==2.31.0
+requests==2.32.4
 feedparser==6.0.10
 
 # Content generation
