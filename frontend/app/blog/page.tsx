@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getAllPosts } from '@/lib/posts'
 import BlogCard from '@/components/BlogCard'
 import Search from '@/components/Search'
@@ -13,15 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-interface BlogPageProps {
-  searchParams: {
-    topic?: string;
-    page?: string;
-    query?: string;
-  }
-}
-
-export default function BlogPage({ searchParams }: BlogPageProps) {
+function BlogContent({ searchParams }: { searchParams: { topic?: string; page?: string; query?: string } }) {
   const allPosts = getAllPosts()
   const topic = searchParams.topic
   const query = searchParams.query
@@ -48,7 +41,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
 
   // Pagination
   const totalPosts = filteredPosts.length
-  const totalPages = Math.ceil(totalPosts / postsPerPage)
+  const totalPages = Math.max(1, Math.ceil(totalPosts / postsPerPage))
   const startIndex = (currentPage - 1) * postsPerPage
   const paginatedPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage)
 
@@ -89,7 +82,9 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
             </div>
 
             <div className="mb-12">
-              <Search />
+              <Suspense fallback={<div className="text-center py-8 text-gray-400">Loading search...</div>}>
+                <Search />
+              </Suspense>
             </div>
 
             {(topic || query) && (
@@ -132,7 +127,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
                       <Link
                         href={{
                           pathname: '/blog',
-                          query: { ...searchParams, page: currentPage - 1 }
+                          query: { ...searchParams, page: String(currentPage - 1) }
                         }}
                         className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-highlight border border-white/10 text-gray-300 hover:bg-primary-600 hover:text-white transition-all"
                       >
@@ -145,7 +140,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
                         key={page}
                         href={{
                           pathname: '/blog',
-                          query: { ...searchParams, page }
+                          query: { ...searchParams, page: String(page) }
                         }}
                         className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all ${
                           currentPage === page
@@ -161,7 +156,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
                       <Link
                         href={{
                           pathname: '/blog',
-                          query: { ...searchParams, page: currentPage + 1 }
+                          query: { ...searchParams, page: String(currentPage + 1) }
                         }}
                         className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-highlight border border-white/10 text-gray-300 hover:bg-primary-600 hover:text-white transition-all"
                       >
@@ -177,4 +172,8 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
       </div>
     </>
   )
+}
+
+export default function BlogPage({ searchParams }: { searchParams: { topic?: string; page?: string; query?: string } }) {
+  return <BlogContent searchParams={searchParams} />
 }

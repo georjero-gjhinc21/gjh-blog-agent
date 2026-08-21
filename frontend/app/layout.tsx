@@ -1,20 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-heading',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: 'GJH Consulting - Government Contracting Insights',
@@ -56,8 +43,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
-      <body className="font-sans min-h-screen flex flex-col bg-background text-gray-300">
+    <html lang="en">
+      <body className="min-h-screen flex flex-col bg-background text-gray-300">
         <Header />
         <main className="flex-grow">
           {children}

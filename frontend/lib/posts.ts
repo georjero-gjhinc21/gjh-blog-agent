@@ -3,7 +3,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
-const postsDirectory = path.join(process.cwd(), 'posts');
+// Resolve paths relative to this file's location (lib/) for reliable builds
+const postsDirectory = path.join(__dirname, '..', 'posts');
 
 export interface PostSummary {
   slug: string;
