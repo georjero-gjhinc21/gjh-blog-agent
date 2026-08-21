@@ -1,6 +1,8 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  experimental: {
+    turbo: { enabled: false },
+  },
   images: {
     domains: ['gjhconsulting.net'],
   },
@@ -13,5 +15,4 @@ const nextConfig = {
     ]
   },
 }
-
 module.exports = nextConfig
