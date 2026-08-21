@@ -1,10 +1,10 @@
 const nextConfig = {
   output: 'standalone',
-  experimental: {
-    turbo: { enabled: false },
-  },
   images: {
     domains: ['gjhconsulting.net'],
+  },
+  webpack(config) {
+    return config;
   },
   async rewrites() {
     return [
