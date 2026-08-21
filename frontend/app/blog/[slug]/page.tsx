@@ -19,7 +19,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const post = getPostBySlug(params.slug)
+  if (!params?.slug) return { title: "Not Found" };
+  const post = getPostBySlug(params?.slug);
 
   if (!post) {
     return {
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = getPostBySlug(params.slug)
+  const post = getPostBySlug(params?.slug);
 
   if (!post) {
     notFound()

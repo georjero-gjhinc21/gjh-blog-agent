@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { marked } from 'marked';
 
 // Resolve paths relative to this file's location (lib/) for reliable builds
-const casesDirectory = process.cwd() + '/cases';
+const casesDirectory = process.cwd() + '/frontend/cases';
 
 export interface CaseSummary {
   slug: string;

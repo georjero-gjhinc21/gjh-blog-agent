@@ -69,3 +69,5 @@ copilot-cli-*.tar.gz
 copilot-cli-*
 package/
 !*.md
+# Allow frontend/lib (Python lib/ is ignored above)
+!frontend/lib/

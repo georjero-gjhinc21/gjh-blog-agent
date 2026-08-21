@@ -1,5 +1,4 @@
-import { getCaseBySlug } from '@/lib/cases'
-import { markdownToHtml } from '@/lib/cases'
+import { getCaseBySlug, getAllCases, markdownToHtml } from '@/lib/cases'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
@@ -20,7 +19,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CasePageProps): Promise<Metadata> {
-  const caseStudy = await getCaseBySlug(params.slug)
+  if (!params?.slug) return { title: "Not Found" };
+  const caseStudy = await getCaseBySlug(params?.slug)
   if (!caseStudy) {
     return {
       title: 'Case Study Not Found',
@@ -36,7 +36,6 @@ export async function generateMetadata({ params }: CasePageProps): Promise<Metad
 }
 
 export default async function CasePage({ params }: CasePageProps) {
-  const caseStudy = await getCaseBySlug(params.slug)
   
   if (!caseStudy) {
     notFound()

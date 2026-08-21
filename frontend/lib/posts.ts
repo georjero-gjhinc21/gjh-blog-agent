@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { marked } from 'marked';
 
 // Resolve paths relative to this file's location (lib/) for reliable builds
-const postsDirectory = process.cwd() + '/posts';
+const postsDirectory = process.cwd() + '/frontend/posts';
 
 export interface PostSummary {
   slug: string;
