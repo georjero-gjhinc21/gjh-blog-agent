@@ -5,12 +5,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
 
-interface PostPageProps {
-  params: {
-    slug: string
-  }
-}
-
 export async function generateStaticParams() {
   const posts = getAllPosts()
   return posts.map((post) => ({
@@ -18,9 +12,10 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  if (!params?.slug) return { title: "Not Found" };
-  const post = getPostBySlug(params?.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  if (!slug) return { title: 'Not Found' }
+  const post = getPostBySlug(slug)
 
   if (!post) {
     return {
@@ -50,8 +45,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   }
 }
 
-export default async function PostPage({ params }: PostPageProps) {
-  const post = getPostBySlug(params?.slug);
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = getPostBySlug(slug)
 
   if (!post) {
     notFound()

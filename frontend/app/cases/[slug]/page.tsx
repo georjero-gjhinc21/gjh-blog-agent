@@ -4,12 +4,6 @@ import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
 import type { Metadata } from 'next'
 
-interface CasePageProps {
-  params: {
-    slug: string
-  }
-}
-
 export async function generateStaticParams() {
   const allCases = getAllCases()
   return allCases.map((caseStudy) => ({
@@ -17,21 +11,23 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: CasePageProps): Promise<Metadata> {
-  if (!params?.slug) return { title: 'Not Found' }
-  const caseStudy = await getCaseBySlug(params?.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  if (!slug) return { title: 'Not Found' }
+  const caseStudy = await getCaseBySlug(slug)
   if (!caseStudy) {
     return { title: 'Case Study Not Found' }
   }
   return {
     title: `${caseStudy.title} - GJH Consulting`,
     description: caseStudy.excerpt,
-    alternates: { canonical: `/cases/${params.slug}` },
+    alternates: { canonical: `/cases/${slug}` },
   }
 }
 
-export default async function CasePage({ params }: CasePageProps) {
-  const caseStudy = await getCaseBySlug(params?.slug)
+export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const caseStudy = await getCaseBySlug(slug)
   if (!caseStudy) {
     notFound()
   }
@@ -45,7 +41,7 @@ export default async function CasePage({ params }: CasePageProps) {
     "description": caseStudy.excerpt,
     "author": { "@type": "Organization", "name": "GJH Consulting" },
     "datePublished": caseStudy.date,
-    "url": `https://gjhconsulting.net/cases/${params.slug}`,
+    "url": `https://gjhconsulting.net/cases/${slug}`,
     "keywords": caseStudy.keywords,
   }
 
