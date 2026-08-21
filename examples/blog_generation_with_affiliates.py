@@ -97,7 +97,7 @@ def example_content_agent_integration():
     # In your ContentAgent.generate_post() method, ADD THIS at the end:
     """
     # After generating base content:
-    # base_content = self._generate_with_ollama(topic, product)
+    # base_content = self._generate_with_nvidia(topic, product)
 
     # ADD THIS:
     enhanced = integrator.enhance_post(
