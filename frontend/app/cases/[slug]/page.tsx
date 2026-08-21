@@ -11,32 +11,27 @@ interface CasePageProps {
 }
 
 export async function generateStaticParams() {
-  const cases = await import('@/lib/cases')
-  const allCases = cases.getAllCases()
+  const allCases = getAllCases()
   return allCases.map((caseStudy) => ({
     slug: caseStudy.slug,
   }))
 }
 
 export async function generateMetadata({ params }: CasePageProps): Promise<Metadata> {
-  if (!params?.slug) return { title: "Not Found" };
+  if (!params?.slug) return { title: 'Not Found' }
   const caseStudy = await getCaseBySlug(params?.slug)
   if (!caseStudy) {
-    return {
-      title: 'Case Study Not Found',
-    }
+    return { title: 'Case Study Not Found' }
   }
   return {
     title: `${caseStudy.title} - GJH Consulting`,
     description: caseStudy.excerpt,
-    alternates: {
-      canonical: `/cases/${params.slug}`,
-    },
+    alternates: { canonical: `/cases/${params.slug}` },
   }
 }
 
 export default async function CasePage({ params }: CasePageProps) {
-  
+  const caseStudy = await getCaseBySlug(params?.slug)
   if (!caseStudy) {
     notFound()
   }
@@ -48,10 +43,7 @@ export default async function CasePage({ params }: CasePageProps) {
     "@type": "Article",
     "headline": caseStudy.title,
     "description": caseStudy.excerpt,
-    "author": {
-      "@type": "Organization",
-      "name": "GJH Consulting"
-    },
+    "author": { "@type": "Organization", "name": "GJH Consulting" },
     "datePublished": caseStudy.date,
     "url": `https://gjhconsulting.net/cases/${params.slug}`,
     "keywords": caseStudy.keywords,
@@ -60,76 +52,72 @@ export default async function CasePage({ params }: CasePageProps) {
   return (
     <>
       <StructuredData data={structuredData} />
-      
-      <div className="bg-background min-h-screen pt-24 pb-20">
-        <div className="container mx-auto px-4">
+      <article className="min-h-screen bg-background pt-24 pb-20 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-primary-900/10 to-transparent pointer-events-none" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
-            {/* Back button */}
-            <Link 
-              href="/cases" 
-              className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors mb-8"
-            >
-              <span>←</span>
-              <span>Back to Case Studies</span>
-            </Link>
-
-            {/* Case Study Header */}
-            <div className="mb-12">
-              <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-4 block">
-                Case Study
-              </span>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            <div className="mb-8 flex items-center gap-2 text-sm text-gray-400">
+              <Link href="/" className="hover:text-primary-400 transition-colors">Home</Link>
+              <span>/</span>
+              <Link href="/cases" className="hover:text-primary-400 transition-colors">Case Studies</Link>
+              <span>/</span>
+              <span className="text-gray-500 truncate max-w-[200px]">{caseStudy.title}</span>
+            </div>
+            <header className="mb-12 text-center">
+              <div className="mb-6 flex justify-center flex-wrap gap-2">
+                {caseStudy.keywords && caseStudy.keywords.map((k, i) => (
+                  <span key={i} className="inline-block bg-primary-500/10 border border-primary-500/20 text-primary-300 text-sm px-3 py-1 rounded-full">{k}</span>
+                ))}
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight font-heading">
                 {caseStudy.title}
               </h1>
-              <p className="text-xl text-gray-400 mb-8">
-                {caseStudy.excerpt}
-              </p>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                <div className="glass-panel p-6 rounded-2xl">
-                  <div className="text-sm text-gray-400 mb-1">Client</div>
-                  <div className="text-white font-semibold">{caseStudy.client}</div>
+              <div className="flex items-center justify-center gap-6 text-gray-400 text-sm md:text-base border-y border-white/5 py-6">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <time dateTime={caseStudy.date}>
+                    {new Date(caseStudy.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  </time>
                 </div>
-                <div className="glass-panel p-6 rounded-2xl">
-                  <div className="text-sm text-gray-400 mb-1">Challenge</div>
-                  <div className="text-white font-semibold">{caseStudy.challenge}</div>
-                </div>
-                <div className="glass-panel p-6 rounded-2xl">
-                  <div className="text-sm text-gray-400 mb-1">Solution</div>
-                  <div className="text-white font-semibold">{caseStudy.solution}</div>
-                </div>
-                <div className="glass-panel p-6 rounded-2xl">
-                  <div className="text-sm text-gray-400 mb-1">Results</div>
-                  <div className="text-white font-semibold">{caseStudy.results}</div>
+                <div className="w-1 h-1 rounded-full bg-gray-600" />
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{caseStudy.readingTime} min read</span>
                 </div>
               </div>
+            </header>
+            <div className="glass-panel rounded-3xl p-8 md:p-12 mb-12">
+              <div className="prose-custom mx-auto" dangerouslySetInnerHTML={{ __html: htmlContent }} />
             </div>
-
-            {/* Case Study Content */}
-            <div 
-              className="prose prose-invert prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />
-
-            {/* Conclusion CTA */}
-            <div className="mt-16 p-8 glass-panel rounded-3xl text-center">
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Ready to See Results Like These?
-              </h3>
-              <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-                Let's discuss how we can help you achieve your government contracting goals.
-              </p>
-              <Link 
-                href="/contact" 
-                className="btn-primary inline-block"
-              >
-                Get Started
-              </Link>
-            </div>
+            <footer className="border-t border-white/10 pt-12">
+              <div className="bg-gradient-to-br from-surface-highlight to-surface border border-white/5 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white">Want Similar Results?</h3>
+                <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
+                  Our proven methodology delivers measurable outcomes. Let us help you achieve your goals.
+                </p>
+                <Link href="/contact" className="btn-primary inline-flex items-center">
+                  Schedule a Consultation
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
+              <div className="mt-12 flex justify-between items-center">
+                <Link href="/cases" className="text-gray-400 hover:text-white flex items-center transition-colors">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Case Studies
+                </Link>
+              </div>
+            </footer>
           </div>
         </div>
-      </div>
+      </article>
     </>
   )
 }
