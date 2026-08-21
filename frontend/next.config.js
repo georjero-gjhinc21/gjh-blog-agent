@@ -6,6 +6,7 @@ const nextConfig = {
   webpack(config) {
     return config;
   },
+  turbopack: {},
   async rewrites() {
     return [
       {
