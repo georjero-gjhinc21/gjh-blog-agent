@@ -1,0 +1,77 @@
+name: 'Bitwarden Secrets'
+description: 'Fetch secrets from Bitwarden vault and set as environment variables'
+inputs:
+  bw_client_id:
+    description: 'Bitwarden Client ID'
+    required: true
+  bw_client_secret:
+    description: 'Bitwarden Client Secret'
+    required: true
+  bw_password:
+    description: 'Bitwarden Master Password'
+    required: true
+  bw_org_id:
+    description: 'Bitwarden Organization ID (optional)'
+    required: false
+
+outputs:
+  secrets_loaded:
+    description: 'Whether secrets were successfully loaded'
+    value: ${{ steps.load-secrets.outputs.success }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Bitwarden CLI
+      shell: bash
+      run: |
+        wget "https://vault.bitwarden.com/download/?app=cli&platform=linux" -O bw.zip
+        unzip -q bw.zip
+        chmod +x bw
+        sudo mv bw /usr/local/bin/
+        bw --version
+
+    - name: Unlock Bitwarden and Load Secrets
+      id: load-secrets
+      shell: bash
+      env:
+        BW_CLIENTID: ${{ inputs.bw_client_id }}
+        BW_CLIENTSECRET: ${{ inputs.bw_client_secret }}
+        BW_PASSWORD: ${{ inputs.bw_password }}
+      run: |
+        # Login to Bitwarden
+        export BW_SESSION=$(bw login --apikey --raw)
+
+        # Unlock vault
+        export BW_SESSION=$(bw unlock "$BW_PASSWORD" --raw)
+
+        # Sync vault
+        bw sync --session "$BW_SESSION"
+
+        echo "🔐 Fetching secrets from Bitwarden..."
+
+        # Function to get secret from Bitwarden
+        get_secret() {
+          local item_name=$1
+          local field_name=${2:-password}
+
+          if [ "$field_name" = "password" ]; then
+            bw get password "$item_name" --session "$BW_SESSION" 2>/dev/null || echo ""
+          else
+            bw get item "$item_name" --session "$BW_SESSION" | jq -r ".fields[] | select(.name==\"$field_name\") | .value" 2>/dev/null || echo ""
+          fi
+        }
+
+        # Load all secrets for GJH Blog Agent
+        echo "POSTGRES_PASSWORD=$(get_secret 'GJH Blog - PostgreSQL')" >> $GITHUB_ENV
+        echo "PARTNERSTACK_API_KEY=$(get_secret 'GJH Blog - PartnerStack')" >> $GITHUB_ENV
+        echo "VERCEL_TOKEN=$(get_secret 'GJH Blog - Vercel' 'token')" >> $GITHUB_ENV
+        echo "VERCEL_ORG_ID=$(get_secret 'GJH Blog - Vercel' 'org_id')" >> $GITHUB_ENV
+        echo "VERCEL_PROJECT_ID=$(get_secret 'GJH Blog - Vercel' 'project_id')" >> $GITHUB_ENV
+        echo "VERCEL_DEPLOY_HOOK=$(get_secret 'GJH Blog - Vercel' 'deploy_hook')" >> $GITHUB_ENV
+
+        # Lock vault
+        bw lock --session "$BW_SESSION"
+
+        echo "✅ Secrets loaded successfully"
+        echo "success=true" >> $GITHUB_OUTPUT
