@@ -1,0 +1,3 @@
+# Vercel cache ignore
+.vercel/cache/
+.next/cache/
