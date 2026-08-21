@@ -1,0 +1,137 @@
+name: Content Maintenance
+
+on:
+  schedule:
+    # Run weekly on Sunday at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+jobs:
+  audit-and-fix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check for broken links
+        run: |
+          python -c "
+          import os
+          from pathlib import Path
+          import re
+          import requests
+          from concurrent.futures import ThreadPoolExecutor
+
+          def check_link(url):
+              try:
+                  response = requests.head(url, timeout=10, allow_redirects=True)
+                  return url, response.status_code
+              except Exception as e:
+                  return url, str(e)
+
+          broken_links = []
+          posts = Path('frontend/posts').glob('*.md')
+
+          for post in posts:
+              content = post.read_text()
+              urls = re.findall(r'https?://[^\s\)]+', content)
+
+              with ThreadPoolExecutor(max_workers=10) as executor:
+                  results = executor.map(check_link, urls)
+                  for url, status in results:
+                      if isinstance(status, str) or status >= 400:
+                          broken_links.append(f'{post.name}: {url} ({status})')
+
+          if broken_links:
+              print('⚠️  Broken links found:')
+              for link in broken_links:
+                  print(f'  - {link}')
+              with open('link-audit.txt', 'w') as f:
+                  f.write('\n'.join(broken_links))
+          else:
+              print('✅ No broken links found')
+          " || true
+
+      - name: Update affiliate links
+        env:
+          PARTNERSTACK_API_KEY: ${{ secrets.PARTNERSTACK_API_KEY }}
+        run: |
+          if [ -f "fix_affiliate_links.py" ]; then
+            python fix_affiliate_links.py || echo "No affiliate links to update"
+          fi
+
+      - name: Clean up empty headings
+        run: |
+          if [ -f "cleanup_empty_headings.py" ]; then
+            python cleanup_empty_headings.py || echo "No cleanup needed"
+          fi
+
+      - name: Generate audit report
+        run: |
+          echo "# Content Audit Report" > AUDIT_REPORT.md
+          echo "" >> AUDIT_REPORT.md
+          echo "Generated: $(date)" >> AUDIT_REPORT.md
+          echo "" >> AUDIT_REPORT.md
+
+          echo "## Statistics" >> AUDIT_REPORT.md
+          echo "- Total posts: $(ls -1 frontend/posts/*.md 2>/dev/null | wc -l)" >> AUDIT_REPORT.md
+          echo "- Total words: $(wc -w frontend/posts/*.md 2>/dev/null | tail -1 | awk '{print $1}')" >> AUDIT_REPORT.md
+          echo "" >> AUDIT_REPORT.md
+
+          if [ -f "link-audit.txt" ]; then
+            echo "## Broken Links" >> AUDIT_REPORT.md
+            cat link-audit.txt >> AUDIT_REPORT.md
+          else
+            echo "## Broken Links" >> AUDIT_REPORT.md
+            echo "No broken links found ✅" >> AUDIT_REPORT.md
+          fi
+
+      - name: Commit fixes
+        run: |
+          git config --local user.email "george@gjh-inc.com"
+          git config --local user.name "GJH Blog Agent"
+
+          if [ -f "AUDIT_REPORT.md" ]; then
+            git add AUDIT_REPORT.md
+          fi
+
+          git add frontend/posts/
+          git diff --staged --quiet || git commit -m "🔧 Weekly content maintenance $(date +'%Y-%m-%d')"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
+      - name: Create issue for broken links
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('link-audit.txt')) {
+              const brokenLinks = fs.readFileSync('link-audit.txt', 'utf8');
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '⚠️  Broken Links Detected in Blog Posts',
+                body: `Weekly content audit found broken links:\n\n\`\`\`\n${brokenLinks}\n\`\`\`\n\nPlease review and fix these links.`,
+                labels: ['content', 'maintenance', 'automated']
+              });
+            }
