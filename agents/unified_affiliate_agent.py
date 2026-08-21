@@ -2,7 +2,7 @@
 from typing import List, Dict, Optional
 from utils.partnerstack_client import PartnerStackClient
 from utils.impact_client import ImpactClient
-from utils.ollama_client import OllamaClient
+from utils import NvidiaClient
 
 
 class UnifiedAffiliateAgent:
@@ -16,7 +16,7 @@ class UnifiedAffiliateAgent:
         """Initialize unified affiliate agent with multiple network clients."""
         self.ps_client = partnerstack_client or PartnerStackClient()
         self.impact_client = impact_client or ImpactClient()
-        self.ollama = OllamaClient()
+        self.ollama = NvidiaClient()
         self.all_programs = []
         self.programs_by_network = {
             "partnerstack": [],

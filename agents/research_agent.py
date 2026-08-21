@@ -7,7 +7,7 @@ from typing import List, Dict
 from sqlalchemy.orm import Session
 
 from models.blog import Topic
-from utils.ollama_client import OllamaClient
+from utils import NvidiaClient
 from utils.vector_store import VectorStore
 from config import settings
 
@@ -17,7 +17,7 @@ class ResearchAgent:
 
     def __init__(self):
         """Initialize Research Agent."""
-        self.ollama = OllamaClient()
+        self.ollama = NvidiaClient()
         self.vector_store = VectorStore()
         self.focus_topics = settings.focus_topics
         self.sources = settings.research_sources

@@ -13,10 +13,9 @@ redis==5.0.1
 celery==5.3.4
 
 # Vector Database (requires python3-dev system package)
-pymilvus==2.6.4
 
 # LLM - Ollama
-ollama==0.1.6
+openai==1.99.0
 
 # Web scraping and research
 beautifulsoup4==4.12.2

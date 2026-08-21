@@ -1,0 +1,14 @@
+network_policies:
+  nvidia_python:
+    name: nvidia_python
+    endpoints:
+    - host: integrate.api.nvidia.com
+      port: 443
+      protocol: rest
+      enforcement: enforce
+      tls: terminate
+      rules:
+      - allow: { method: "*", path: "/**" }
+    binaries:
+    - path: /sandbox/.venv/bin/python*
+    - path: /usr/bin/python3*

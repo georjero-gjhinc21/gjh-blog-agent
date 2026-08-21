@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Database
-    database_url: str = "postgresql://gjh_admin:gjh_secure_password_2024@localhost:5432/gjh_blog"
+    database_url: str = "postgresql://gjh_admin:gjh_se…2024@localhost:5432/gjh_blog"
 
     # Redis
     redis_url: str = "redis://localhost:6379/0"
@@ -17,9 +17,10 @@ class Settings(BaseSettings):
     milvus_port: int = 19530
     milvus_collection_name: str = "blog_topics"
 
-    # Ollama
-    ollama_host: str = "http://localhost:11434"
-    ollama_model: str = "llama3.1:8b"
+    # NVIDIA API (replaces Ollama)
+    nvidia_api_base: str = "https://integrate.api.nvidia.com/v1"
+    nvidia_model: str = "meta/llama-3.1-8b-instruct"
+    nvidia_api_key: str = ""
 
     # Blog settings
     blog_domain: str = "gjhconsulting.net"

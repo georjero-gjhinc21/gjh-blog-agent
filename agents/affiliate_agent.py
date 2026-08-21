@@ -3,7 +3,7 @@ from typing import Optional, List
 from sqlalchemy.orm import Session
 
 from models.blog import AffiliateProduct, Topic
-from utils.ollama_client import OllamaClient
+from utils import NvidiaClient
 from config import settings
 
 
@@ -12,7 +12,7 @@ class AffiliateAgent:
 
     def __init__(self):
         """Initialize Affiliate Agent."""
-        self.ollama = OllamaClient()
+        self.ollama = NvidiaClient()
 
     def match_product_to_topic(self, db: Session, topic: Topic) -> Optional[AffiliateProduct]:
         """Find the best matching affiliate product for a topic."""

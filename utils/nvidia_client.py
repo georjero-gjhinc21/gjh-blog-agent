@@ -1,17 +1,39 @@
-"""Ollama client for local LLM interactions."""
-import ollama
+"""NVIDIA API client for LLM interactions.
+
+Drop-in replacement for the old Ollama client. Uses the OpenAI-compatible
+endpoint at integrate.api.nvidia.com.
+"""
+import os
+import warnings
 from typing import List, Dict, Optional
+
+from openai import OpenAI
 from config import settings
 
 
-class OllamaClient:
-    """Client for interacting with local Ollama instance."""
+class NvidiaClient:
+    """Client for interacting with NVIDIA API LLM endpoints."""
 
-    def __init__(self, host: str = None, model: str = None):
-        """Initialize Ollama client."""
-        self.host = host or settings.ollama_host
-        self.model = model or settings.ollama_model
-        self.client = ollama.Client(host=self.host)
+    def __init__(self, base_url: str = None, model: str = None):
+        """Initialize NVIDIA client.
+
+        Args:
+            base_url: Override the base URL. Defaults to settings.nvidia_api_base.
+            model: Override the model name. Defaults to settings.nvidia_model.
+        """
+        self.base_url = base_url or settings.nvidia_api_base
+        self.model = model or settings.nvidia_model
+        self.api_key = settings.nvidia_api_key
+        if not self.api_key:
+            raise ValueError(
+                "NVIDIA_API_KEY is required. Set it in .env"
+            )
+        self.client = OpenAI(
+            base_url=self.base_url,
+            api_key=self.api_key,
+        )
+        # Suppress httpx SSL cert warnings for the free endpoint
+        warnings.filterwarnings("ignore", message=".*Certificate has no.*")
 
     def generate(self, prompt: str, system: str = None, temperature: float = 0.7) -> str:
         """Generate text completion."""
@@ -22,13 +44,14 @@ class OllamaClient:
 
         messages.append({"role": "user", "content": prompt})
 
-        response = self.client.chat(
+        response = self.client.chat.completions.create(
             model=self.model,
             messages=messages,
-            options={"temperature": temperature}
+            temperature=temperature,
+            max_tokens=2048,
         )
 
-        return response["message"]["content"]
+        return response.choices[0].message.content
 
     def generate_with_context(
         self,
@@ -45,11 +68,12 @@ class OllamaClient:
 
     def embed(self, text: str) -> List[float]:
         """Generate embeddings for text."""
-        response = self.client.embeddings(
-            model=self.model,
-            prompt=text
+        # NVIDIA free-tier text-embedding endpoint
+        response = self.client.embeddings.create(
+            model="nvidia/nv-embed-v1",
+            input=text,
         )
-        return response["embedding"]
+        return response.data[0].embedding
 
     def extract_keywords(self, text: str, max_keywords: int = 10) -> List[str]:
         """Extract keywords from text."""

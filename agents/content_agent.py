@@ -5,7 +5,7 @@ from typing import Optional, List, Dict
 from sqlalchemy.orm import Session
 
 from models.blog import BlogPost, Topic, AffiliateProduct
-from utils.ollama_client import OllamaClient
+from utils import NvidiaClient
 from config import settings
 
 
@@ -18,7 +18,7 @@ class ContentAgent:
         Args:
             unified_affiliate_agent: Optional UnifiedAffiliateAgent instance for multi-network affiliate matching
         """
-        self.ollama = OllamaClient()
+        self.ollama = NvidiaClient()
         self.min_words = settings.min_words
         self.max_words = settings.max_words
         self.unified_affiliate = unified_affiliate_agent  # New: support for dual-network affiliates
