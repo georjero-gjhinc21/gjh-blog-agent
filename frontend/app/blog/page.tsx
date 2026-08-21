@@ -174,6 +174,7 @@ function BlogContent({ searchParams }: { searchParams: { topic?: string; page?: 
   )
 }
 
-export default function BlogPage({ searchParams }: { searchParams: { topic?: string; page?: string; query?: string } }) {
-  return <BlogContent searchParams={searchParams} />
+export default async function BlogPage({ searchParams }: { searchParams: Promise<{ topic?: string; page?: string; query?: string }> }) {
+  const params = await searchParams
+  return <BlogContent searchParams={params} />
 }
