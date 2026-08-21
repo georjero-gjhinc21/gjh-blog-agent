@@ -17,7 +17,7 @@ class ResearchAgent:
 
     def __init__(self):
         """Initialize Research Agent."""
-        self.ollama = NvidiaClient()
+        self.client = NvidiaClient()
         self.vector_store = VectorStore()
         self.focus_topics = settings.focus_topics
         self.sources = settings.research_sources
@@ -76,7 +76,7 @@ Article:
 Relevance score:"""
 
         try:
-            response = self.ollama.generate(prompt, system, temperature=0.3)
+            response = self.client.generate(prompt, system, temperature=0.3)
             score = float(response.strip())
             return max(0.0, min(1.0, score))
         except:
@@ -93,7 +93,7 @@ Relevance score:"""
         summary = entry.get("summary", "")
 
         # Extract keywords
-        keywords = self.ollama.extract_keywords(f"{title}\n{summary}", max_keywords=10)
+        keywords = self.client.extract_keywords(f"{title}\n{summary}", max_keywords=10)
 
         # Create topic
         topic = Topic(
@@ -112,7 +112,7 @@ Relevance score:"""
 
         # Add to vector store
         try:
-            embedding = self.ollama.embed(f"{title}\n{summary}")
+            embedding = self.client.embed(f"{title}\n{summary}")
             self.vector_store.add_topic(topic.id, f"{title}\n{summary}", embedding)
         except Exception as e:
             print(f"Error adding to vector store: {e}")
@@ -141,7 +141,7 @@ DESCRIPTION: [description]
 ---"""
 
         try:
-            response = self.ollama.generate(prompt, system, temperature=0.8)
+            response = self.client.generate(prompt, system, temperature=0.8)
 
             # Parse response
             topic_blocks = response.split("---")
@@ -155,11 +155,11 @@ DESCRIPTION: [description]
                         description = desc_line.split("DESCRIPTION:")[1].strip()
 
                         # Check if similar topic exists
-                        title_embedding = self.ollama.embed(title)
+                        title_embedding = self.client.embed(title)
                         similar = self.vector_store.search_similar_topics(title_embedding, top_k=1)
 
                         if not similar or similar[0][1] > 0.5:  # Not too similar
-                            keywords = self.ollama.extract_keywords(f"{title}\n{description}", max_keywords=8)
+                            keywords = self.client.extract_keywords(f"{title}\n{description}", max_keywords=8)
 
                             topic = Topic(
                                 title=title,

@@ -12,10 +12,6 @@ class Settings(BaseSettings):
     # Redis
     redis_url: str = "redis://localhost:6379/0"
 
-    # Milvus
-    milvus_host: str = "localhost"
-    milvus_port: int = 19530
-    milvus_collection_name: str = "blog_topics"
 
     # NVIDIA API (replaces Ollama)
     nvidia_api_base: str = "https://integrate.api.nvidia.com/v1"

@@ -43,7 +43,7 @@ To github.com:georjero-gjhinc21/gjh-blog-agent.git
 - **Revenue**: 3-4x improvement potential
 
 ### **DGX Spark GPU Optimization**
-- **Milvus**: GPU-accelerated vector database
+- **Milvus**: GPU-accelerated SQLite database
 - **Configuration**: 4GB GPU allocation
 - **Efficiency**: <1% utilization (99%+ idle)
 - **Purpose**: High-yield affiliate matching ONLY
@@ -159,8 +159,8 @@ docker compose logs -f celery-beat
 
 ### Configuration
 - `docker-compose.yml` - GPU-enabled services
-- `milvus-gpu.yaml` - DGX Spark optimization
-- `requirements.txt` - All dependencies (pymilvus, torch)
+- `SQLite dedup (no Docker needed)` - DGX Spark optimization
+- `requirements.txt` - All dependencies (SQLite dedup, torch)
 - `.env` - API keys (verify these are set)
 
 ### Core System
@@ -170,7 +170,7 @@ docker compose logs -f celery-beat
 - `agents/unified_affiliate_agent.py` - Multi-network manager
 
 ### New Components
-- `utils/vector_store_optimized.py` - GPU vector operations
+- `utils/vector_store.py` - GPU vector operations
 - `DEPLOYMENT_READY.md` - This guide
 - `DGX_OPTIMIZATION.md` - GPU strategy
 - `INTEGRATION_COMPLETE.md` - Affiliate integration
@@ -224,11 +224,11 @@ docker compose logs -f celery-beat
 ### Services Not Starting
 ```bash
 # Check logs
-docker compose logs milvus-standalone
+# Milvus removed - using SQLite dedup-standalone
 docker compose logs celery-worker
 
 # Restart specific service
-docker compose restart milvus-standalone
+# Milvus removed - using SQLite dedup-standalone
 
 # Full restart
 docker compose down && docker compose up -d

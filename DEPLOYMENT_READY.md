@@ -27,15 +27,15 @@
 
 ### 3. ✅ DGX Spark GPU Optimization
 - **Vector Database**: Milvus GPU-accelerated
-- **Configuration**: `milvus-gpu.yaml` - 4GB GPU allocation
+- **Configuration**: `SQLite dedup (no Docker needed)` - 4GB GPU allocation
 - **Focus**: Affiliate program semantic search ONLY
 - **Efficiency**: <1% GPU utilization, 99%+ idle for other work
 - **Performance**: <50ms search latency for 170 programs
 
-### 4. ✅ pymilvus Installed & Configured
+### 4. ✅ SQLite dedup Installed & Configured
 - **Version**: 2.6.4 with GPU support
 - **Dependencies**: sentence-transformers, torch
-- **Integration**: `utils/vector_store_optimized.py`
+- **Integration**: `utils/vector_store.py`
 - **Purpose**: HIGH-YIELD affiliate matching only (no waste)
 
 ### 5. ✅ Monitoring & Analytics
@@ -76,8 +76,8 @@
 ## 📁 Files Created/Modified
 
 ### New Files
-1. `/opt/gjh-blog-agent/milvus-gpu.yaml` - DGX GPU configuration
-2. `/opt/gjh-blog-agent/utils/vector_store_optimized.py` - High-yield vector ops
+1. `/opt/gjh-blog-agent/SQLite dedup (no Docker needed)` - DGX GPU configuration
+2. `/opt/gjh-blog-agent/utils/vector_store.py` - High-yield vector ops
 3. `/opt/gjh-blog-agent/DGX_OPTIMIZATION.md` - Complete optimization guide
 4. `/opt/gjh-blog-agent/INTEGRATION_COMPLETE.md` - Integration documentation
 5. `/opt/gjh-blog-agent/DEPLOYMENT_READY.md` - This file
@@ -87,7 +87,7 @@
 2. `/opt/gjh-blog-agent/agents/content_agent.py` - Unified affiliate integration
 3. `/opt/gjh-blog-agent/agents/monitoring_agent.py` - Dual-network analytics
 4. `/opt/gjh-blog-agent/docker-compose.yml` - GPU-enabled Milvus
-5. `/opt/gjh-blog-agent/requirements.txt` - Added pymilvus, torch, transformers
+5. `/opt/gjh-blog-agent/requirements.txt` - Added SQLite dedup, torch, transformers
 
 ---
 
@@ -274,7 +274,7 @@ sudo systemctl restart docker
 docker logs gjh-blog-milvus
 
 # Restart if needed
-docker compose restart milvus-standalone milvus-etcd milvus-minio
+# Milvus removed - using SQLite dedup-standalone milvus-etcd milvus-minio
 ```
 
 ### Affiliate API Errors
@@ -310,7 +310,7 @@ with get_db_session() as db:
 2. ✅ Sync all 170 affiliate programs
 3. ✅ Test generate command
 4. ⬜ Generate embeddings for programs (GPU)
-5. ⬜ Index in Milvus vector store
+5. ⬜ Index in SQLite dedup store
 
 ### This Week
 1. ⬜ Generate 2-3 test posts
@@ -334,7 +334,7 @@ with get_db_session() as db:
 - [x] CLI functional - all commands work
 - [x] Dual-network integration - 170 programs synced
 - [x] GPU configuration - Milvus optimized for DGX
-- [x] pymilvus installed - vector ops enabled
+- [x] SQLite dedup installed - SQLite dedup enabled
 - [x] Monitoring system - analytics ready
 - [ ] Vector index built - affiliate programs embedded
 - [ ] End-to-end test - generate post with affiliates

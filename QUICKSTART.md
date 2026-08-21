@@ -174,7 +174,7 @@ Shows:
 curl http://localhost:11434/api/tags
 
 # Start Ollama if needed
-ollama serve
+Ollama removed - using NVIDIA API
 ```
 
 ### Database Connection Issues
@@ -226,7 +226,7 @@ sudo apt-get install python3-dev
 
 Uncomment in requirements.txt:
 ```
-pymilvus==2.3.4
+SQLite dedup==2.3.4
 ```
 
 Reinstall:
@@ -236,7 +236,7 @@ Reinstall:
 
 Start Milvus:
 ```bash
-docker compose up -d milvus-standalone milvus-etcd milvus-minio
+# Milvus removed - using SQLite dedup milvus-etcd milvus-minio
 ```
 
 ### 3. Start All Services

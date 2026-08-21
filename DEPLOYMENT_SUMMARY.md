@@ -49,7 +49,7 @@ A complete **autonomous blog generation system** that creates 2-3 SEO-optimized 
 #### Optional Services (Not Started)
 - **Milvus**: Vector database for semantic search
   - Requires: `python3-dev` system package
-  - To enable: Install pymilvus and start Milvus containers
+  - To enable: Install SQLite dedup and start Milvus containers
 
 ### Tested and Working
 
@@ -148,7 +148,7 @@ sudo systemctl start gjh-blog
 │   ├── celery_app.py           # Celery config
 │   └── blog_tasks.py           # Scheduled tasks
 ├── utils/                       # Utilities
-│   ├── ollama_client.py        # LLM interface
+│   ├── nvidia_client.py        # LLM interface
 │   └── vector_store.py         # Milvus (optional)
 ├── config/                      # Configuration
 │   └── settings.py
@@ -217,8 +217,8 @@ Add email alerts for:
 For semantic topic search:
 ```bash
 sudo apt-get install python3-dev
-./venv/bin/pip install pymilvus==2.3.4
-docker compose up -d milvus-standalone milvus-etcd milvus-minio
+./venv/bin/pip install SQLite dedup==2.3.4
+# Milvus removed - using SQLite dedup milvus-etcd milvus-minio
 ```
 
 ### Monitoring and Maintenance
@@ -250,7 +250,7 @@ docker compose logs -f celery-beat
 **Solution:**
 ```bash
 curl http://localhost:11434/api/tags
-# If fails: ollama serve
+# If fails: Ollama removed - using NVIDIA API
 ```
 
 #### Issue: PostgreSQL connection refused

@@ -12,7 +12,7 @@ class AffiliateAgent:
 
     def __init__(self):
         """Initialize Affiliate Agent."""
-        self.ollama = NvidiaClient()
+        self.client = NvidiaClient()
 
     def match_product_to_topic(self, db: Session, topic: Topic) -> Optional[AffiliateProduct]:
         """Find the best matching affiliate product for a topic."""
@@ -60,7 +60,7 @@ Product:
 Match score:"""
 
         try:
-            response = self.ollama.generate(prompt, system, temperature=0.3)
+            response = self.client.generate(prompt, system, temperature=0.3)
             score = float(response.strip())
             return max(0.0, min(1.0, score))
         except:

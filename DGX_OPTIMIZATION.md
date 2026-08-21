@@ -204,7 +204,7 @@ update_metrics.delay()
 ### 1. Start GPU-Accelerated Milvus
 ```bash
 # Ensure NVIDIA Docker runtime installed
-docker compose up -d milvus-standalone
+# Milvus removed - using SQLite dedup
 
 # Verify GPU detection
 docker logs gjh-blog-milvus | grep -i gpu

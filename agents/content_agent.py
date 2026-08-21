@@ -18,7 +18,7 @@ class ContentAgent:
         Args:
             unified_affiliate_agent: Optional UnifiedAffiliateAgent instance for multi-network affiliate matching
         """
-        self.ollama = NvidiaClient()
+        self.client = NvidiaClient()
         self.min_words = settings.min_words
         self.max_words = settings.max_words
         self.unified_affiliate = unified_affiliate_agent  # New: support for dual-network affiliates
@@ -129,7 +129,7 @@ The outline should:
 
 Return the outline with section headings only, one per line, prefixed with ##."""
 
-        return self.ollama.generate(prompt, system, temperature=0.7)
+        return self.client.generate(prompt, system, temperature=0.7)
 
     def _generate_content(
         self,
@@ -181,7 +181,7 @@ The introduction should:
 - Preview the value they'll get from reading
 - Be professional but conversational"""
 
-        return self.ollama.generate(prompt, system, temperature=0.7)
+        return self.client.generate(prompt, system, temperature=0.7)
 
     def _generate_section(self, topic: Topic, section_heading: str) -> str:
         """Generate content for a section."""
@@ -200,7 +200,7 @@ Requirements:
 - Focus on practical value for government contractors
 - Do NOT include the section heading in your response"""
 
-        return self.ollama.generate(prompt, system, temperature=0.7)
+        return self.client.generate(prompt, system, temperature=0.7)
 
     def _generate_affiliate_section(self, product: AffiliateProduct, topic: Topic) -> str:
         """Generate natural affiliate product mention."""
@@ -219,7 +219,7 @@ Requirements:
 - Include a natural call-to-action
 - Use markdown link format: [product name]({product.affiliate_link})"""
 
-        return self.ollama.generate(prompt, system, temperature=0.7)
+        return self.client.generate(prompt, system, temperature=0.7)
 
     def _generate_conclusion(self, topic: Topic) -> str:
         """Generate conclusion."""
@@ -235,7 +235,7 @@ The conclusion should:
 - Reinforce the value provided
 - End with a call-to-action or thought-provoking question"""
 
-        return self.ollama.generate(prompt, system, temperature=0.7)
+        return self.client.generate(prompt, system, temperature=0.7)
 
     def _generate_title(self, topic: Topic) -> str:
         """Generate SEO-optimized title."""
@@ -254,7 +254,7 @@ Requirements:
 
 Return ONLY the title, nothing else."""
 
-        title = self.ollama.generate(prompt, system, temperature=0.7)
+        title = self.client.generate(prompt, system, temperature=0.7)
         return title.strip().strip('"').strip("'")[:100]
 
     def _create_slug(self, title: str) -> str:
@@ -282,7 +282,7 @@ Requirements:
 
 Return ONLY the meta description."""
 
-        meta = self.ollama.generate(prompt, system, temperature=0.5)
+        meta = self.client.generate(prompt, system, temperature=0.5)
         return meta.strip()[:300]
 
     def _extract_seo_keywords(self, topic: Topic, content: str) -> list:
@@ -291,7 +291,7 @@ Return ONLY the meta description."""
         keywords = list(topic.keywords or [])
 
         # Extract from content
-        content_keywords = self.ollama.extract_keywords(content[:1000], max_keywords=5)
+        content_keywords = self.client.extract_keywords(content[:1000], max_keywords=5)
         keywords.extend(content_keywords)
 
         # Deduplicate

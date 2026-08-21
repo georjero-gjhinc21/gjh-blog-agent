@@ -198,7 +198,7 @@ gjh-blog-agent/
 │   ├── celery_app.py
 │   └── blog_tasks.py
 ├── utils/               # Utilities
-│   ├── ollama_client.py
+│   ├── nvidia_client.py
 │   └── vector_store.py
 ├── config/              # Configuration
 │   └── settings.py
@@ -267,7 +267,7 @@ python main.py list-posts --status published
 curl http://localhost:11434/api/tags
 
 # Start Ollama if needed
-ollama serve
+Ollama removed - using NVIDIA API
 ```
 
 ### Database Connection Issues
@@ -284,7 +284,7 @@ docker compose logs postgres
 
 ```bash
 # Restart Milvus stack
-docker compose restart milvus-standalone milvus-etcd milvus-minio
+# Milvus removed - using SQLite dedup-standalone milvus-etcd milvus-minio
 ```
 
 ## License

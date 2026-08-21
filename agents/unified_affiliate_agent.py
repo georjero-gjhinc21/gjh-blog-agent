@@ -16,7 +16,7 @@ class UnifiedAffiliateAgent:
         """Initialize unified affiliate agent with multiple network clients."""
         self.ps_client = partnerstack_client or PartnerStackClient()
         self.impact_client = impact_client or ImpactClient()
-        self.ollama = NvidiaClient()
+        self.client = NvidiaClient()
         self.all_programs = []
         self.programs_by_network = {
             "partnerstack": [],
@@ -124,7 +124,7 @@ Program: {program_text[:200]}
 Score:"""
 
         try:
-            response = self.ollama.generate(prompt, system, temperature=0.2)
+            response = self.client.generate(prompt, system, temperature=0.2)
             score = float(response.strip())
             return max(0.0, min(1.0, score))
         except Exception as e:

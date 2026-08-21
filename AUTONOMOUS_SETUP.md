@@ -222,8 +222,8 @@ Modify the `discover --max-topics` parameter to generate more or fewer topics.
 Edit the workflow to use a different Ollama model:
 
 ```bash
-ollama pull llama3.1:70b  # Larger, better quality
-ollama pull llama3.1:8b   # Faster, lower quality
+# nvidia-api pull (removed - using NVIDIA API) llama3.1:70b  # Larger, better quality
+# nvidia-api pull (removed - using NVIDIA API) llama3.1:8b   # Faster, lower quality
 ```
 
 ## Next Steps

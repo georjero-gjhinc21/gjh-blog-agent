@@ -4,7 +4,7 @@ Recommended Docker Compose healthchecks to ensure Ollama and Milvus are ready be
 
 Ollama:
 - Check HTTP endpoint: GET http://localhost:11434/api/tags (200 OK)
-- Example docker-compose healthcheck (service: ollama):
+- Example docker-compose healthcheck (service: nvidia-api):
   healthcheck:
     test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
     interval: 10s
