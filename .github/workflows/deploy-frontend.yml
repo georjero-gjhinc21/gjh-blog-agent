@@ -20,6 +20,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Load secrets from Bitwarden
+        uses: ./.github/actions/bitwarden-secrets
+        with:
+          bw_client_id: ${{ secrets.BW_CLIENT_ID }}
+          bw_client_secret: ${{ secrets.BW_CLIENT_SECRET }}
+          bw_password: ${{ secrets.BW_PASSWORD }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -36,9 +43,9 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-token: ${{ env.VERCEL_TOKEN }}
+          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ env.VERCEL_PROJECT_ID }}
           working-directory: ./frontend
           vercel-args: '--prod'
 

@@ -12,57 +12,49 @@ The autonomous blog system will:
 - 🚀 **Deploy automatically**: Push to Vercel when posts are ready
 - 📊 **Track metrics**: Monitor performance and revenue
 
-## Required GitHub Secrets
+## Secret Management with Bitwarden
 
-Configure these secrets in your GitHub repository settings (`Settings > Secrets and variables > Actions`):
+This project uses **Bitwarden** for centralized secret management. All API keys and credentials are stored in a Bitwarden vault and fetched during workflow execution.
 
-### Database & Infrastructure
+### Quick Setup (3 GitHub Secrets Only!)
 
-```
-POSTGRES_PASSWORD
-```
-- PostgreSQL database password
-- Example: `gjh_secure_password_2024`
-- Used by: Autonomous blog workflow
-
-### API Keys
+Configure these in your GitHub repository settings (`Settings > Secrets and variables > Actions`):
 
 ```
-PARTNERSTACK_API_KEY
+BW_CLIENT_ID
 ```
-- PartnerStack API key for affiliate product matching
-- Get from: https://app.partnerstack.com/settings/api
-- Used by: Topic discovery and content generation
-
-### Vercel Deployment
+- Your Bitwarden API client ID
+- Get from: Bitwarden web vault → Settings → Security → API Key
 
 ```
-VERCEL_TOKEN
+BW_CLIENT_SECRET
 ```
-- Vercel authentication token
-- Get from: https://vercel.com/account/tokens
-- Permissions: Deploy
+- Your Bitwarden API client secret
+- Get from: Same location as client ID
 
 ```
-VERCEL_ORG_ID
+BW_PASSWORD
 ```
-- Your Vercel organization/team ID
-- Find in: `.vercel/project.json` after linking project
-- Example: `team_abc123xyz`
+- Your Bitwarden master password
+- Use a strong, unique password
 
-```
-VERCEL_PROJECT_ID
-```
-- Your Vercel project ID
-- Find in: `.vercel/project.json` after linking project
-- Example: `prj_abc123xyz`
+### Bitwarden Vault Setup
 
-```
-VERCEL_DEPLOY_HOOK
-```
-- Vercel deploy hook URL (optional, for triggering builds)
-- Create in: Vercel project settings > Git > Deploy Hooks
-- Example: `https://api.vercel.com/v1/integrations/deploy/...`
+Create these items in your Bitwarden vault:
+
+1. **GJH Blog - PostgreSQL** (Login item)
+   - Password: Your PostgreSQL password
+
+2. **GJH Blog - PartnerStack** (Login item)
+   - Password: Your PartnerStack API key
+
+3. **GJH Blog - Vercel** (Login item with custom fields)
+   - Custom field `token`: Vercel API token
+   - Custom field `org_id`: Vercel organization ID
+   - Custom field `project_id`: Vercel project ID
+   - Custom field `deploy_hook`: Deploy hook URL
+
+**📖 Complete Bitwarden setup guide**: See [BITWARDEN_SETUP.md](BITWARDEN_SETUP.md)
 
 ### GitHub (Automatic)
 
@@ -100,14 +92,27 @@ GITHUB_TOKEN
 
 ## Setup Instructions
 
-### Step 1: Configure GitHub Secrets
+### Step 1: Set Up Bitwarden Vault
+
+**Complete guide**: [BITWARDEN_SETUP.md](BITWARDEN_SETUP.md)
+
+Quick steps:
+1. Create Bitwarden account at https://vault.bitwarden.com
+2. Generate API credentials (Settings → Security → API Key)
+3. Create secret items in vault (PostgreSQL, PartnerStack, Vercel)
+4. Configure custom fields for Vercel item
+
+### Step 2: Configure GitHub Secrets
 
 1. Go to your repository on GitHub
 2. Click `Settings > Secrets and variables > Actions`
 3. Click `New repository secret`
-4. Add each secret listed above
+4. Add these 3 secrets:
+   - `BW_CLIENT_ID`
+   - `BW_CLIENT_SECRET`
+   - `BW_PASSWORD`
 
-### Step 2: Link Vercel Project
+### Step 3: Link Vercel Project
 
 ```bash
 cd frontend
@@ -117,13 +122,13 @@ vercel link
 
 This creates `.vercel/project.json` with your project and org IDs.
 
-### Step 3: Enable Workflows
+### Step 4: Enable Workflows
 
 The workflows are already committed. GitHub Actions will automatically:
 - Run autonomous blog generation on schedule
 - Deploy frontend when changes are pushed
 
-### Step 4: Test Manual Run
+### Step 5: Test Manual Run
 
 1. Go to `Actions` tab in GitHub
 2. Select `Autonomous Blog Generation`

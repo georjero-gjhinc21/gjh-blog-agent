@@ -17,6 +17,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Load secrets from Bitwarden
+        uses: ./.github/actions/bitwarden-secrets
+        with:
+          bw_client_id: ${{ secrets.BW_CLIENT_ID }}
+          bw_client_secret: ${{ secrets.BW_CLIENT_SECRET }}
+          bw_password: ${{ secrets.BW_PASSWORD }}
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -69,7 +76,7 @@ jobs:
 
       - name: Update affiliate links
         env:
-          PARTNERSTACK_API_KEY: ${{ secrets.PARTNERSTACK_API_KEY }}
+          PARTNERSTACK_API_KEY: ${{ env.PARTNERSTACK_API_KEY }}
         run: |
           if [ -f "fix_affiliate_links.py" ]; then
             python fix_affiliate_links.py || echo "No affiliate links to update"

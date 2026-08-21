@@ -10,37 +10,48 @@ jobs:
   generate-and-publish:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16-alpine
-        env:
-          POSTGRES_DB: gjh_blog
-          POSTGRES_USER: gjh_admin
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-      redis:
-        image: redis:7-alpine
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+
+      - name: Load secrets from Bitwarden
+        uses: ./.github/actions/bitwarden-secrets
+        with:
+          bw_client_id: ${{ secrets.BW_CLIENT_ID }}
+          bw_client_secret: ${{ secrets.BW_CLIENT_SECRET }}
+          bw_password: ${{ secrets.BW_PASSWORD }}
+
+      - name: Start PostgreSQL
+        run: |
+          docker run -d \
+            --name postgres \
+            -e POSTGRES_DB=gjh_blog \
+            -e POSTGRES_USER=gjh_admin \
+            -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
+            -p 5432:5432 \
+            --health-cmd "pg_isready -U gjh_admin -d gjh_blog" \
+            --health-interval 10s \
+            --health-timeout 5s \
+            --health-retries 5 \
+            postgres:16-alpine
+
+          # Wait for PostgreSQL to be ready
+          timeout 30 bash -c 'until docker exec postgres pg_isready -U gjh_admin; do sleep 1; done'
+          echo "✓ PostgreSQL is ready"
+
+      - name: Start Redis
+        run: |
+          docker run -d \
+            --name redis \
+            -p 6379:6379 \
+            redis:7-alpine
+
+          # Wait for Redis to be ready
+          timeout 30 bash -c 'until docker exec redis redis-cli ping | grep -q PONG; do sleep 1; done'
+          echo "✓ Redis is ready"
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -62,26 +73,26 @@ jobs:
 
       - name: Initialize database
         env:
-          DATABASE_URL: postgresql://gjh_admin:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
+          DATABASE_URL: postgresql://gjh_admin:${{ env.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
           REDIS_URL: redis://localhost:6379/0
         run: |
           python main.py init || echo "Database already initialized"
 
       - name: Discover topics
         env:
-          DATABASE_URL: postgresql://gjh_admin:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
+          DATABASE_URL: postgresql://gjh_admin:${{ env.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
           REDIS_URL: redis://localhost:6379/0
           OLLAMA_HOST: http://localhost:11434
-          PARTNERSTACK_API_KEY: ${{ secrets.PARTNERSTACK_API_KEY }}
+          PARTNERSTACK_API_KEY: ${{ env.PARTNERSTACK_API_KEY }}
         run: |
           python main.py discover --max-topics 10
 
       - name: Generate blog post
         env:
-          DATABASE_URL: postgresql://gjh_admin:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
+          DATABASE_URL: postgresql://gjh_admin:${{ env.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
           REDIS_URL: redis://localhost:6379/0
           OLLAMA_HOST: http://localhost:11434
-          PARTNERSTACK_API_KEY: ${{ secrets.PARTNERSTACK_API_KEY }}
+          PARTNERSTACK_API_KEY: ${{ env.PARTNERSTACK_API_KEY }}
         run: |
           python main.py generate
 
@@ -113,12 +124,18 @@ jobs:
       - name: Trigger Vercel deployment
         if: success()
         run: |
-          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}" || echo "Vercel hook not configured"
+          curl -X POST "${{ env.VERCEL_DEPLOY_HOOK }}" || echo "Vercel hook not configured"
 
       - name: Post statistics
         if: always()
         env:
-          DATABASE_URL: postgresql://gjh_admin:${{ secrets.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
+          DATABASE_URL: postgresql://gjh_admin:${{ env.POSTGRES_PASSWORD }}@localhost:5432/gjh_blog
           REDIS_URL: redis://localhost:6379/0
         run: |
           python main.py stats
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker stop postgres redis || true
+          docker rm postgres redis || true
