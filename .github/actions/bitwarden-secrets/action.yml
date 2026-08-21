@@ -25,7 +25,7 @@ runs:
     - name: Install Bitwarden CLI
       shell: bash
       run: |
-        wget https://vault.bitwarden.com/download/?app=cli&platform=linux -O bw.zip
+        wget "https://vault.bitwarden.com/download/?app=cli&platform=linux" -O bw.zip
         unzip -q bw.zip
         chmod +x bw
         sudo mv bw /usr/local/bin/
