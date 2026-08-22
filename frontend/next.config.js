@@ -1,5 +1,4 @@
 const nextConfig = {
-  output: 'standalone',
   images: {
     domains: ['gjhconsulting.net'],
   },
