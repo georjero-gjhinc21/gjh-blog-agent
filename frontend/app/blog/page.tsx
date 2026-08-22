@@ -7,7 +7,7 @@ import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
 
 export const metadata: Metadata = {
-  title: 'Insights - GJH Consulting',
+  title: 'Insights',
   description: 'Expert insights on government contracting, federal procurement, GSA schedules, and more.',
   alternates: {
     canonical: '/blog',
@@ -48,7 +48,7 @@ function BlogContent({ searchParams }: { searchParams: { topic?: string; page?: 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "GJH Consulting Blog",
+    "name": "Insights Blog",
     "description": "Expert insights on government contracting and federal procurement.",
     "url": "https://gjhconsulting.net/blog",
     "numberOfItems": totalPosts,

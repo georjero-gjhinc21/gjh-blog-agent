@@ -15,12 +15,12 @@ results: "$12M in awards within 18 months of schedule execution"
 
 ## Executive Summary
 
-This case study details how GJH Consulting helped a mid-size technology services company completely restructure their GSA Schedule pricing, resulting in $12 million in federal contract awards within 18 months of their new schedule execution.
+This case study details how a partner helped mid-size technology services company completely restructure their GSA Schedule pricing, resulting in $12 million in federal contract awards within 18 months of their new schedule execution.
 
 ## The Challenge
 
 ### The Problem
-Our client had held a GSA Schedule 65 for three years but was struggling to win competitive tasks:
+The client had held a GSA Schedule 65 for three years but was struggling to win competitive tasks:
 
 - **Stale Reference Rates**: Their MAS rates were based on outdated benchmarking data from 2021
 - **Uncompetitive Pricing**: Multiple contract awards went to competitors with 15-20% lower rates
@@ -28,7 +28,7 @@ Our client had held a GSA Schedule 65 for three years but was struggling to win 
 - **Missed Opportunities**: Government buyers consistently bypassed their schedule in favor of competitors
 
 ### Root Cause Analysis
-Through comprehensive audit, we identified that their pricing strategy had never been renegotiated, and the reference rates they used had become completely disconnected from market reality.
+Through comprehensive audit, the analysis identified that their pricing strategy had never been renegotiated, and the reference rates they used had become completely disconnected from market reality.
 
 ## Our Approach
 

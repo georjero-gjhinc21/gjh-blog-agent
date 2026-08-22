@@ -15,11 +15,11 @@ results: "73% reduction in maintenance costs, 99.9% uptime achieved"
 
 ## Executive Summary
 
-This case study examines how GJH Consulting partnered with a major federal information systems agency to modernize their legacy IT infrastructure while maintaining continuous operations and meeting strict compliance requirements.
+This case study examines how a partner a major federal information systems agency to modernize their legacy IT infrastructure while maintaining continuous operations and meeting strict compliance requirements.
 
 ## The Challenge
 
-Our client faced several critical challenges:
+The client faced several critical challenges:
 
 - **Aging Infrastructure**: Legacy systems operating beyond their end-of-life support
 - **Security Vulnerabilities**: Inability to implement modern security controls

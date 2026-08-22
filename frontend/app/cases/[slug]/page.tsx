@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: 'Case Study Not Found' }
   }
   return {
-    title: `${caseStudy.title} - GJH Consulting`,
+    title: caseStudy.title,
     description: caseStudy.excerpt,
     alternates: { canonical: `/cases/${slug}` },
   }
@@ -39,7 +39,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
     "@type": "Article",
     "headline": caseStudy.title,
     "description": caseStudy.excerpt,
-    "author": { "@type": "Organization", "name": "GJH Consulting" },
+    "author": { "@type": "Organization", "name": "Our Consulting Team" },
     "datePublished": caseStudy.date,
     "url": `https://gjhconsulting.net/cases/${slug}`,
     "keywords": caseStudy.keywords,

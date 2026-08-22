@@ -15,12 +15,12 @@ results: "CMMC Level 3 certified in 6 months, won $25M DoD contract"
 
 ## Executive Summary
 
-This case study shows how GJH Consulting helped a mid-size defense contractor achieve CMMC Level 3 certification in just six months while maintaining all active defense programs — a feat that typically takes 12-18 months.
+This case study shows how a partner helped mid-size defense contractor achieve CMMC Level 3 certification in just six months while maintaining all active defense programs — a feat that typically takes 12-18 months.
 
 ## The Challenge
 
 ### The Problem
-Our client received an expression of interest for a $25 million Department of Defense contract contingent on CMMC Level 3 certification. At the time:
+The client received an expression of interest for a $25 million Department of Defense contract contingent on CMMC Level 3 certification. At the time:
 
 - **No Cybersecurity Framework**: They had basic IT security but no formal cybersecurity program
 - **No NIST 800-171 Compliance**: Their systems weren't mapped to the 110 NIST 800-171 controls

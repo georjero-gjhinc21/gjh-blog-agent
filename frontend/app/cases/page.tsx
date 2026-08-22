@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Case Studies - GJH Consulting',
+  title: 'Case Studies',
   description: 'Real results from government contracting projects. See how we help agencies and contractors succeed.',
   alternates: {
     canonical: '/cases',
@@ -18,7 +18,7 @@ export default function CasesPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "GJH Consulting Case Studies",
+    "name": "Case Studies",
     "description": "Real results from government contracting projects.",
     "url": "https://gjhconsulting.net/cases",
     "numberOfItems": allCases.length,
