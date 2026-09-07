@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import StructuredData from '@/components/StructuredData'
+import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact - GJH Consulting',
@@ -43,68 +44,7 @@ export default function ContactPage() {
               {/* Contact Form */}
               <div className="glass-panel rounded-3xl p-8 md:p-10 animate-slide-up">
                 <h2 className="text-2xl font-bold mb-8 text-white">Send Us a Message</h2>
-                <form className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        className="w-full bg-surface-highlight border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-gray-600"
-                        placeholder="John Doe"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        className="w-full bg-surface-highlight border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-gray-600"
-                        placeholder="john@company.com"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-400 mb-2">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      className="w-full bg-surface-highlight border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-gray-600"
-                      placeholder="How can we help?"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      className="w-full bg-surface-highlight border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all placeholder-gray-600 resize-none"
-                      placeholder="Tell us about your project..."
-                      required
-                    ></textarea>
-                  </div>
-                  <button type="submit" className="btn-primary w-full group">
-                    Send Message
-                    <svg className="w-5 h-5 ml-2 inline-block transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </form>
+                <ContactForm />
               </div>
 
               {/* Contact Info */}

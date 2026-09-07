@@ -137,5 +137,3 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
     </>
   )
 }
-PARTNERPAGE
-echo "Partner detail page created"

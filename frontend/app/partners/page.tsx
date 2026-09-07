@@ -1,4 +1,4 @@
-import { getAllPartners, getPartnersByPlatform, searchPartners } from '@/lib/partners'
+import { getAllPartners, getPartnersByPlatform, getPartnersByCategory, searchPartners } from '@/lib/partners'
 import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
 import type { Metadata } from 'next'
@@ -72,7 +72,7 @@ export default async function PartnersPage({
     partners = getPartnersByPlatform(params.platform)
   }
   if (params.category) {
-    partners = getPartnersByPlatform(params.platform) || getAllPartners()
+    partners = getPartnersByCategory(params.category)
   }
   if (params.q) {
     partners = searchPartners(params.q)
