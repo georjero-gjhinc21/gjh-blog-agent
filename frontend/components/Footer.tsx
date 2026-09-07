@@ -1,7 +1,69 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
+
+const exploreLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Insights', href: '/blog' },
+  { name: 'Case Studies', href: '/cases' },
+  { name: 'Partners', href: '/partners' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+]
+
+const socialLinks = [
+  { name: 'Twitter', href: 'https://twitter.com/GJHConsulting' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/gjh-consulting' },
+  { name: 'GitHub', href: 'https://github.com/georjero-gjhinc21' },
+]
+
+const topicLinks = [
+  { name: 'Gov Contracting', slug: 'government-contracting' },
+  { name: 'GSA Schedules', slug: 'gsa-schedules' },
+  { name: 'Cybersecurity', slug: 'cybersecurity' },
+  { name: 'AI Solutions', slug: 'ai-solutions' },
+]
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+type NewsletterStatus = 'idle' | 'sending' | 'success' | 'error'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<NewsletterStatus>('idle')
+  const [message, setMessage] = useState('')
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault()
+    if (!EMAIL_RE.test(email.trim())) {
+      setStatus('error')
+      setMessage('Please enter a valid email address.')
+      return
+    }
+    setStatus('sending')
+    setMessage('')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok) {
+        setStatus('success')
+        setMessage("You're subscribed.")
+        setEmail('')
+      } else {
+        setStatus('error')
+        setMessage(typeof data.error === 'string' ? data.error : 'Subscription failed. Please try again.')
+      }
+    } catch {
+      setStatus('error')
+      setMessage('Subscription failed. Please try again.')
+    }
+  }
 
   return (
     <footer className="bg-surface border-t border-white/5 pt-20 pb-10">
@@ -15,23 +77,22 @@ export default function Footer() {
               Empowering businesses to navigate the complexities of government contracting with next-generation insights and AI-driven strategies.
             </p>
             <div className="flex space-x-4">
-              {/* Social Icons Placeholder */}
-              {['Twitter', 'LinkedIn', 'GitHub'].map((social) => (
-                <a key={social} href="#" className="w-10 h-10 rounded-full bg-surface-highlight flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition-all duration-300">
-                  <span className="sr-only">{social}</span>
+              {socialLinks.map((social) => (
+                <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-highlight flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition-all duration-300">
+                  <span className="sr-only">{social.name}</span>
                   <div className="w-5 h-5 bg-current opacity-50" />
                 </a>
               ))}
             </div>
           </div>
-          
+
           <div>
             <h4 className="text-white font-bold mb-6">Explore</h4>
             <ul className="space-y-4">
-              {['Home', 'About Us', 'Services', 'Case Studies', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link href={`/${item.toLowerCase().replace(' ', '-')}`} className="text-gray-400 hover:text-primary-400 transition-colors">
-                    {item}
+              {exploreLinks.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-gray-400 hover:text-primary-400 transition-colors">
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -41,12 +102,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-6">Topics</h4>
             <ul className="space-y-4">
-              {[
-                { name: 'Gov Contracting', slug: 'government-contracting' },
-                { name: 'GSA Schedules', slug: 'gsa-schedules' },
-                { name: 'Cybersecurity', slug: 'cybersecurity' },
-                { name: 'AI Solutions', slug: 'ai-solutions' },
-              ].map((item) => (
+              {topicLinks.map((item) => (
                 <li key={item.slug}>
                   <Link href={`/blog?topic=${item.slug}`} className="text-gray-400 hover:text-primary-400 transition-colors">
                     {item.name}
@@ -59,15 +115,20 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-6">Newsletter</h4>
             <p className="text-gray-400 mb-4">Subscribe to our newsletter for the latest federal market insights.</p>
-            <form className="space-y-4">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
+            <form className="space-y-4" onSubmit={handleSubscribe}>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === 'sending'}
                 className="w-full bg-background border border-border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
               />
-              <button className="w-full btn-primary">
-                Subscribe
+              <button type="submit" disabled={status === 'sending'} className="w-full btn-primary disabled:opacity-50">
+                {status === 'sending' ? 'Subscribing…' : 'Subscribe'}
               </button>
+              {status === 'success' && <p className="text-sm text-emerald-400">{message}</p>}
+              {status === 'error' && <p className="text-sm text-red-400">{message}</p>}
             </form>
           </div>
         </div>

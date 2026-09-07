@@ -1,11 +1,13 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/posts'
 import { getAllCases } from '@/lib/cases'
+import { getAllPartners } from '@/lib/partners'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://gjhconsulting.net'
   const posts = getAllPosts()
   const cases = getAllCases()
+  const partners = getAllPartners()
 
   const blogUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -52,7 +54,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/partners`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    },
   ]
 
-  return [...staticUrls, ...caseUrls, ...blogUrls]
+  const partnerUrls = partners.map((partner) => ({
+    url: `${baseUrl}/partners/${partner.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
+  return [...staticUrls, ...caseUrls, ...blogUrls, ...partnerUrls]
 }
