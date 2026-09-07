@@ -1,5 +1,6 @@
 """Publishing Agent - Deploys blog posts to Vercel."""
 import json
+import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -8,6 +9,26 @@ from sqlalchemy.orm import Session
 
 from models.blog import BlogPost
 from config import settings
+
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_POSTS_DIR = REPO_ROOT / "frontend" / "posts"
+
+
+def _resolve_posts_dir(raw: Optional[str] = None) -> Path:
+    """Resolve the directory where published Markdown posts are written.
+
+    Default is <repository-root>/frontend/posts.
+    An optional POSTS_DIR environment override (or explicit arg) is honored.
+    A relative override is anchored to the repository root.
+    """
+    value = raw if raw is not None else os.environ.get("POSTS_DIR")
+    if not value or not value.strip():
+        return DEFAULT_POSTS_DIR
+    candidate = Path(value.strip())
+    if not candidate.is_absolute():
+        candidate = REPO_ROOT / candidate
+    return candidate
 
 
 class PublishingAgent:
@@ -53,7 +74,7 @@ class PublishingAgent:
     def _create_post_file(self, post: BlogPost) -> Path:
         """Create markdown file for blog post."""
         # Create posts directory if needed
-        posts_dir = Path("/opt/gjh-blog-agent/frontend/posts")
+        posts_dir = _resolve_posts_dir()
         posts_dir.mkdir(parents=True, exist_ok=True)
 
         # Create frontmatter

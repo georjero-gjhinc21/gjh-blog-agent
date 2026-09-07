@@ -165,6 +165,19 @@ VERCEL_TOKEN=your_token_here
 VERCEL_PROJECT_ID=your_project_id
 ```
 
+### Published posts directory
+
+Published Markdown posts default to `<repository-root>/frontend/posts`.
+
+To override (absolute or repository-relative path):
+
+```bash
+POSTS_DIR=/tmp/gjh-posts python main.py publish <post_id>
+POSTS_DIR=custom/posts python main.py workflow
+```
+
+A relative `POSTS_DIR` is resolved relative to the repository root. The directory is created if needed.
+
 ## Focus Topics
 
 The system generates content around:
