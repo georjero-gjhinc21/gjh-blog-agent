@@ -4,6 +4,7 @@ import { getAllPosts, getPostBySlug, markdownToHtml } from '@/lib/posts'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
+import AffiliateDisclosure from '@/components/AffiliateDisclosure'
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -135,6 +136,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
             {/* Article Content */}
             <div className="glass-panel rounded-3xl p-8 md:p-12 mb-12">
+              <div className="mb-6">
+                <AffiliateDisclosure />
+              </div>
               <div
                 className="prose-custom mx-auto"
                 dangerouslySetInnerHTML={{ __html: contentHtml }}

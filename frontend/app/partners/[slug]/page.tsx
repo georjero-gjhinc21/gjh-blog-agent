@@ -1,7 +1,9 @@
 import { getPartnerBySlug, getAllPartners } from '@/lib/partners'
+import { getAffiliateUrl } from '@/lib/affiliate'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
+import AffiliateDisclosure from '@/components/AffiliateDisclosure'
 import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
@@ -109,9 +111,9 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
 
               <div className="text-center">
                 <a
-                  href={partner.url}
+                  href={getAffiliateUrl(partner.url, partner.slug)}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="sponsored noopener noreferrer"
                   className="btn-primary inline-flex items-center"
                 >
                   {partner.cta}
@@ -119,6 +121,9 @@ export default async function PartnerPage({ params }: { params: Promise<{ slug: 
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </a>
+                <div className="mt-4 flex justify-center">
+                  <AffiliateDisclosure />
+                </div>
               </div>
             </div>
 
