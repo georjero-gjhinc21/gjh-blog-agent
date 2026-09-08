@@ -51,7 +51,7 @@ export default function AboutPage() {
               </div>
               <h2 className="text-3xl font-bold mb-4 text-white">Our Mission</h2>
               <p className="text-lg text-gray-300 leading-relaxed">
-                To help teams put AI to work where it genuinely helps: honest advice up front, systems that hold up in production, data kept in good order \u2014 and everything owned by the client.
+                To help teams put AI to work where it genuinely helps: honest advice up front, systems that hold up in production, data kept in good order — and everything owned by the client.
               </p>
             </div>
 
@@ -67,7 +67,7 @@ export default function AboutPage() {
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent-cyan/10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none" />
                 <h3 className="text-2xl font-bold mb-3 text-white">You Own Everything</h3>
                 <p className="text-gray-400">
-                  Code, infrastructure, and documentation \u2014 in your accounts. No dependency on us by design.
+                  Code, infrastructure, and documentation — in your accounts. No dependency on us by design.
                 </p>
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function AboutPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-6 text-white">Our Capabilities</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">
-                Four practices, one team \u2014 the same model as our parent company.
+                Four practices, one team — the same model as our parent company.
               </p>
             </div>
 
@@ -86,7 +86,7 @@ export default function AboutPage() {
               {[
                 {
                   title: "AI Advisory",
-                  desc: "Where AI is worth the effort \u2014 and where it isn’t.",
+                  desc: "Where AI is worth the effort — and where it isn’t.",
                   icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                 },
                 {
@@ -96,7 +96,7 @@ export default function AboutPage() {
                 },
                 {
                   title: "Data Foundations",
-                  desc: "Warehouses, pipelines, and models \u2014 the unskippable part.",
+                  desc: "Warehouses, pipelines, and models — the unskippable part.",
                   icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                 },
                 {
@@ -111,7 +111,7 @@ export default function AboutPage() {
                 },
                 {
                   title: "Honest Assessment",
-                  desc: "A short, paid look at one workflow \u2014 proceed, defer, or stop.",
+                  desc: "A short, paid look at one workflow — proceed, defer, or stop.",
                   icon: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                 }
               ].map((item, index) => (
@@ -136,7 +136,7 @@ export default function AboutPage() {
             <div className="relative z-10 p-12 md:p-20 text-center">
               <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Have Something AI Might Help With?</h2>
               <p className="text-xl text-primary-100 mb-10 max-w-2xl mx-auto">
-                Start with a short, paid assessment of one workflow. Part of GJH Inc \u2014 consulting since 2009.
+                Start with a short, paid assessment of one workflow. Part of GJH Inc — consulting since 2009.
               </p>
               <Link href="/contact" className="btn-secondary bg-white text-primary-900 hover:bg-gray-100 border-transparent">
                 Get Started Today

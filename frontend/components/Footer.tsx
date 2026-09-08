@@ -74,7 +74,7 @@ export default function Footer() {
               GJH Consulting
             </Link>
             <p className="text-gray-400 leading-relaxed mb-6">
-              An AI-first partner helping teams put AI to work \u2014 honest advice, systems that hold up, data in good order.
+              An AI-first partner helping teams put AI to work — honest advice, systems that hold up, data in good order.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (

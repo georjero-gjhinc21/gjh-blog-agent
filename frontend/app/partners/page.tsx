@@ -122,7 +122,7 @@ export default async function PartnersPage({
                 Trusted <span className="text-gradient">Tools & Platforms</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Software we use and recommend in client work \u2014 tracking, data, security, everyday operations. Some links earn us a commission; every page says so.
+                Software we use and recommend in client work — tracking, data, security, everyday operations. Some links earn us a commission; every page says so.
               </p>
             </div>
 
