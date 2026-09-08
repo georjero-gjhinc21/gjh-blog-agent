@@ -12,7 +12,7 @@ export default function Home() {
     "name": "GJH Consulting",
     "url": "https://gjhconsulting.net",
     "logo": "https://gjhconsulting.net/logo.png",
-    "description": "Expert guidance on government contracting, federal procurement, GSA schedules, and technology consulting.",
+    "description": "Practical help putting AI to work: where it helps, building it, and the data underneath.",
     "sameAs": [
       "https://linkedin.com/company/gjh-consulting",
       "https://twitter.com/gjhconsulting"
@@ -35,17 +35,17 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <div className="inline-block mb-6 animate-fade-in">
             <span className="bg-surface-highlight border border-primary-500/30 text-primary-300 text-sm font-semibold px-4 py-1.5 rounded-full backdrop-blur-md">
-              Next-Gen Government Contracting
+              AI-First Partner \u00b7 Part of GJH Inc
             </span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-8 animate-slide-up leading-tight">
-            Navigate the Future of <br />
-            <span className="text-gradient">Federal Procurement</span>
+            Put AI to Work <br />
+            <span className="text-gradient">Where It Counts</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-400 mb-10 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Unlock opportunities with AI-driven insights, expert GSA schedule guidance, and cutting-edge compliance strategies.
+            We help teams find where AI genuinely helps, build the systems that deliver it, and keep the data underneath in good order.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
@@ -73,8 +73,8 @@ export default function Home() {
       <section className="py-24 bg-surface relative overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose GJH Consulting</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">We combine deep industry expertise with modern technology to deliver results.</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Work With Us</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">Senior people do the work. You own everything. Three commitments, in writing.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -85,10 +85,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-4">GSA Schedule Experts</h3>
+              <h3 className="text-2xl font-bold mb-4">Advisory</h3>
               <p className="text-gray-400 text-lg">
-                Streamline your path to a GSA Schedule. We handle the complexity so you can focus on delivery. 
-                Our success rate for schedule awards is industry-leading.
+                Where AI is worth the effort \u2014 and where it isn’t. We tell you both, in writing, before you spend more.
               </p>
             </div>
 
@@ -99,9 +98,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-4">AI-Powered Compliance</h3>
+              <h3 className="text-2xl font-bold mb-4">Building</h3>
               <p className="text-gray-400">
-                Stay ahead of regulations with our automated compliance monitoring tools.
+                Assistants, automations, and internal tools that hold up in production.
               </p>
             </div>
 
@@ -112,9 +111,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Market Intelligence</h3>
+              <h3 className="text-2xl font-bold mb-4">Data Foundations</h3>
               <p className="text-gray-400">
-                Data-driven identification of opportunities tailored to your capabilities.
+                Warehouses, pipelines, and models \u2014 the part everyone skips. We don’t.
               </p>
             </div>
 
@@ -126,9 +125,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Strategic Consulting</h3>
+              <h3 className="text-2xl font-bold mb-4">Staying With It</h3>
               <p className="text-gray-400 text-lg">
-                From capture management to proposal writing, our team of veterans guides you through every step of the federal sales cycle.
+                Monitoring, tuning, and support after launch. No handoff to strangers.
               </p>
             </div>
           </div>
@@ -144,7 +143,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row justify-between items-end mb-12">
               <div className="max-w-2xl">
                 <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-2 block">Latest Insights</span>
-                <h2 className="text-3xl md:text-4xl font-bold">Stay Ahead of the Curve</h2>
+                <h2 className="text-3xl md:text-4xl font-bold">Notes From the Work</h2>
               </div>
               <Link href="/blog" className="hidden md:inline-flex items-center text-primary-400 hover:text-primary-300 font-semibold transition-colors mt-4 md:mt-0">
                 View All Articles
@@ -176,9 +175,9 @@ export default function Home() {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center p-12 glass-panel rounded-3xl">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Ready to Win More Contracts?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tell Us What You're Trying to Do.</h2>
             <p className="text-xl mb-10 text-gray-300">
-              Join hundreds of successful contractors who trust GJH Consulting for their federal market strategy.
+              A paragraph is plenty. If it’s not a job for AI, we’ll tell you that too \u2014 and point you the right way.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
               <input

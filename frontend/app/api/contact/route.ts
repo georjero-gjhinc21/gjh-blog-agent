@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     if (error) {
       return NextResponse.json({ error: 'contact-service-unavailable' }, { status: 503 })
     }
-    return NextResponse.json({ status: 'success', message: "Message sent. We'll be in touch." })
+    return NextResponse.json({ status: 'success', message: "Message sent. We’ll be in touch." })
   } catch {
     return NextResponse.json({ error: 'contact-service-unavailable' }, { status: 503 })
   }

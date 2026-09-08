@@ -41,7 +41,7 @@ export default function TermsPage() {
               <h2 className="text-3xl font-bold text-white mb-4">Scope of Services</h2>
               <div className="card-modern p-8 bg-surface-highlight border border-white/10">
                 <p className="text-gray-300 leading-relaxed">
-                  GJH Consulting provides strategic guidance, data analysis, and consulting services related to government contracting. The scope of work is defined in separate contracts or proposals.
+                  GJH Consulting provides AI advisory, building, data, and support services. The scope of work is defined in separate contracts or proposals.
                 </p>
               </div>
             </section>
@@ -51,7 +51,7 @@ export default function TermsPage() {
               <h2 className="text-3xl font-bold text-white mb-4">Acceptable Use Policy</h2>
               <div className="card-modern p-8 bg-surface-highlight border border-white/10">
                 <p className="text-gray-300 leading-relaxed">
-                  Users must use our platform in a manner consistent with federal guidelines and ethical standards. Misuse, including spamming or unauthorized data scraping, is strictly prohibited.
+                  Users must use our platform in a lawful and ethical manner. Misuse, including spamming or unauthorized data scraping, is strictly prohibited.
                 </p>
               </div>
             </section>

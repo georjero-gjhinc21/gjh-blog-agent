@@ -8,7 +8,7 @@ import StructuredData from '@/components/StructuredData'
 
 export const metadata: Metadata = {
   title: 'Insights',
-  description: 'Expert insights on government contracting, federal procurement, GSA schedules, and more.',
+  description: 'Short, honest notes on putting AI to work: where it helps, where it doesn’t, and what the data underneath needs.',
   alternates: {
     canonical: '/blog',
   },
@@ -49,7 +49,7 @@ function BlogContent({ searchParams }: { searchParams: { topic?: string; page?: 
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Insights Blog",
-    "description": "Expert insights on government contracting and federal procurement.",
+    "description": "Short, honest notes on putting AI to work.",
     "url": "https://gjhconsulting.net/blog",
     "numberOfItems": totalPosts,
     "itemListElement": paginatedPosts.map((post, index) => ({
@@ -74,10 +74,10 @@ function BlogContent({ searchParams }: { searchParams: { topic?: string; page?: 
             <div className="text-center mb-16">
               <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-4 block">Knowledge Hub</span>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-                Government Contracting <span className="text-gradient">Insights</span>
+                Notes From <span className="text-gradient">the Work</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Stay informed with the latest trends, strategies, and regulatory updates in the federal marketplace.
+                Short notes on putting AI to work: where it helps, where it doesn’t, and what the data underneath needs.
               </p>
             </div>
 

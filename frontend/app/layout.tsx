@@ -4,17 +4,17 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'GJH Consulting - Government Contracting Insights',
-  description: 'Expert insights on government contracting, federal procurement, GSA schedules, and technology consulting.',
-  keywords: ['government contracting', 'federal procurement', 'GSA schedules', 'SBIR', 'STTR', 'cybersecurity compliance'],
+  title: 'GJH Consulting \u2014 AI-First Partner',
+  description: 'Practical help putting AI to work: advisory, building, data foundations, and ongoing support.',
+  keywords: ['AI consulting', 'AI partner', 'data foundations', 'AI assistants', 'automation', 'AI strategy'],
   authors: [{ name: 'GJH Consulting' }],
   metadataBase: new URL('https://gjhconsulting.net'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'GJH Consulting - Government Contracting Insights',
-    description: 'Expert insights on government contracting, federal procurement, and technology consulting.',
+    title: 'GJH Consulting \u2014 AI-First Partner',
+    description: 'Practical help putting AI to work: advisory, building, data foundations, and ongoing support.',
     url: 'https://gjhconsulting.net',
     siteName: 'GJH Consulting',
     type: 'website',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'GJH Consulting',
-    description: 'Expert insights on government contracting and federal procurement',
+    description: 'Practical help putting AI to work: advisory, building, and data foundations',
   },
   robots: {
     index: true,
