@@ -1,4 +1,5 @@
-import { getAllPartners, getPartnersByPlatform, getPartnersByCategory, searchPartners } from '@/lib/partners'
+import { getAllPartners } from '@/lib/partners'
+import { PARTNERS_PAGE_SIZE } from '@/lib/partner-taxonomy'
 import Link from 'next/link'
 import StructuredData from '@/components/StructuredData'
 import type { Metadata } from 'next'
@@ -63,23 +64,38 @@ function PartnerCard({ partner }: { partner: typeof import('@/lib/partners').par
 export default async function PartnersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; platform?: string; q?: string }>
+  searchParams: Promise<{ category?: string; platform?: string; q?: string; page?: string }>
 }) {
   const params = await searchParams
-  let partners = getAllPartners()
-  
-  if (params.platform) {
-    partners = getPartnersByPlatform(params.platform)
-  }
-  if (params.category) {
-    partners = getPartnersByCategory(params.category)
-  }
-  if (params.q) {
-    partners = searchPartners(params.q)
-  }
+  const allPartners = getAllPartners()
 
-  const categories = Array.from(new Set(getAllPartners().map(p => p.category)))
-  const platforms = ['PartnerStack', 'Impact', 'Impact.com']
+  // Intersecting filters (all three combine with AND).
+  const q = (params.q ?? '').trim().toLowerCase()
+  const partners = allPartners.filter((p) => {
+    if (params.platform && p.platform !== params.platform) return false
+    if (params.category && p.category !== params.category) return false
+    if (q) {
+      const hay = `${p.name} ${p.excerpt} ${p.description} ${p.category} ${p.keywords.join(' ')}`.toLowerCase()
+      if (!hay.includes(q)) return false
+    }
+    return true
+  })
+
+  const categoryCounts = new Map<string, number>()
+  for (const p of allPartners) {
+    categoryCounts.set(p.category, (categoryCounts.get(p.category) ?? 0) + 1)
+  }
+  const categories = [...categoryCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  const platforms = Array.from(new Set(allPartners.map((p) => p.platform))).sort()
+
+  const totalPages = Math.max(1, Math.ceil(partners.length / PARTNERS_PAGE_SIZE))
+  const currentPage = Math.min(Math.max(1, Number(params.page) || 1), totalPages)
+  const visiblePartners = partners.slice((currentPage - 1) * PARTNERS_PAGE_SIZE, currentPage * PARTNERS_PAGE_SIZE)
+
+  const pageHref = (page: number) => ({
+    pathname: '/partners',
+    query: { ...(params.platform ? { platform: params.platform } : {}), ...(params.category ? { category: params.category } : {}), ...(params.q ? { q: params.q } : {}), ...(page > 1 ? { page: String(page) } : {}) },
+  })
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -111,16 +127,16 @@ export default async function PartnersPage({
             </div>
 
             {/* Filters */}
-            <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
               <Link
                 href="/partners"
                 className={`px-4 py-2 rounded-full text-sm transition-all ${
-                  !params.platform && !params.q
+                  !params.platform && !params.q && !params.category
                     ? 'bg-primary-600 text-white'
                     : 'bg-surface-highlight border border-white/10 text-gray-300 hover:text-white'
                 }`}
               >
-                All
+                All ({allPartners.length})
               </Link>
               {platforms.map(platform => (
                 <Link
@@ -135,7 +151,7 @@ export default async function PartnersPage({
                   {platform}
                 </Link>
               ))}
-              {categories.map(cat => (
+              {categories.map(([cat, count]) => (
                 <Link
                   key={cat}
                   href={{ query: { category: cat } }}
@@ -145,10 +161,26 @@ export default async function PartnersPage({
                       : 'bg-surface-highlight border border-white/10 text-gray-300 hover:text-white'
                   }`}
                 >
-                  {cat}
+                  {cat} ({count})
                 </Link>
               ))}
             </div>
+
+            {/* Search (plain GET form — no JS needed, server filters) */}
+            <form action="/partners" method="get" className="flex justify-center mb-4">
+              {params.platform && <input type="hidden" name="platform" value={params.platform} />}
+              {params.category && <input type="hidden" name="category" value={params.category} />}
+              <input
+                type="search"
+                name="q"
+                defaultValue={params.q ?? ''}
+                placeholder="Search tools, e.g. payroll or SSO…"
+                className="w-full max-w-md bg-surface-highlight border border-white/10 rounded-full px-5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-all"
+              />
+            </form>
+            <p className="text-center text-sm text-gray-500 mb-12">
+              Showing {visiblePartners.length} of {partners.length} programs{totalPages > 1 ? ` — page ${currentPage} of ${totalPages}` : ''}
+            </p>
 
             {partners.length === 0 ? (
               <div className="text-center py-20 glass-panel rounded-3xl">
@@ -161,11 +193,32 @@ export default async function PartnersPage({
                 </p>
               </div>
             ) : (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {partners.map((partner) => (
-                  <PartnerCard key={partner.slug} partner={partner} />
-                ))}
-              </div>
+              <>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {visiblePartners.map((partner) => (
+                    <PartnerCard key={partner.slug} partner={partner} />
+                  ))}
+                </div>
+                {totalPages > 1 && (
+                  <div className="flex items-center justify-center gap-4 mt-12">
+                    {currentPage > 1 ? (
+                      <Link href={pageHref(currentPage - 1)} className="px-5 py-2 rounded-full text-sm bg-surface-highlight border border-white/10 text-gray-300 hover:text-white transition-all">
+                        ← Previous
+                      </Link>
+                    ) : (
+                      <span className="px-5 py-2 rounded-full text-sm text-gray-600 border border-white/5">← Previous</span>
+                    )}
+                    <span className="text-sm text-gray-400">Page {currentPage} of {totalPages}</span>
+                    {currentPage < totalPages ? (
+                      <Link href={pageHref(currentPage + 1)} className="px-5 py-2 rounded-full text-sm bg-surface-highlight border border-white/10 text-gray-300 hover:text-white transition-all">
+                        Next →
+                      </Link>
+                    ) : (
+                      <span className="px-5 py-2 rounded-full text-sm text-gray-600 border border-white/5">Next →</span>
+                    )}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
