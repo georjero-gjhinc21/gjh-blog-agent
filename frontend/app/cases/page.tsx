@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Case Studies',
-  description: 'Real results from government contracting projects. See how we help agencies and contractors succeed.',
+  description: 'Selected client work: what was asked, what we did, and what changed.',
   alternates: {
     canonical: '/cases',
   },
@@ -19,7 +19,7 @@ export default function CasesPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Case Studies",
-    "description": "Real results from government contracting projects.",
+    "description": "Selected client work, told plainly.",
     "url": "https://gjhconsulting.net/cases",
     "numberOfItems": allCases.length,
     "itemListElement": allCases.map((caseStudy, index) => ({
@@ -44,10 +44,10 @@ export default function CasesPage() {
             <div className="text-center mb-16">
               <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-4 block">Proven Results</span>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-                Our <span className="text-gradient">Case Studies</span>
+                Selected <span className="text-gradient">Work</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                See how we've helped government agencies and contractors achieve measurable success.
+                A few engagements, told plainly: what was asked, what we did, and what changed.
               </p>
             </div>
 

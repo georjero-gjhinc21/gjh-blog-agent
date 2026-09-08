@@ -71,3 +71,4 @@ package/
 !*.md
 # Allow frontend/lib (Python lib/ is ignored above)
 !frontend/lib/
+.vercel

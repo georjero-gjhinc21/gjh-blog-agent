@@ -4,7 +4,7 @@ import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact - GJH Consulting',
-  description: 'Get in touch with GJH Consulting for expert government contracting guidance.',
+  description: 'Tell us what you are trying to do. A paragraph is plenty.',
   alternates: {
     canonical: '/contact',
   },
@@ -15,7 +15,7 @@ export default function ContactPage() {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": "Contact GJH Consulting",
-    "description": "Get in touch with GJH Consulting for expert government contracting guidance.",
+    "description": "Tell us what you are trying to do. A paragraph is plenty.",
     "url": "https://gjhconsulting.net/contact"
   }
 
@@ -33,10 +33,10 @@ export default function ContactPage() {
             <div className="text-center mb-16 animate-fade-in">
               <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-4 block">Get in Touch</span>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-                Let's Build Your <span className="text-gradient">Federal Strategy</span>
+                Tell Us What <span className="text-gradient">You're Trying to Do</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Ready to win more government contracts? Our team of experts is here to guide you through every step of the process.
+                A paragraph is plenty. We reply honestly \u2014 whether it’s a job for AI, a job for a pipeline, or not a job at all.
               </p>
             </div>
 
@@ -56,7 +56,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <h3 className="text-xl font-bold mb-2 text-white">Email Us</h3>
-                  <p className="text-gray-400 mb-4">Direct line to our contracting experts.</p>
+                  <p className="text-gray-400 mb-4">Direct line to the people who do the work.</p>
                   <a href="mailto:info@gjhconsulting.net" className="text-primary-400 hover:text-primary-300 font-medium text-lg transition-colors">
                     info@gjhconsulting.net
                   </a>
@@ -66,11 +66,11 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold mb-6 text-white">Our Services</h3>
                   <ul className="space-y-4">
                     {[
-                      'Government Contracting Consulting',
-                      'GSA Schedule Management',
-                      'SBIR/STTR Grant Support',
-                      'Cybersecurity Compliance',
-                      'Technology Solutions'
+                      'AI Advisory',
+                      'Assistants & Automation',
+                      'Data Foundations',
+                      'Ongoing Support',
+                      'Not sure it\'s AI? Ask anyway'
                     ].map((item, index) => (
                       <li key={index} className="flex items-start text-gray-300">
                         <svg className="w-5 h-5 text-accent-cyan mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

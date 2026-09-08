@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Partner Programs - Trusted Tools & Platforms',
-  description: 'Explore our curated partner programs featuring trusted tools for government contracting, project management, cybersecurity, and more.',
+  description: 'Software we use and recommend in client work: project tracking, data, security, and everyday operations.',
   alternates: {
     canonical: '/partners',
   },
@@ -101,7 +101,7 @@ export default async function PartnersPage({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Partner Programs",
-    "description": "Curated partner programs featuring trusted tools for government contracting.",
+    "description": "Software we use and recommend in client work.",
     "url": "https://gjhconsulting.net/partners",
     "numberOfItems": partners.length,
   }
@@ -117,12 +117,12 @@ export default async function PartnersPage({
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-4 block">Partner Programs</span>
+              <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-4 block">Resources</span>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
                 Trusted <span className="text-gradient">Tools & Platforms</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Explore curated partner programs featuring trusted tools for government contracting, cybersecurity, project management, and more.
+                Software we use and recommend in client work \u2014 tracking, data, security, everyday operations. Some links earn us a commission; every page says so.
               </p>
             </div>
 

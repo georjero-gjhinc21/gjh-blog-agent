@@ -40,7 +40,7 @@ export default function ContactForm() {
       const data = await res.json().catch(() => ({}))
       if (res.ok) {
         setStatus('success')
-        setFeedback("Message sent. We'll be in touch.")
+        setFeedback("Message sent. We’ll be in touch.")
         setName('')
         setEmail('')
         setSubject('')

@@ -57,7 +57,7 @@ export default async function Image() {
               maxWidth: 800,
             }}
           >
-            Government Contracting • GSA Schedules • Technology
+            AI Strategy • Building • Data Foundations
           </div>
         </div>
       </div>

@@ -19,10 +19,10 @@ const socialLinks = [
 ]
 
 const topicLinks = [
-  { name: 'Gov Contracting', slug: 'government-contracting' },
-  { name: 'GSA Schedules', slug: 'gsa-schedules' },
-  { name: 'Cybersecurity', slug: 'cybersecurity' },
-  { name: 'AI Solutions', slug: 'ai-solutions' },
+  { name: 'AI Strategy', slug: 'ai-strategy' },
+  { name: 'Data Foundations', slug: 'data-foundations' },
+  { name: 'AI in Production', slug: 'ai-in-production' },
+  { name: 'Working With Us', slug: 'working-with-us' },
 ]
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -74,7 +74,7 @@ export default function Footer() {
               GJH Consulting
             </Link>
             <p className="text-gray-400 leading-relaxed mb-6">
-              Empowering businesses to navigate the complexities of government contracting with next-generation insights and AI-driven strategies.
+              An AI-first partner helping teams put AI to work \u2014 honest advice, systems that hold up, data in good order.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -114,7 +114,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-white font-bold mb-6">Newsletter</h4>
-            <p className="text-gray-400 mb-4">Subscribe to our newsletter for the latest federal market insights.</p>
+            <p className="text-gray-400 mb-4">Short notes from the work. Useful, no noise.</p>
             <form className="space-y-4" onSubmit={handleSubscribe}>
               <input
                 type="email"
@@ -138,6 +138,7 @@ export default function Footer() {
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <a href="https://gjh-inc.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Part of GJH Inc</a>
           </div>
         </div>
       </div>

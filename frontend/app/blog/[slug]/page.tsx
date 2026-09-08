@@ -152,7 +152,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 
                 <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white relative z-10">Need Expert Guidance?</h3>
                 <p className="text-gray-300 mb-8 max-w-2xl mx-auto relative z-10 text-lg">
-                  Our team specializes in helping companies navigate government contracting successfully. Let's discuss your strategy.
+                  Our team helps companies put AI to work where it genuinely helps. Tell us what you are trying to do.
                 </p>
                 <div className="relative z-10">
                   <Link href="/contact" className="btn-primary inline-flex items-center">

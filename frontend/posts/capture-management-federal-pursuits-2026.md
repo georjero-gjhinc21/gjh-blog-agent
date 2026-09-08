@@ -1,52 +1,34 @@
 ---
 {
-  "title": "Capture Management That Wins: Running Federal Pursuits Like a Program, Not a Fire Drill",
+  "title": "Running AI Pilots That Survive Production",
   "slug": "capture-management-federal-pursuits-2026",
-  "excerpt": "Most lost bids are lost months before the RFP drops. A disciplined capture process — with clear gates, customer intelligence, and proposal operations — turns chaotic pursuits into repeatable wins.",
+  "excerpt": "Most AI pilots die between demo and production. A short discipline — qualify, shadow, check the data, build small — gets them through.",
   "date": "2026-09-08T11:00:00.000Z",
-  "keywords": ["capture management", "federal proposals", "business development", "GovCon strategy", "proposal management"],
-  "description": "Most lost bids are lost months before the RFP drops. How disciplined capture management turns chaotic federal pursuits into repeatable wins."
+  "keywords": ["AI in Production", "AI Pilots", "Delivery", "Scoping"],
+  "description": "Most AI pilots die between demo and production. How a short, honest discipline gets them through."
 }
 ---
 
-Ask a room of federal contractors why they lost a bid and most will blame pricing or incumbency. Dig deeper and the real cause usually surfaces earlier: the pursuit was never managed as a program. It was a fire drill that started at RFP release — months after the winner had already shaped the requirement.
+Ask a room of teams why their AI pilot stalled and most will blame the model. Dig deeper and the real cause usually surfaces earlier: the pilot was never set up to survive production. It was a demo with a deadline — started before anyone checked the data, the users, or what "working" meant.
 
-## What Capture Actually Is
+## What a Pilot Actually Is
 
-Capture management is the structured work between opportunity identification and proposal submission: qualifying the deal, understanding the customer, shaping the acquisition, building the team, and arriving at RFP release with a win strategy instead of a blank page. Organizations that run formal capture processes consistently report higher win rates than those that "respond to RFPs" as their entire strategy.
+A pilot is the structured work between a promising demo and a system people rely on: qualifying the job, watching how the work really happens, checking the data underneath, and arriving at production with something small that holds up. Teams that run pilots this way ship. Teams that skip it restart.
 
 ## The Four Gates
 
-**Gate 1: Qualify ruthlessly.** Score every opportunity on customer access, past performance fit, competitive position, and resource cost. Pursue fewer deals with higher probability. A pursuit you should not have bid is the most expensive kind of loss.
+**Gate 1: Qualify honestly.** Ask whether the job needs AI at all. Drafting, triage, and retrieval across messy documents — strong candidates. Final judgment calls, negotiations, thin data — usually not. A pilot you should not have started is the most expensive kind of pilot. Saying so early is doing the job right.
 
-**Gate 2: Know the customer better than the competition.** Map the program office, the contracting shop, and the end users. Understand the mission problem in their words. Incumbents win largely because of this information advantage — your capture plan must deliberately dismantle it through sources-sought responses, industry days, and capability briefings.
+**Gate 2: Shadow the work.** Sit with the people doing the job for a few days. The workflow as described in a meeting and the workflow as lived are rarely the same, and the difference is where pilots fail. Understand the task in their words before proposing anything.
 
-**Gate 3: Shape before the solicitation.** Comments on draft RFPs, questions that surface evaluation risks, teaming that fills genuine gaps — this is where small businesses partnering strategically can neutralize scale disadvantages. Teaming intelligence matters as much as technical approach; see how targeted partnerships expand addressable work in our [partner programs](/partners).
+**Gate 3: Check the data.** Profile the source systems: row counts, freshness, null rates, who owns what. If a dashboard number cannot be traced to the row that produced it, a model's answer cannot be trusted either. Fix the data first or pick a different pilot — there is no third option that ends well.
 
-**Gate 4: Proposal operations.** Color reviews, compliance matrices, and page discipline only work with schedule control. Federal proposals routinely coordinate a dozen contributors across companies and time zones — running that effort on email threads is how sections go missing. Purpose-built [project management platforms](/partners/clickup) with deadline tracking and review workflows pay for themselves in a single must-win bid, and day-to-day [team communication](/partners/slack) keeps distributed capture teams aligned between milestones.
-
-## Teaming and Subcontracting Discipline
-
-For small contractors, the teaming decision often determines the outcome before writing starts. Vet partners on past performance relevance and financial stability, negotiate workshare early, and document exclusivity where it counts. Our federal IT modernization work shows how the right teaming structure wins: read the [case study](/cases/federal-it-modernization-case).
+**Gate 4: Build small, harden early.** One workflow, a handful of users, tracked visibly from day one. Purpose-built [project tracking](/partners/clickup) with a short feedback loop beats a grand roadmap every time. Control who can touch the tools and the data from the start — shared logins and mystery access become incidents later, so set up proper [credential and access management](/partners/1password) before the pilot grows.
 
 ## Measure It
 
-Track capture win rate, average pursuit cost, and bid-to-qualify ratio quarterly. If your win rate sits below 30% on qualified pursuits, the problem is rarely the writers — it is Gate 1 discipline or Gate 2 intelligence. Fix the front of the funnel before rewriting the back.
+Track three things weekly: task success rate on real inputs, time saved per user, and escalations to humans. If success rate sits below what the team tolerates after a month of real use, the problem is rarely tuning — it is Gate 1 or Gate 3. Fix the front of the funnel before rebuilding the back. And if the numbers say stop, stop. A stopped pilot that cost little is a good outcome; a zombie pilot that costs attention every week is not.
 
-## The Capture Toolkit: Roles and Artifacts
+## The Toolkit Question
 
-Process needs owners and outputs, or it stays a poster on the wall. Minimum viable capture infrastructure:
-
-**A named capture manager per major pursuit.** Not the proposal manager wearing two hats the week before submission — someone accountable for Gates 1–3 from identification onward. For smaller shops, this can be a fractional role, but it must be explicit.
-
-**A living capture plan.** One document per pursuit: customer analysis, competitive assessment (black-hat review of each likely competitor's strengths and ghosting strategy), win themes, teaming map, and price-to-win range. Updated at every gate, not written once and shelved.
-
-**Price-to-win started early.** Too many teams discover their price position during final review, when only destructive cuts remain. Build the independent cost estimate alongside technical strategy so win themes and pricing tell one coherent story.
-
-**A bid calendar with teeth.** Every gate has a date and a decision-maker. Pursuits without no-bid authority at each gate accumulate zombie bids that drain proposal budgets. Killing a weak pursuit at Gate 2 is a win — it funds two stronger ones.
-
-Small teams sometimes resist this scaffolding as "big-company process." The irony is that small contractors need it more: with fewer at-bats, each pursuit carries more of the year's revenue target. Discipline scales down just fine; chaos does not.
-
-## Bottom Line
-
-Federal buyers reward contractors who demonstrate they understand the mission before the proposal is due. Build the four gates into your operating rhythm, invest in the intelligence and teaming work competitors skip, and run every pursuit with program discipline. The RFP response then becomes the formality it should be — not the starting gun.
+Process needs owners, or it stays a poster on the wall. Name one person accountable for the pilot end to end — not a committee, a person. Give them direct access to users and the authority to kill the pilot. Then judge the work, not the deck. See the tools we reach for in our [partner programs](/partners).

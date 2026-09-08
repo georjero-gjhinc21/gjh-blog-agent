@@ -1,112 +1,77 @@
 ---
-title: "Federal IT Modernization: Transforming Legacy Systems for Agency Success"
+title: "From Spreadsheets to a Warehouse People Trust"
 slug: "federal-it-modernization-case"
-excerpt: "How we helped a federal agency modernize their legacy IT infrastructure while maintaining continuous operations."
+excerpt: "A distributor with five versions of every sales number got one warehouse, nightly pipelines, and lineage anyone could follow."
 date: "2026-08-21"
-keywords: ["IT Modernization", "Legacy Systems", "Federal IT", "Cloud Migration", "Digital Transformation"]
+keywords: ["Data Foundations", "Warehouse", "Pipelines", "Analytics"]
 type: "case-study"
-client: "Federal Information Systems Agency"
-challenge: "Legacy systems causing security vulnerabilities and operational inefficiencies"
-solution: "Phased cloud migration with zero downtime strategy"
-results: "73% reduction in maintenance costs, 99.9% uptime achieved"
+client: "A food distributor"
+challenge: "Five versions of every sales number across spreadsheets, and no one able to say which was right"
+solution: "One warehouse, nightly pipelines, and documented lineage — built with the client's analyst, not around them"
+results: "One trusted dashboard, hours returned weekly, and AI-ready data as a side effect"
 ---
 
-# Federal IT Modernization: Transforming Legacy Systems for Agency Success
+# From Spreadsheets to a Warehouse People Trust
 
-## Executive Summary
+## Summary
 
-This case study examines how a partner a major federal information systems agency to modernize their legacy IT infrastructure while maintaining continuous operations and meeting strict compliance requirements.
+A food distributor ran the business on spreadsheets: sales kept one, finance kept another, operations a third — five versions of every number and a monthly argument about which was right. We built one warehouse with nightly pipelines and lineage anyone could follow, working alongside their analyst so the knowledge stayed in the building.
 
 ## The Challenge
 
-The client faced several critical challenges:
+### The Problem
+Every planning meeting started with reconciling numbers instead of using them:
 
-- **Aging Infrastructure**: Legacy systems operating beyond their end-of-life support
-- **Security Vulnerabilities**: Inability to implement modern security controls
-- **High Maintenance Costs**: $2.3 million annually in legacy system maintenance
-- **Operational Inefficiency**: 40% of IT staff time spent on legacy maintenance
-- **Compliance Risk**: Difficulty meeting Federal Information Security Modernization Act (FISMA) requirements
+- **Five versions of truth**: Each department's spreadsheet told a different story about the same month.
+- **Manual everything**: Copy, paste, email, repeat — hours every week, errors every month.
+- **AI plans on hold**: Leadership wanted forecasting, but no model survives data nobody trusts.
+
+### Root Cause Analysis
+There was no owned, automatic path from source systems to decisions. Each team built its own because nobody owned the shared one. The fix was ownership and automation, not a bigger spreadsheet.
 
 ## Our Approach
 
-We developed a comprehensive modernization strategy focused on:
+### Phase 1: Profile the Sources (Week 1)
+- Shadowed the analyst through one full monthly close.
+- Documented every source system: row counts, freshness, null rates, quirks.
+- Named an owner for each source table — a person, not a department.
 
-### Phase 1: Assessment and Planning (Months 1-2)
-- Complete infrastructure inventory and assessment
-- Security posture evaluation against NIST 800-53 controls
-- Business process mapping and dependency analysis
-- Migration roadmap development
+### Phase 2: Build the Warehouse (Weeks 2–5)
+- Stood up a warehouse in the client's own cloud account.
+- Built nightly pipelines from order, inventory, and accounting systems.
+- Published one sales dashboard matching the reconciled numbers both teams signed off.
 
-### Phase 2: Infrastructure Modernization (Months 3-8)
-- Cloud architecture design following Federal Risk and Authorization Management Program (FedRAMP) standards
-- Network segmentation and zero-trust implementation
-- Identity and access management modernization
-- Application migration in priority order
-
-### Phase 3: Migration and Testing (Months 9-12)
-- Phased migration with rollback capabilities
-- Comprehensive testing at each migration stage
-- User training and change management
-- Performance optimization
-
-### Phase 4: Stabilization and Optimization (Months 13-15)
-- Post-migration monitoring and optimization
-- Documentation and knowledge transfer
-- Operational procedures development
-- Long-term strategic planning
+### Phase 3: Handover (Week 6)
+- Documented lineage end to end: every dashboard number traceable to its rows.
+- Trained the analyst to extend pipelines and onboard new sources.
+- Archived the competing spreadsheets in a small ceremony nobody mourned.
 
 ## Key Achievements
 
 ### Quantitative Results
-- **73% reduction** in annual maintenance costs
-- **99.9% uptime** achieved during and after migration
-- **60% faster** incident response times
-- **45% improvement** in system performance metrics
-- **Zero unplanned downtime** during entire migration
+- **One dashboard** both teams now plan from — the monthly reconciliation meeting no longer exists.
+- **Hours returned weekly** to analysis instead of copy-paste.
+- **Six weeks** from kickoff to handover.
 
 ### Qualitative Benefits
-- Modern security controls meeting all FISMA requirements
-- Improved staff morale through reduced legacy system maintenance
-- Enhanced user experience with modern interfaces
-- Flexible infrastructure supporting future growth
-- Comprehensive documentation for regulatory compliance
-
-## Technical Solutions Implemented
-
-### Cloud Architecture
-- Multi-region cloud deployment for redundancy
-- Automated backup and disaster recovery
-- Real-time monitoring and alerting
-- Scalable compute and storage resources
-
-### Security Modernization
-- Zero-trust network architecture
-- Multi-factor authentication implementation
-- Continuous vulnerability scanning
-- Automated security patching
-
-### Application Migration
-- Containerization of legacy applications
-- API gateway implementation
-- Microservices architecture adoption
-- Integration with existing federal systems
+- Arguments about numbers replaced by arguments about decisions — the upgrade that matters.
+- Lineage documentation means new hires trust the data in days, not quarters.
+- The forecasting project they wanted is now possible; the data is ready when they are.
 
 ## Lessons Learned
 
-1. **Executive Sponsorship**: Critical for successful modernization
-2. **Stakeholder Communication**: Regular updates maintained support
-3. **Phased Approach**: Reduced risk while maintaining operations
-4. **Staff Training**: Essential for long-term success
-5. **Vendor Management**: Careful selection and management of contractors
+1. **Shadow before schema**: Watching one full cycle beats a month of requirements meetings.
+2. **Owners, not committees**: Every table needs one person who cares if it is right.
+3. **Build beside, not around**: Their analyst co-built everything, so nothing left with us.
+4. **Boring wins**: Nightly pipelines and documentation beat clever architecture.
 
 ## Conclusion
 
-This modernization effort demonstrates that legacy system modernization is achievable in federal environments with careful planning, proper execution, and strong stakeholder engagement. The agency now has a modern, secure, and scalable infrastructure that supports current operations and future growth.
+Nobody writes poems about a warehouse, but everything the business wants next — forecasting, assistants, real planning — stands on it. Six weeks of unglamorous work bought them years of trustworthy numbers. That is the trade, and it is always worth making.
 
 ---
 
-**Client**: Federal Information Systems Agency  
-**Duration**: 15 months  
-**Team Size**: 12 consultants  
-**Budget**: $8.7 million  
-**Outcome**: Complete success with quantifiable improvements
+**Client**: A food distributor
+**Duration**: 6 weeks
+**Team Size**: 2 consultants
+**Outcome**: One trusted warehouse, owned and run by the client

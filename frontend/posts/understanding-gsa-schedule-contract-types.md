@@ -1,140 +1,34 @@
 ---
-title: "Understanding GSA Schedule Contract Types: A Comprehensive Guide for Federal Contractors"
+title: "Where AI Genuinely Helps (and Where It Doesn't)"
 slug: "understanding-gsa-schedule-contract-types"
-excerpt: "Learn the differences between Schedule 65, Schedule 70, and Multi-Agency Schedules, and which is right for your government contracting business."
+excerpt: "An honest map: drafting, triage, and retrieval shine; final judgment calls and thin data don't. How we score eleven candidates down to two."
 date: "2026-08-21"
-keywords: ["GSA Schedule", "Federal Contracts", "MAS", "Contracting", "Government Procurement"]
+keywords: ["AI Strategy", "Advisory", "Automation", "Scoping"]
+description: "An honest map of where AI genuinely helps and where it doesn't, plus how we score candidates before anyone spends real money."
 ---
 
-# Understanding GSA Schedule Contract Types: A Comprehensive Guide for Federal Contractors
+# Where AI Genuinely Helps (and Where It Doesn't)
 
-For government contractors, navigating the Federal Supply Schedule (FSS) program, also known as Schedule 65, can be one of the most transformative steps in building a sustainable federal contracting business. But with multiple schedule types available, understanding which contract type aligns with your business capabilities is critical to success.
+Every team has a list of jobs they hope AI will take over. About two in eleven survive contact with reality — and that is good news, because the two are usually worth more than the eleven combined. Here is the map we use, refined over years of telling people both answers.
 
-## What Are GSA Schedules?
+## Where It Shines
 
-GSA Schedules are long-term, government-wide contracts that allow federal agencies to purchase commercial products and services quickly and efficiently. Through the Multiple Award Schedule (MAS) program, GSA pre-negotiates terms, conditions, and pricing, making the procurement process faster for both buyers and sellers.
+- **Drafting from source material.** First drafts of reports, summaries, and responses grounded in your documents. A person still reviews — but the blank page is gone.
+- **Triage and routing.** Sorting incoming requests, tickets, and applications by content. High volume, clear categories, human confirms the edge cases.
+- **Retrieval across messy knowledge.** Finding the right paragraph across thousands of pages in seconds. This alone justifies most of our engagements.
+- **Repetitive transformation.** Reformatting, extracting, reconciling — work that is rules-shaped but too varied to script.
 
-## Schedule 65: Federal Supply Schedules
+## Where It Doesn't
 
-Schedule 65 is the original and most established GSA contract vehicle. It's designed for contractors offering commercial products and services across diverse categories.
+- **Final judgment calls.** Hiring, lending, medical, legal outcomes — anything where a wrong answer harms a person. AI can prepare the file; a person decides.
+- **Negotiations and relationships.** Trust is built by people showing up. Sending a model signals the opposite.
+- **Thin or forbidden data.** Fewer than a few hundred examples, or data you should not have in the first place. Both end badly.
+- **Work nobody understands.** If no person can describe how the task is done well, there is nothing to teach the system.
 
-### Key Characteristics
-- **Flexibility**: Covers a wide range of products and services
-- **Price Negotiation**: Competitive pricing through market research
-- **Award Process**: Requires a competitive solicitation for new schedules
-- **Compliance**: Subject to FAR Part 38 regulations
+## Scoring Candidates
 
-### Best For
-- Established companies with proven commercial expertise
-- Contractors offering diverse product and service portfolios
-- Businesses seeking maximum visibility across federal agencies
+List every candidate job and score it on volume, pain, data readiness, error tolerance, and reversibility. Eleven candidates typically compress to two worth building, three worth deferring, and six worth declining with thanks. The declines are the valuable part — each one is money and months given back.
 
-## Schedule 70: Technology and Professional Services
+## Running an Honest Trial
 
-Schedule 70 represents a specialized category focusing on information technology solutions and professional services. This schedule has been expanded to address the growing demand for technology-driven solutions in government.
-
-### Technology Categories
-- Enterprise software solutions
-- Cloud computing services
-- Cybersecurity products and services
-- Data analytics and AI solutions
-- IT infrastructure services
-
-### Professional Services
-- Management consulting
-- Technical consulting
-- Training and development
-- Research and development services
-
-### Best For
-- Technology-focused companies
-- Professional services firms
-- Contractors specializing in IT solutions
-
-## Multi-Agency Schedules (MAS)
-
-Multi-Agency Schedules represent a newer approach to government contracting, designed to streamline procurement across multiple agencies and reduce administrative burden.
-
-### Key Features
-- **Cross-Agency Utility**: Available to all executive branch agencies
-- **Streamlined Process**: Simplified contract administration
-- **Enhanced Flexibility**: Easier modifications and renewals
-- **Broader Reach**: Greater visibility across the federal government
-
-### Types of MAS Contracts
-1. **MAS 800**: Information Technology Services
-2. **MAS 801**: Technology Professional Services
-3. **MAS 802**: Scientific and Technical Professional Services
-4. **MAS 803**: Research and Development Services
-5. **MAS 804**: Professional Services (General)
-
-## Choosing the Right Schedule for Your Business
-
-Selecting the appropriate GSA Schedule requires careful consideration of several factors:
-
-### Business Capabilities
-- What products or services do you offer?
-- What is your technical expertise?
-- Can you scale to meet federal requirements?
-
-### Market Demand
-- Which agencies are your target customers?
-- What procurement categories align with your strengths?
-- How competitive is your chosen schedule category?
-
-### Compliance Requirements
-- Can you meet FAR Part 38 requirements?
-- Are you prepared for OIG audits?
-- Can you maintain fair and reasonable pricing?
-
-## The Award Process
-
-Understanding the timeline and requirements for obtaining a GSA Schedule is essential for planning:
-
-### Preparation Phase (3-6 months)
-1. Conduct market research to identify opportunities
-2. Develop comprehensive price lists
-3. Prepare technical capability statements
-4. Build relationships with incumbent contractors
-
-### Solicitation Phase (6-12 months)
-1. Submit proposals in response to GSA solicitations
-2. Undergo technical evaluation
-3. Participate in pricing competitions
-4. Address any deficiencies or clarifications
-
-### Award Phase (2-3 months)
-1. Receive contract award
-2. Complete administrative setup
-3. List on GSA eLibrary
-4. Begin marketing to federal buyers
-
-## Maintaining Compliance
-
-Once awarded, maintaining your GSA Schedule requires ongoing compliance efforts:
-
-### Pricing
-- **Fair and Reasonable**: Regular market price surveys
-- **Most Favored Customer (MFC)**: Commercial customers must receive equal or better terms
-- **Price Reductions**: Update pricing when commercial prices decrease
-
-### Administrative Requirements
-- **Annual Updates**: File mandatory annual certifications
-- **OIG Audits**: Cooperate with Office of Inspector General reviews
-- **Modification Requests**: Submit formal requests for changes
-
-## Looking Ahead
-
-The federal contracting landscape continues to evolve, with increasing emphasis on:
-- Innovation and technology adoption
-- Small business participation
-- Diversity in government supply chains
-- Enhanced cybersecurity requirements
-
-Contractors who stay informed about schedule changes, new solicitation opportunities, and evolving compliance requirements will be best positioned for long-term success.
-
-## Conclusion
-
-Choosing the right GSA Schedule type is a strategic decision that can significantly impact your federal contracting success. Whether you're pursuing Schedule 65, Schedule 70, or a Multi-Agency Schedule, understanding the requirements, benefits, and compliance obligations is essential.
-
-Work with experienced government contracting professionals, maintain thorough documentation, and stay proactive in your compliance efforts. Schedule 70 work in particular rewards tooling: [credential management](/partners/1password) for cybersecurity requirements and [project tracking](/partners/clickup) for delivery. Browse all [partner programs](/partners). The GSA Schedule program offers tremendous opportunities for qualified contractors—make sure you're positioned to take full advantage.
+For the two survivors, run a short trial on real inputs with real users. Track results where everyone involved can see them — a shared [project board](/partners/clickup) keeps the trial honest. Lock down access from day one: trial data deserves the same [credential discipline](/partners/1password) as production data, because it becomes production data the moment the trial succeeds. Judge at the end by the numbers you wrote down at the start, not by how impressive the demo felt.

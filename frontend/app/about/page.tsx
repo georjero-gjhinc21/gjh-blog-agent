@@ -4,7 +4,7 @@ import StructuredData from '@/components/StructuredData'
 
 export const metadata: Metadata = {
   title: 'About - GJH Consulting',
-  description: 'Learn about GJH Consulting and our expertise in government contracting.',
+  description: 'GJH Consulting is the AI-first front door of GJH Inc: practical help putting AI to work.',
   alternates: {
     canonical: '/about',
   },
@@ -15,7 +15,7 @@ export default function AboutPage() {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "name": "About GJH Consulting",
-    "description": "Learn about GJH Consulting and our expertise in government contracting.",
+    "description": "GJH Consulting is the AI-first front door of GJH Inc: practical help putting AI to work.",
     "url": "https://gjhconsulting.net/about"
   }
 
@@ -31,11 +31,11 @@ export default function AboutPage() {
           <div className="container mx-auto px-4 relative z-10 text-center">
             <span className="text-primary-400 font-semibold tracking-wider text-sm uppercase mb-4 block animate-fade-in">Our Story</span>
             <h1 className="text-5xl md:text-7xl font-bold mb-8 animate-slide-up leading-tight text-white">
-              Bridging Innovation & <br />
-              <span className="text-gradient">Federal Opportunity</span>
+              The AI-First <br />
+              <span className="text-gradient">Front Door of GJH Inc</span>
             </h1>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.1s' }}>
-              We are a team of government contracting veterans and technology experts dedicated to democratizing access to the federal marketplace.
+              We are the AI-first front door of <a href="https://gjh-inc.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-300 underline underline-offset-4">GJH Inc</a>, consulting since 2009. Senior people do the work, you own everything, and every engagement starts small enough to judge.
             </p>
           </div>
         </section>
@@ -51,23 +51,23 @@ export default function AboutPage() {
               </div>
               <h2 className="text-3xl font-bold mb-4 text-white">Our Mission</h2>
               <p className="text-lg text-gray-300 leading-relaxed">
-                To empower businesses of all sizes to successfully compete for and win government contracts by providing actionable insights, data-driven strategies, and expert guidance that demystifies the federal procurement process.
+                To help teams put AI to work where it genuinely helps: honest advice up front, systems that hold up in production, data kept in good order \u2014 and everything owned by the client.
               </p>
             </div>
 
             <div className="grid gap-8">
               <div className="card-modern p-10 flex flex-col justify-center h-full relative overflow-hidden">
                  <div className="absolute top-0 right-0 w-32 h-32 bg-accent-purple/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
-                <h3 className="text-2xl font-bold mb-3 text-white">Strategic Expertise</h3>
+                <h3 className="text-2xl font-bold mb-3 text-white">Senior People</h3>
                 <p className="text-gray-400">
-                  Decades of combined experience in GSA schedules, proposal management, and compliance.
+                  The person in the first meeting is the person doing the work. No handoff to a bench you have not met.
                 </p>
               </div>
               <div className="card-modern p-10 flex flex-col justify-center h-full relative overflow-hidden">
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent-cyan/10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none" />
-                <h3 className="text-2xl font-bold mb-3 text-white">Technology First</h3>
+                <h3 className="text-2xl font-bold mb-3 text-white">You Own Everything</h3>
                 <p className="text-gray-400">
-                  Leveraging AI and data analytics to identify opportunities before the competition.
+                  Code, infrastructure, and documentation \u2014 in your accounts. No dependency on us by design.
                 </p>
               </div>
             </div>
@@ -78,40 +78,40 @@ export default function AboutPage() {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-6 text-white">Our Capabilities</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">
-                Comprehensive solutions tailored for the modern federal contractor.
+                Four practices, one team \u2014 the same model as our parent company.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
-                  title: "GovCon Strategy",
-                  desc: "Market entry planning and competitive analysis.",
+                  title: "AI Advisory",
+                  desc: "Where AI is worth the effort \u2014 and where it isn’t.",
                   icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                 },
                 {
-                  title: "GSA Schedules",
-                  desc: "Full lifecycle management from submission to renewal.",
+                  title: "Assistants & Automation",
+                  desc: "Assistants and internal tools that hold up in production.",
                   icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 },
                 {
-                  title: "Cyber Compliance",
-                  desc: "CMMC and NIST 800-171 readiness assessments.",
+                  title: "Data Foundations",
+                  desc: "Warehouses, pipelines, and models \u2014 the unskippable part.",
                   icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                 },
                 {
-                  title: "Grant Support",
-                  desc: "Expert writing for SBIR/STTR funding opportunities.",
+                  title: "Ongoing Support",
+                  desc: "Monitoring, tuning, and support after launch.",
                   icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 },
                 {
-                  title: "Data Analytics",
-                  desc: "Custom dashboards for pipeline management.",
+                  title: "Team Training",
+                  desc: "Your people confident running what we built together.",
                   icon: "M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
                 },
                 {
-                  title: "Proposal Mgmt",
-                  desc: "Winning proposal development and color team reviews.",
+                  title: "Honest Assessment",
+                  desc: "A short, paid look at one workflow \u2014 proceed, defer, or stop.",
                   icon: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                 }
               ].map((item, index) => (
@@ -134,9 +134,9 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-20" />
             
             <div className="relative z-10 p-12 md:p-20 text-center">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Ready to Scale Your Government Business?</h2>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">Have Something AI Might Help With?</h2>
               <p className="text-xl text-primary-100 mb-10 max-w-2xl mx-auto">
-                Join the leading companies that trust GJH Consulting for their federal market strategy.
+                Start with a short, paid assessment of one workflow. Part of GJH Inc \u2014 consulting since 2009.
               </p>
               <Link href="/contact" className="btn-secondary bg-white text-primary-900 hover:bg-gray-100 border-transparent">
                 Get Started Today
