@@ -4,7 +4,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'GJH Consulting \u2014 AI-First Partner',
+  title: 'GJH Consulting — AI-First Partner',
   description: 'Practical help putting AI to work: advisory, building, data foundations, and ongoing support.',
   keywords: ['AI consulting', 'AI partner', 'data foundations', 'AI assistants', 'automation', 'AI strategy'],
   authors: [{ name: 'GJH Consulting' }],
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'GJH Consulting \u2014 AI-First Partner',
+    title: 'GJH Consulting — AI-First Partner',
     description: 'Practical help putting AI to work: advisory, building, data foundations, and ongoing support.',
     url: 'https://gjhconsulting.net',
     siteName: 'GJH Consulting',

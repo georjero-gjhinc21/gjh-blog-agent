@@ -36,7 +36,7 @@ export default function ContactPage() {
                 Tell Us What <span className="text-gradient">You're Trying to Do</span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                A paragraph is plenty. We reply honestly \u2014 whether it’s a job for AI, a job for a pipeline, or not a job at all.
+                A paragraph is plenty. We reply honestly — whether it’s a job for AI, a job for a pipeline, or not a job at all.
               </p>
             </div>
 

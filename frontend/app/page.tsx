@@ -35,7 +35,7 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <div className="inline-block mb-6 animate-fade-in">
             <span className="bg-surface-highlight border border-primary-500/30 text-primary-300 text-sm font-semibold px-4 py-1.5 rounded-full backdrop-blur-md">
-              AI-First Partner \u00b7 Part of GJH Inc
+              AI-First Partner · Part of GJH Inc
             </span>
           </div>
           
@@ -87,7 +87,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-4">Advisory</h3>
               <p className="text-gray-400 text-lg">
-                Where AI is worth the effort \u2014 and where it isn’t. We tell you both, in writing, before you spend more.
+                Where AI is worth the effort — and where it isn’t. We tell you both, in writing, before you spend more.
               </p>
             </div>
 
@@ -113,7 +113,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-4">Data Foundations</h3>
               <p className="text-gray-400">
-                Warehouses, pipelines, and models \u2014 the part everyone skips. We don’t.
+                Warehouses, pipelines, and models — the part everyone skips. We don’t.
               </p>
             </div>
 
@@ -177,7 +177,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center p-12 glass-panel rounded-3xl">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tell Us What You're Trying to Do</h2>
             <p className="text-xl mb-10 text-gray-300">
-              A paragraph is plenty. If it’s not a job for AI, we’ll tell you that too \u2014 and point you the right way.
+              A paragraph is plenty. If it’s not a job for AI, we’ll tell you that too — and point you the right way.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
               <input
