@@ -74,7 +74,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Work With Us</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">Senior people do the work. You own everything. Three commitments, in writing.</p>
+            <p className="text-gray-400 max-w-2xl mx-auto">Truth, transparency, and hard work. You own everything. Three commitments, in writing.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">

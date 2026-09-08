@@ -35,7 +35,7 @@ export default function AboutPage() {
               <span className="text-gradient">Front Door of GJH Inc</span>
             </h1>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.1s' }}>
-              We are the AI-first front door of <a href="https://gjh-inc.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-300 underline underline-offset-4">GJH Inc</a>, consulting since 2009. Senior people do the work, you own everything, and every engagement starts small enough to judge.
+              We are the AI-first front door of <a href="https://gjh-inc.com" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-300 underline underline-offset-4">GJH Inc</a>, consulting since 2009. We operate on truth, transparency, and hard work, starting with clean, clear, full requirements gathering so we know the need. You own everything, and every engagement starts small enough to judge.
             </p>
           </div>
         </section>
@@ -58,9 +58,9 @@ export default function AboutPage() {
             <div className="grid gap-8">
               <div className="card-modern p-10 flex flex-col justify-center h-full relative overflow-hidden">
                  <div className="absolute top-0 right-0 w-32 h-32 bg-accent-purple/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
-                <h3 className="text-2xl font-bold mb-3 text-white">Senior People</h3>
+                <h3 className="text-2xl font-bold mb-3 text-white">Our Principles</h3>
                 <p className="text-gray-400">
-                  The person in the first meeting is the person doing the work. No handoff to a bench you have not met.
+                  Truth, transparency, and hard work — with clean, clear, full requirements gathering so we know the need before we propose anything.
                 </p>
               </div>
               <div className="card-modern p-10 flex flex-col justify-center h-full relative overflow-hidden">
