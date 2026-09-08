@@ -164,3 +164,5 @@ Small business set-asides offer tremendous opportunities for qualified small bus
 Whether pursuing 8(a), HUBZone, SDVOSB, or WOSB certification, the key is to stay current with requirements, build strong capabilities, and develop competitive proposals. The federal government has committed significant contracting goals to small businesses—take advantage of these opportunities.
 
 Start by verifying your eligibility, understanding your size status, and developing a strategy for competing in set-aside procurements. Your government contracting future may depend on it.
+
+Set-aside wins also bring back-office load: [payroll and HR compliance](/partners/gusto) as you hire, and [project tracking](/partners/clickup) to deliver on time. Browse all [partner programs](/partners).

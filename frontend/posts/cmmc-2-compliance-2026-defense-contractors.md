@@ -24,7 +24,7 @@ If your contracts touch CUI — technical drawings, export-controlled data, oper
 
 Assessors see the same deficiencies repeatedly:
 
-1. **Access control without enforcement.** Policies say "least privilege" while shared admin accounts and ex-employee credentials linger. Identity and access management is the first place assessors look — modern [identity platforms](/partners/onelogin) with SSO and MFA enforcement close most of this gap in weeks, not months.
+1. **Access control without enforcement.** Policies say "least privilege" while shared admin accounts and ex-employee credentials linger. Identity and access management is the first place assessors look — modern [identity and password-management platforms](/partners/1password) with MFA enforcement close most of this gap in weeks, not months.
 2. **No centralized audit logging.** NIST 800-171 practice 3.3.1 requires audit review and analysis. Scattered logs across laptops and SaaS apps do not pass.
 3. **Unmanaged endpoints.** Contractor-owned devices without encryption, patching, or EDR are automatic findings.
 4. **Missing incident response plan.** A documented, tested plan — not a paragraph in an employee handbook.
