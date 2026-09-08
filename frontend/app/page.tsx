@@ -175,7 +175,7 @@ export default function Home() {
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center p-12 glass-panel rounded-3xl">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tell Us What You're Trying to Do.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tell Us What You're Trying to Do</h2>
             <p className="text-xl mb-10 text-gray-300">
               A paragraph is plenty. If it’s not a job for AI, we’ll tell you that too \u2014 and point you the right way.
             </p>
