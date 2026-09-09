@@ -1,0 +1,50 @@
+name: Weekly Partner Prune
+
+# Automatically removes partner catalog entries that are out of contract
+# (program gone from the PartnerStack/Impact accounts) or dead (link fails).
+# Opens a review PR with the removals + report; a human merges.
+# Revenue-based pruning is intentionally NOT automated (see script header).
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # every Monday at 09:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Prune dead/out-of-contract partners
+        env:
+          PARTNERSTACK_API_KEY: ${{ secrets.PARTNERSTACK_API_KEY }}
+          PARTNERSTACK_PARTNER_KEY: ${{ secrets.PARTNERSTACK_PARTNER_KEY }}
+          IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
+          IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+        run: |
+          python scripts/prune_partners.py --apply --report prune_report.md
+          cat prune_report.md
+
+      - name: Open PR with removals
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: 'chore(partners): weekly auto-prune of dead/out-of-contract links'
+          title: 'Weekly partner prune: remove dead/out-of-contract links'
+          body-path: prune_report.md
+          branch: automation/partner-prune
+          labels: 'automation,affiliates'
