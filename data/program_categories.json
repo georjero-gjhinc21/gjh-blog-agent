@@ -378,20 +378,6 @@
     "method": "llm",
     "raw": "Finance & Accounting"
   },
-  "part_sHwQec9exn6C5I": {
-    "name": "MCH Strategic Data",
-    "network": "partnerstack",
-    "category": "Marketing & CRM",
-    "keywords": [
-      "mchhealthcare",
-      "gjh inc",
-      "mch strategic data"
-    ],
-    "vendor_domain": "get.mchhealthcare.com",
-    "affiliate_url": "https://get.mchhealthcare.com/x1y23gs5531t",
-    "method": "llm",
-    "raw": "Marketing & CRM"
-  },
   "part_7T1mo2vPc5Lseg": {
     "name": "CloudTalk",
     "network": "partnerstack",
@@ -461,33 +447,6 @@
     "affiliate_url": "https://blackboxai.partnerlinks.io/eisqg4n1j0iy",
     "method": "llm",
     "raw": "Data & Analytics"
-  },
-  "part_yWySyyzLnpWi4a": {
-    "name": "Travel Code",
-    "network": "partnerstack",
-    "category": "Travel & Expense",
-    "keywords": [
-      "travel code",
-      "gjh inc",
-      "travel-code"
-    ],
-    "vendor_domain": "join.travel-code.com",
-    "affiliate_url": "https://join.travel-code.com/juyguhue2h5k",
-    "method": "llm",
-    "raw": "Travel & Expense"
-  },
-  "part_gc4pKabPd8Xg9A": {
-    "name": "GoFormz",
-    "network": "partnerstack",
-    "category": "Operations",
-    "keywords": [
-      "gjh inc",
-      "goformz"
-    ],
-    "vendor_domain": "join.goformz.com",
-    "affiliate_url": "https://join.goformz.com/s53663651ncx",
-    "method": "llm",
-    "raw": "Operations"
   },
   "part_IJEfhHvLLhY5X0": {
     "name": "Close",
@@ -720,19 +679,6 @@
     "method": "llm",
     "raw": "Finance & Accounting"
   },
-  "part_IwxfVEab9PCZ3M": {
-    "name": "Logome.ai",
-    "network": "partnerstack",
-    "category": "Finance & Accounting",
-    "keywords": [
-      "gjh inc",
-      "logome.ai"
-    ],
-    "vendor_domain": "logomeai.partnerlinks.io",
-    "affiliate_url": "https://logomeai.partnerlinks.io/3grwvbc3mz0h",
-    "method": "llm",
-    "raw": "Finance & Accounting"
-  },
   "part_2axzKeCggZ3o5H": {
     "name": "VisualCV",
     "network": "partnerstack",
@@ -800,20 +746,6 @@
     "method": "llm",
     "raw": "Marketing & CRM"
   },
-  "part_LHzBO5Ka5PS6dj": {
-    "name": "Multiplier Technologies Pte Ltd",
-    "network": "partnerstack",
-    "category": "Finance & Accounting",
-    "keywords": [
-      "gjh inc",
-      "multiplier technologies pte ltd",
-      "usemultiplier"
-    ],
-    "vendor_domain": "affilate.usemultiplier.com",
-    "affiliate_url": "https://affilate.usemultiplier.com/29n42vo2kukq",
-    "method": "llm",
-    "raw": "Finance & Accounting"
-  },
   "part_ZSws17AhBOcaLI": {
     "name": "AdCreative.ai",
     "network": "partnerstack",
@@ -868,46 +800,6 @@
     "method": "llm",
     "raw": "Project Management"
   },
-  "part_Dd5GZOdmwyRMrq": {
-    "name": "Laxis",
-    "network": "partnerstack",
-    "category": "Travel & Expense",
-    "keywords": [
-      "gjh inc",
-      "laxis"
-    ],
-    "vendor_domain": "get.laxis.com",
-    "affiliate_url": "https://get.laxis.com/ilr989ebljum",
-    "method": "llm",
-    "raw": "Travel & Expense"
-  },
-  "part_BQgLKWOFEzFrIO": {
-    "name": "KnowledgeNet.ai",
-    "network": "partnerstack",
-    "category": "Data & Analytics",
-    "keywords": [
-      "gjh inc",
-      "knowledgenet.ai?source={partner_key}",
-      "knowledgenet.ai"
-    ],
-    "vendor_domain": "corp.knowledgenet.ai",
-    "affiliate_url": "https://corp.knowledgenet.ai/4ablmjtbsuiq",
-    "method": "llm",
-    "raw": "Data & Analytics"
-  },
-  "part_zbT6aGgPjTIaDg": {
-    "name": "Guidde",
-    "network": "partnerstack",
-    "category": "Travel & Expense",
-    "keywords": [
-      "gjh inc",
-      "guidde"
-    ],
-    "vendor_domain": "affiliate.guidde.com",
-    "affiliate_url": "https://affiliate.guidde.com/j7gp3d07tpip",
-    "method": "llm",
-    "raw": "Travel & Expense"
-  },
   "part_s3Nb4bgvNpkue9": {
     "name": "Warmy.io",
     "network": "partnerstack",
@@ -934,20 +826,6 @@
     "affiliate_url": "https://webai.partnerlinks.io/ebngzsqlh3sp",
     "method": "llm",
     "raw": "Finance & Accounting"
-  },
-  "part_1u1XbSZHXpOrVi": {
-    "name": "Zeligate",
-    "network": "partnerstack",
-    "category": "Cybersecurity & Identity",
-    "keywords": [
-      "gjh inc",
-      "zeligate",
-      "zeligate.ai"
-    ],
-    "vendor_domain": "try.zeligate.ai",
-    "affiliate_url": "https://try.zeligate.ai/r4q2y4uuibnc",
-    "method": "llm",
-    "raw": "Cybersecurity & Identity"
   },
   "part_J50dl6s9kDGVFc": {
     "name": "Eleven Labs Inc.",
@@ -976,20 +854,6 @@
     "affiliate_url": "https://try.web.clickup.com/f1xmsye5bi9s-ftpxvl",
     "method": "llm",
     "raw": "Project Management"
-  },
-  "part_ttgLbFiaSpuP6Y": {
-    "name": "Alli AI",
-    "network": "partnerstack",
-    "category": "Finance & Accounting",
-    "keywords": [
-      "gjh inc",
-      "alli ai",
-      "alliai"
-    ],
-    "vendor_domain": "try.alliai.com",
-    "affiliate_url": "https://try.alliai.com/b2bvw6r76jex",
-    "method": "llm",
-    "raw": "Finance & Accounting"
   },
   "part_2jhDKlhFgm1wQn": {
     "name": "Landbot",
@@ -1492,19 +1356,6 @@
     ],
     "vendor_domain": "appsumo.8odi.net",
     "affiliate_url": "https://appsumo.8odi.net/c/5873369/416948/7443",
-    "method": "llm",
-    "raw": "Marketing & CRM"
-  },
-  "17020": {
-    "name": "LightInTheBoxLimited",
-    "network": "impact",
-    "category": "Marketing & CRM",
-    "keywords": [
-      "printrendy",
-      "lightintheboxlimited"
-    ],
-    "vendor_domain": "printrendy.pxf.io",
-    "affiliate_url": "https://printrendy.pxf.io/c/5873369/1432688/17020",
     "method": "llm",
     "raw": "Marketing & CRM"
   },
@@ -2134,20 +1985,6 @@
     "affiliate_url": "https://babysunnies.pxf.io/c/5873369/1980009/24279",
     "method": "llm",
     "raw": "Marketing & CRM"
-  },
-  "18134": {
-    "name": "MushroomSupplies.com",
-    "network": "impact",
-    "category": "HR & Payroll",
-    "keywords": [
-      "hr",
-      "mushroomsupplies.com",
-      "mushroomsupplies"
-    ],
-    "vendor_domain": "mushroom-supplies.sjv.io",
-    "affiliate_url": "https://mushroom-supplies.sjv.io/c/5873369/1554002/18134",
-    "method": "llm",
-    "raw": "HR & Payroll"
   },
   "18544": {
     "name": "Hangzhou Tangpushi Home Products Co., Ltd",
