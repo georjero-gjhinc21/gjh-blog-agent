@@ -3,7 +3,7 @@
 
 Reads data/program_categories.json (reviewed classifier output), preserves
 hand-curated entries by slug, dedupes by vendor domain across networks,
-drafts missing descriptions via local Ollama (flagged in stdout, not in output),
+drafts missing descriptions via the NVIDIA LLM (flagged in stdout, not in output),
 and writes a TS data module.
 
 Usage:
@@ -82,8 +82,8 @@ def main() -> int:
 
     client = None
     if args.draft_descriptions:
-        from utils.ollama_client import OllamaClient
-        client = OllamaClient()
+        from utils.nvidia_client import NvidiaClient
+        client = NvidiaClient()
 
     taken = set(preserve)
     entries, skipped, drafted = [], 0, 0

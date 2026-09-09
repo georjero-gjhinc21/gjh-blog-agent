@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Classify affiliate programs into the canonical site taxonomy (Slice 2).
 
-Reads programs from PartnerStack + Impact clients, asks local Ollama
-(llama3.1:8b) to pick EXACTLY one bucket from the closed list, validates,
+Reads programs from PartnerStack + Impact clients, asks the NVIDIA LLM
+to pick EXACTLY one bucket from the closed list, validates,
 falls back to keyword rules, and writes reviewable JSON. Idempotent and
 resumable: already-classified entries (by external_id or name) are skipped
 unless --refresh is passed.
@@ -103,7 +103,7 @@ def main() -> int:
 
     from utils.partnerstack_client import PartnerStackClient
     from utils.impact_client import ImpactClient
-    from utils.ollama_client import OllamaClient
+    from utils.nvidia_client import NvidiaClient
 
     programs = []
     for p in PartnerStackClient().get_all_programs():
@@ -123,7 +123,7 @@ def main() -> int:
     if out_path.exists() and not args.refresh:
         existing = json.loads(out_path.read_text())
 
-    client = OllamaClient()
+    client = NvidiaClient()
     results = dict(existing)
     done = 0
     for p in programs:
