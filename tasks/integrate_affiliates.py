@@ -2,7 +2,14 @@ from celery import shared_task
 from pathlib import Path
 import re
 
-@shared_task(bind=True)
+@shared_task(
+    bind=True,
+    autoretry_for=(Exception,),
+    retry_kwargs={"max_retries": 3},
+    retry_backoff=True,
+    retry_backoff_max=600,
+    retry_jitter=True,
+)
 def integrate_affiliates_task(self, limit: int = 0):
     """Integrate affiliates into frontend posts asynchronously.
     If limit>0, process only that many posts.
