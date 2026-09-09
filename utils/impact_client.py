@@ -59,20 +59,30 @@ class ImpactClient:
             data = response.json()
             campaigns = data.get("Campaigns", [])
 
-            # Transform to our standard format
+            # Transform to our standard format.
+            # NOTE: live Impact API uses PascalCase keys (verified 2026-09-08
+            # against /Mediapartners/.../Campaigns). There is no category or
+            # commission field in the list payload — category is assigned by
+            # utils/classify_programs.py, commission stays 0.0 until the
+            # per-campaign ContractUri terms are integrated.
             transformed = []
             for campaign in campaigns:
+                name = campaign.get("AdvertiserName") or campaign.get("CampaignName", "Unknown")
                 transformed.append({
-                    "external_id": str(campaign.get("Id")),
-                    "name": campaign.get("Name", "Unknown"),
-                    "description": campaign.get("Description", ""),
-                    "category": campaign.get("Category", "General"),
-                    "commission_rate": self._extract_commission_rate(campaign),
-                    "base_url": campaign.get("Url", ""),
-                    "affiliate_url": "",  # Will be generated on-demand
-                    "logo_url": campaign.get("LogoUrl", ""),
+                    "external_id": str(campaign.get("CampaignId")),
+                    "name": name,
+                    "description": campaign.get("CampaignDescription", ""),
+                    "category": "General",
+                    "commission_rate": 0.0,
+                    "base_url": campaign.get("CampaignUrl") or campaign.get("AdvertiserUrl", ""),
+                    "affiliate_url": campaign.get("TrackingLink", ""),
+                    "logo_url": "",
                     "network": "impact",
-                    "keywords": self._extract_keywords(campaign)
+                    "keywords": self._extract_keywords({
+                        "Name": name,
+                        "Description": campaign.get("CampaignDescription", ""),
+                        "Url": campaign.get("CampaignUrl") or campaign.get("AdvertiserUrl", ""),
+                    })
                 })
 
             return transformed

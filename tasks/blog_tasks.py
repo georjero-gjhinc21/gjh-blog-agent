@@ -11,7 +11,26 @@ from agents import (
 )
 
 
-@celery_app.task(name="tasks.blog_tasks.discover_topics_task")
+# Retry policy: transient infra/LLM failures retry with exponential backoff.
+# generate_blog_post_task is capped at 2 retries because it is not fully
+# idempotent (a retry after a late failure can leave an extra draft post).
+LIGHT_RETRY = dict(
+    autoretry_for=(Exception,),
+    retry_kwargs={"max_retries": 3},
+    retry_backoff=True,
+    retry_backoff_max=600,
+    retry_jitter=True,
+)
+GENERATE_RETRY = dict(
+    autoretry_for=(Exception,),
+    retry_kwargs={"max_retries": 2},
+    retry_backoff=True,
+    retry_backoff_max=600,
+    retry_jitter=True,
+)
+
+
+@celery_app.task(name="tasks.blog_tasks.discover_topics_task", **LIGHT_RETRY)
 def discover_topics_task():
     """Discover new trending topics."""
     print("Starting topic discovery...")
@@ -30,7 +49,7 @@ def discover_topics_task():
         }
 
 
-@celery_app.task(name="tasks.blog_tasks.generate_blog_post_task")
+@celery_app.task(name="tasks.blog_tasks.generate_blog_post_task", **GENERATE_RETRY)
 def generate_blog_post_task():
     """Generate a new blog post from available topics."""
     print("Starting blog post generation...")
@@ -109,7 +128,7 @@ def generate_blog_post_task():
             }
 
 
-@celery_app.task(name="tasks.blog_tasks.publish_scheduled_posts_task")
+@celery_app.task(name="tasks.blog_tasks.publish_scheduled_posts_task", **LIGHT_RETRY)
 def publish_scheduled_posts_task():
     """Publish posts that are scheduled for now or earlier."""
     print("Checking for scheduled posts...")
@@ -121,7 +140,7 @@ def publish_scheduled_posts_task():
         return {"status": "complete"}
 
 
-@celery_app.task(name="tasks.blog_tasks.update_metrics_task")
+@celery_app.task(name="tasks.blog_tasks.update_metrics_task", **LIGHT_RETRY)
 def update_metrics_task():
     """Update performance metrics for all posts."""
     print("Updating metrics...")
