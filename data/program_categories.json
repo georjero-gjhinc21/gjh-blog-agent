@@ -177,20 +177,6 @@
     "method": "llm",
     "raw": "Communication & Collaboration"
   },
-  "part_j5lsjN8tbBIVuy": {
-    "name": "Lindy",
-    "network": "partnerstack",
-    "category": "Communication & Collaboration",
-    "keywords": [
-      "gjh inc",
-      "lindy",
-      "chat.lindy.ai"
-    ],
-    "vendor_domain": "try.lindy.ai",
-    "affiliate_url": "https://try.lindy.ai/kg7l0ul5zemx",
-    "method": "llm",
-    "raw": "Communication & Collaboration"
-  },
   "part_FZWHjTLRw36aHd": {
     "name": "KrispCall Communications Inc.",
     "network": "partnerstack",
@@ -1249,19 +1235,6 @@
     "method": "llm",
     "raw": "Travel & Expense"
   },
-  "5123": {
-    "name": "Points",
-    "network": "impact",
-    "category": "Travel & Expense",
-    "keywords": [
-      "copaair",
-      "points"
-    ],
-    "vendor_domain": "copa.sjv.io",
-    "affiliate_url": "https://copa.sjv.io/c/5873369/343960/5123",
-    "method": "llm",
-    "raw": "Travel & Expense"
-  },
   "5124": {
     "name": "Points",
     "network": "impact",
@@ -1425,20 +1398,6 @@
     "affiliate_url": "https://bluehost.sjv.io/c/5873369/795082/11352",
     "method": "llm",
     "raw": "IT & DevOps"
-  },
-  "11575": {
-    "name": "CBD For Life",
-    "network": "impact",
-    "category": "Operations",
-    "keywords": [
-      "wellness",
-      "cbdforlife.us",
-      "cbd for life"
-    ],
-    "vendor_domain": "imp.i295461.net",
-    "affiliate_url": "https://imp.i295461.net/c/5873369/819381/11575",
-    "method": "llm",
-    "raw": "Operations"
   },
   "12108": {
     "name": "Digitrading Hongkong Limited",
