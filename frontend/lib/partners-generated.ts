@@ -301,18 +301,6 @@ export const partnerProgramsGenerated: PartnerProgram[] = [  {
     cta: 'Explore Carepatron',
   },
   {
-    slug: 'cbd-for-life',
-    name: 'CBD For Life',
-    platform: 'Impact',
-    category: 'Operations',
-    description: 'The CBD For Life product line offers a range of wellness-focused products containing cannabidiol (CBD), a non-psychoactive hemp-derived compound.',
-    excerpt: 'The CBD For Life product line offers a range of wellness-focused products containing cannabidiol (CBD), a non-psychoactive hemp-derived...',
-    keywords: ['wellness', 'cbdforlife.us', 'cbd for life'],
-    url: 'https://imp.i295461.net/c/5873369/819381/11575',
-    logo: '',
-    cta: 'Explore CBD For Life',
-  },
-  {
     slug: 'close',
     name: 'Close',
     platform: 'PartnerStack',
